@@ -5,14 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DaNz Dev ID — Buat Support Sistemu | PT. Pratama Sistem Indonesia</title>
   <meta name="description" content="DaNz Dev menyediakan jasa pembuatan website dan sistem informasi (Software House) profesional di Tasikmalaya. Spesialis pengembangan aplikasi web, sistem instansi, sekolah, UMKM, dan solusi IT modern yang aman, responsif, dan terpercaya.">
-  <meta name="keywords" content="jasa pembuatan website Tasikmalaya, jasa pembuatan aplikasi web, jasa sistem informasi, developer website Tasikmalaya, jasa IT Tasikmalaya, pembuatan sistem instansi, pembuatan website sekolah, aplikasi web custom, software house Tasikmalaya, jasa web developer profesional">
-  <meta name="author" content="DaNz ID Dev">
-  <meta name="generator" content="Next.js">
-<meta name="next-head-count" content="5">
+  <meta name="keywords" content="danz dev, danz dev id, danz id dev,jasa pembuatan website Tasikmalaya, jasa pembuatan aplikasi web, jasa sistem informasi, developer website Tasikmalaya, jasa IT Tasikmalaya, pembuatan sistem instansi, pembuatan website sekolah, aplikasi web custom, software house Tasikmalaya, jasa web developer profesional">
+  <meta name="author" content="DaNz Dev ID">
 
   <!-- Favicons -->
   <link href="assets/img/favicon-32x32.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts: Plus Jakarta Sans for Headings, Inter for Body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,874 +26,780 @@
       darkMode: 'class',
       theme: {
         extend: {
-          colors: {
-            glass: 'rgba(255,255,255,.65)',
-            glassDark: 'rgba(20,20,20,.65)',
-            accent: '#0a84ff'
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['Plus Jakarta Sans', 'sans-serif'],
           },
-          backdropBlur: {
-            xs: '8px'
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              900: '#1e3a8a',
+              950: '#172554',
+            },
+            surface: {
+              light: 'rgba(255, 255, 255, 0.7)',
+              dark: 'rgba(15, 23, 42, 0.6)',
+            }
+          },
+          animation: {
+            'blob': 'blob 7s infinite',
+            'marquee': 'marquee 25s linear infinite',
+            'shine': 'shine 2s infinite',
+          },
+          keyframes: {
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            },
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
+            },
+            shine: {
+              '100%': { left: '125%' }
+            }
           }
         }
       }
     }
-
-    
   </script>
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
-    body { font-family: Inter, system-ui, sans-serif; }
- 
-.service-card{
-  background: rgba(255,255,255,.95);
-  border-radius: 18px;
-  padding: 22px;
-  transition: all .3s ease;
-  box-shadow:
-    0 8px 20px rgba(0,0,0,.12),
-    0 20px 40px rgba(0,0,0,.10);
-}
+    /* Custom Utilities */
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    
+    .dark body {
+      background-color: #020617; /* Very dark slate */
+      color: #f8fafc;
+    }
 
-.dark .service-card{
-  background: rgba(15,23,42,.9);
-  box-shadow:
-    0 10px 30px rgba(0,0,0,.6),
-    0 30px 60px rgba(0,0,0,.4);
-}
+    /* Scroll Reveal Classes */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Staggered delays */
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
 
-.service-card:hover{
-  transform: translateY(-6px);
-  box-shadow:
-    0 16px 40px rgba(0,0,0,.25),
-    0 40px 80px rgba(0,0,0,.2);
-}
+    /* Glass Cards */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    .dark .glass-card {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
 
-.service-card h4{
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
+    /* Gradient Text */
+    .text-gradient {
+      background: linear-gradient(to right, #3b82f6, #8b5cf6, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: textGradient 3s linear infinite;
+    }
+    
+    @keyframes textGradient {
+      to { background-position: 200% center; }
+    }
 
-.service-card p{
-  font-size: .9rem;
-  line-height: 1.5;
-  color: #475569;
-}
-
-.dark .service-card p{
-  color: #cbd5f5;
-}
-
-.service-icon{
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-</style>
-
+    /* Marquee Fading Edges */
+    .marquee-mask {
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .dark ::-webkit-scrollbar-thumb { background: #334155; }
+  </style>
 </head>
 
-<body class="opacity-0 transition-opacity duration-700 ease-out bg-gradient-to-b from-slate-100 to-slate-200 dark:from-slate-950 dark:to-slate-900 text-slate-900 dark:text-slate-100">
+<body class="antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white transition-colors duration-300">
 
-<!-- ================= HEADER ================= -->
-<header class="fixed top-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50">
-  <div class="flex items-center justify-between px-6 py-4 rounded-2xl
-              bg-glass dark:bg-glassDark
-              backdrop-blur-xl border border-white/30 dark:border-white/10
-              shadow-xl">
-    <h1 class="font-extrabold text-lg tracking-tight">
-      DaNz<span class="text-accent">Dev</span>
-    </h1>
-
-    <button id="themeToggle"
-      class="p-2 rounded-xl bg-white/50 dark:bg-black/40 hover:scale-105 transition">
-      🌗
-    </button>
-  </div>
-</header>
-
-<!-- ================= HERO ================= -->
-<section class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden">
-
-  <!-- ===== BACKGROUND GRADIENT ===== -->
-  <div class="absolute inset-0 bg-gradient-to-br
-              from-slate-950 via-slate-900 to-black">
-  </div>
-
-  <!-- ===== NOISE OVERLAY (APPLE STYLE) ===== -->
-  <div class="pointer-events-none absolute inset-0 opacity-[0.04]
-              bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGZpbHRlciBpZD0ibm9pc2UiPjxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjgiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbHRlcj0idXJsKCNub2lzZSkiLz48L3N2Zz4=')]">
-  </div>
-
-  <!-- ===== DECORATIVE DOTS ===== -->
-  <div class="absolute top-32 left-20 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-  <div class="absolute bottom-32 right-28 w-1.5 h-1.5 bg-white/40 rounded-full"></div>
-
-  <!-- ===== HERO CARD ===== -->
-  <div class="relative z-10 max-w-4xl w-full">
-
-    <div class="relative overflow-hidden rounded-3xl p-12 text-center
-                bg-white/5 backdrop-blur-xl
-                border border-white/10
-                shadow-[0_30px_80px_rgba(0,0,0,.6)]">
-
-      <!-- GLOW ACCENT -->
-      <div class="absolute -top-24 -right-24 w-72 h-72
-                  bg-blue-500/25 rounded-full blur-3xl">
-      </div>
-
-      <!-- CONTENT -->
-      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-6">
-        Bangun Website & Sistem <br>
-        <span class="text-blue-400">Profesional & Terpercaya</span>
-      </h1>
-
-      <p class="text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed">
-        Pengembangan aplikasi web, sistem instansi, dan solusi digital modern
-        dengan pendekatan profesional dan berkelanjutan.
-      </p>
-
-      <!-- CTA -->
-      <a href="#portfolio"
-         class="inline-flex items-center justify-center
-                px-8 py-3 rounded-xl font-semibold text-white
-                bg-blue-600 hover:bg-blue-500
-                transition-all duration-300
-                hover:scale-[1.05]
-                hover:shadow-[0_0_35px_rgba(59,130,246,.6)]
-                active:scale-95">
-        Lihat Portfolio
+  <!-- ================= HEADER ================= -->
+  <header class="fixed top-4 left-0 w-full z-50 px-4 flex justify-center transition-transform duration-300" id="navbar">
+    <div class="w-full max-w-5xl flex items-center justify-between px-6 py-3 rounded-full glass-card shadow-lg shadow-slate-200/50 dark:shadow-black/50">
+      
+      <a href="#" class="group flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-indigo-600 flex items-center justify-center text-white font-bold shadow-lg group-hover:scale-110 transition-transform">
+          D
+        </div>
+        <h1 class="font-heading font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
+          DaNz<span class="text-brand-500">Dev</span>
+        </h1>
       </a>
 
+      <nav class="hidden md:flex gap-6 font-medium text-sm text-slate-600 dark:text-slate-300">
+        <a href="#about" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">About</a>
+        <a href="#services" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Services</a>
+        <a href="#portfolio" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Portfolio</a>
+        <a href="#reviews" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Reviews</a>
+      </nav>
+
+      <button id="themeToggle" aria-label="Toggle Dark Mode"
+        class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:scale-110 transition-all">
+        <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden">
+    
+    <!-- Animated Background Blobs -->
+    <div class="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+      <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-brand-400/30 dark:bg-brand-600/20 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-[80px] animate-blob"></div>
+      <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-400/30 dark:bg-purple-600/20 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-[100px] animate-blob animation-delay-2000"></div>
+      <div class="absolute -bottom-32 left-1/3 w-80 h-80 bg-indigo-400/30 dark:bg-indigo-600/20 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-[80px] animate-blob animation-delay-4000"></div>
+      
+      <!-- Grid Pattern -->
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9InJnYmEoMTI4LCAxMjgsIDEyOCwgMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPgo8L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)]"></div>
     </div>
 
-  </div>
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-4xl w-full text-center mt-10">
+      
+      <!-- Badge -->
+      <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium mb-8 text-slate-700 dark:text-slate-300">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+        </span>
+        Open for new projects
+      </div>
 
-  <!-- ===== SCROLL INDICATOR ===== -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2
-              text-xs text-white/40 animate-bounce">
-    scroll
-  </div>
+      <h1 class="reveal delay-100 text-5xl md:text-7xl font-heading font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6">
+        Bangun Sistem Digital <br>
+        <span class="text-gradient">Profesional & Modern</span>
+      </h1>
 
-</section>
-
-
-<!-- ================= ABOUT ================= -->
-<section id="about" class="px-6 py-24">
-  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-
-    <div>
-      <h3 class="text-sm font-semibold text-accent mb-2">ABOUT</h3>
-      <h2 class="text-3xl font-extrabold mb-4">
-        Pengalaman Nyata di Dunia Sistem Digital
-      </h2>
-      <p class="text-slate-700 dark:text-slate-300 mb-6">
-        Sejak 2020 kami fokus membangun aplikasi dan website untuk instansi,
-        pendidikan, UMKM, hingga pemerintahan dengan standar profesional,
-        keamanan tinggi, dan dokumentasi rapi.
+      <p class="reveal delay-200 text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+        Solusi IT cerdas untuk instansi, pendidikan, dan bisnis. Tingkatkan efisiensi kerja dengan perangkat lunak yang aman, responsif, dan mudah digunakan.
       </p>
 
-      <ul class="space-y-3 text-slate-700 dark:text-slate-300">
-        <li>✔ 4+ tahun pengalaman pengembangan sistem</li>
-        <li>✔ Proyek instansi & pemerintahan</li>
-        <li>✔ Fokus keamanan & performa</li>
-        <li>✔ Support & maintenance berkelanjutan</li>
-      </ul>
-    </div>
-
-    <div class="relative">
-      <img src="https://danzdev.web.id/assets/img/about-5.webp"
-           class="rounded-3xl shadow-xl" alt="">
-      <div class="absolute -bottom-6 -right-6 px-6 py-4 rounded-2xl
-                  bg-glass dark:bg-glassDark backdrop-blur-xl
-                  border border-white/30 dark:border-white/10 shadow-xl">
-        <h4 class="text-2xl font-extrabold">4+</h4>
-        <p class="text-sm">Tahun Pengalaman</p>
+      <div class="reveal delay-300 flex flex-wrap items-center justify-center gap-4">
+        <a href="#portfolio" class="relative overflow-hidden group px-8 py-4 rounded-full font-semibold text-white bg-slate-900 dark:bg-brand-600 hover:bg-slate-800 dark:hover:bg-brand-500 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.2)] dark:shadow-[0_10px_30px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95">
+          <span class="relative z-10">Lihat Karya Kami</span>
+          <!-- Shine Effect -->
+          <div class="absolute inset-0 -top-[20px] -left-[20px] w-8 h-[150%] bg-white/20 rotate-45 transform -translate-x-full group-hover:animate-shine"></div>
+        </a>
+        <a href="https://wa.me/6282214641824" target="_blank" class="px-8 py-4 rounded-full font-semibold text-slate-900 dark:text-white glass-card hover:bg-white/80 dark:hover:bg-slate-800 transition-all hover:scale-105 active:scale-95">
+          Konsultasi Gratis &rarr;
+        </a>
       </div>
     </div>
+  </section>
 
-  </div>
-</section>
 
-<section id="services" class="px-6 py-24">
-  <div class="max-w-7xl mx-auto">
-
-    <!-- Header -->
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-extrabold mb-4">Services</h2>
-      <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-        Layanan pengembangan sistem dan solusi IT profesional
-        untuk instansi, pendidikan, dan bisnis.
-      </p>
-    </div>
-
-    <!-- Grid -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-      <!-- CARD -->
-      <div class="service-card">
-        <div class="service-icon bg-blue-500">
-          💻
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="px-6 py-32 relative">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      
+      <!-- Image with floating card -->
+      <div class="relative reveal">
+        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative">
+          <!-- Image placeholder for aesthetics, change source if needed -->
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+               class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" alt="Coding">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
         </div>
-        <h4>Web Development</h4>
-        <p>
-          Pembuatan website dan sistem berbasis web yang responsif,
-          aman, dan sesuai kebutuhan klien.
-        </p>
+
+        <!-- Floating Badge -->
+        <div class="absolute -bottom-8 -right-8 px-8 py-6 rounded-3xl glass-card shadow-2xl animate-[translateY_3s_ease-in-out_infinite]">
+          <h4 class="text-4xl font-heading font-extrabold text-brand-500">4+</h4>
+          <p class="text-sm font-medium text-slate-600 dark:text-slate-300 mt-1">Tahun<br>Pengalaman</p>
+        </div>
       </div>
 
-      <div class="service-card">
-        <div class="service-icon bg-indigo-500">
-          🧩
+      <!-- Text Content -->
+      <div class="reveal delay-200">
+        <div class="inline-flex items-center gap-2 text-brand-500 font-semibold text-sm tracking-wider uppercase mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
+          Tentang Kami
         </div>
-        <h4>Aplikasi Kustom</h4>
-        <p>
-          Pengembangan aplikasi web custom untuk instansi,
-          sekolah, UMKM, dan perusahaan.
+        <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6 leading-tight">
+          Seni Menulis Kode, <br>Solusi Nyata.
+        </h2>
+        <p class="text-slate-600 dark:text-slate-400 mb-8 text-lg leading-relaxed">
+          Sejak 2020, kami fokus mengubah kompleksitas proses bisnis menjadi sistem digital yang efisien. Dari instansi pemerintahan hingga UMKM, kami membangun dengan standar profesional, performa tinggi, dan keamanan terjamin.
         </p>
-      </div>
 
-      <div class="service-card">
-        <div class="service-icon bg-emerald-500">
-          🔐
-        </div>
-        <h4>Keamanan Sistem</h4>
-        <p>
-          Implementasi keamanan sistem, manajemen akses,
-          dan perlindungan data.
-        </p>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon bg-orange-500">
-          ⚙️
-        </div>
-        <h4>Maintenance & Support</h4>
-        <p>
-          Perawatan sistem, bug fixing, dan dukungan teknis
-          berkelanjutan.
-        </p>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon bg-purple-500">
-          📊
-        </div>
-        <h4>SEO & Optimasi</h4>
-        <p>
-          Optimasi performa website dan struktur SEO
-          agar lebih mudah ditemukan.
-        </p>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon bg-pink-500">
-          🛠️
-        </div>
-        <h4>IT Support</h4>
-        <p>
-          Instalasi, maintenance perangkat, dan
-          troubleshooting jaringan & hardware.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-<section id="reviews" class="px-6 py-24">
-  <div class="max-w-6xl mx-auto">
-
-
-
-  <section id="reviews" class="px-6 py-24 overflow-hidden">
-  <div class="max-w-6xl mx-auto">
-
-    <!-- Header -->
-    <div class="text-center mb-14">
-      <h2 class="text-4xl font-extrabold mb-4">Apa Kata Klien</h2>
-      <p class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-        Ulasan klien berdasarkan Google Reviews tentang layanan kami.
-      </p>
-    </div>
-
-    <!-- Slider -->
-    <div class="relative">
-
-      <!-- Track -->
-      <div id="reviewTrack"
-           class="flex gap-6 transition-transform duration-700 ease-out">
-
-        <!-- REVIEW 1 -->
-        <div class="review-slide">
-          <div class="review-card">
-            <div class="review-header">
-              <div class="avatar bg-purple-600">A</div>
-              <div>
-                <h4>AI Linda Nurahmah Fadilah</h4>
-                
-              </div>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-brand-500 shrink-0">✔</div>
+            <div>
+              <h5 class="font-heading font-bold text-slate-900 dark:text-white">Fokus Performa</h5>
+              <p class="text-sm text-slate-500 mt-1">Cepat & responsif</p>
             </div>
-            <div class="stars">★★★★★</div>
-            <p class="review-text">
-              “Oh, it’s really good, I know it’s recommended.”
-            </p>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 shrink-0">✔</div>
+            <div>
+              <h5 class="font-heading font-bold text-slate-900 dark:text-white">Skalabilitas</h5>
+              <p class="text-sm text-slate-500 mt-1">Siap berkembang</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 shrink-0">✔</div>
+            <div>
+              <h5 class="font-heading font-bold text-slate-900 dark:text-white">Keamanan</h5>
+              <p class="text-sm text-slate-500 mt-1">Perlindungan data</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 shrink-0">✔</div>
+            <div>
+              <h5 class="font-heading font-bold text-slate-900 dark:text-white">Maintenance</h5>
+              <p class="text-sm text-slate-500 mt-1">Dukungan teknis</p>
+            </div>
           </div>
         </div>
-
-        <!-- REVIEW 2 -->
-        <div class="review-slide">
-          <div class="review-card">
-            <div class="review-header">
-              <div class="avatar bg-indigo-600">A</div>
-              <div>
-                <h4>Ari Pebriana</h4>
-               
-              </div>
-            </div>
-            <div class="stars">★★★★★</div>
-            <p class="review-text">
-              “Awesome, I’m really satisfied with it, it’s exactly what I expected 👍👍👍”
-            </p>
-          </div>
-        </div>
-
-        <!-- REVIEW 3 -->
-        <div class="review-slide">
-          <div class="review-card">
-            <div class="review-header">
-              <div class="avatar bg-slate-600">A</div>
-              <div>
-                <h4>Alex Dis</h4>
-               
-              </div>
-            </div>
-            <div class="stars">★★★★★</div>
-            <p class="review-text">
-              “Awesome, it’s really cool 👍”
-            </p>
-          </div>
-        </div>
-
-        <!-- REVIEW 4 -->
-        <div class="review-slide">
-          <div class="review-card">
-            <div class="review-header">
-              <div class="avatar bg-blue-600">D</div>
-              <div>
-                <h4>Dean Ramadhan</h4>
-               
-              </div>
-            </div>
-            <div class="stars">★★★★★</div>
-            <p class="review-text">
-              “Recommended for those of you who are confused about doing programming assignments 😍”
-            </p>
-          </div>
-        </div>
-
-        <div class="review-slide">
-  <div class="review-card">
-    <div class="review-header">
-      <div class="avatar bg-emerald-600">N</div>
-      <div>
-        <h4>Novalsyah</h4>
       </div>
     </div>
-    <div class="stars">★★★★★</div>
-    <p class="review-text">
-      “It’s really great 👍”
-    </p>
-  </div>
-</div>
-<div class="review-slide">
-  <div class="review-card">
-    <div class="review-header">
-      <div class="avatar bg-indigo-600">M</div>
-      <div>
-        <h4>Muhammad Taufik Akmal</h4>
-      </div>
-    </div>
-    <div class="stars">★★★★★</div>
-    <p class="review-text">
-      “Excellent”
-    </p>
-  </div>
-</div>
-<div class="review-slide">
-  <div class="review-card">
-    <div class="review-header">
-      <div class="avatar bg-slate-600">A</div>
-      <div>
-        <h4>Acep Beni Badrussalam</h4>
-      </div>
-    </div>
-    <div class="stars">★★★★★</div>
-    <p class="review-text">
-      “Very delicious”
-    </p>
-  </div>
-</div>
+  </section>
 
+  <!-- ================= SERVICES ================= -->
+  <section id="services" class="px-6 py-32 bg-white/50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-white/5 relative">
+    <div class="max-w-7xl mx-auto relative z-10">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-20 reveal">
+        <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6">Layanan Kami</h2>
+        <p class="text-slate-600 dark:text-slate-400 text-lg">
+          Layanan menyeluruh dari perancangan hingga pemeliharaan sistem, dioptimalkan untuk kebutuhan bisnis Anda.
+        </p>
       </div>
 
-      <!-- Controls -->
-      <button id="prevReview"
-        class="nav-btn left-0">‹</button>
-      <button id="nextReview"
-        class="nav-btn right-0">›</button>
-
-    </div>
-
-    <div class="text-center mt-8 text-sm text-slate-500 dark:text-slate-400">
-      Sumber: Google Reviews
-    </div>
-
-  </div>
-</section>
-
-<style>
-/* slide width */
-.review-slide{
-  min-width: 100%;
-}
-
-@media (min-width: 768px){
-  .review-slide{
-    min-width: 50%;
-  }
-}
-
-/* card (sama seperti sebelumnya) */
-.review-card{
-  background: rgba(255,255,255,.95);
-  border-radius: 18px;
-  padding: 22px;
-  height: 100%;
-  box-shadow:
-    0 8px 20px rgba(0,0,0,.12),
-    0 20px 40px rgba(0,0,0,.10);
-}
-
-.dark .review-card{
-  background: rgba(15,23,42,.9);
-  box-shadow:
-    0 12px 35px rgba(0,0,0,.6),
-    0 30px 70px rgba(0,0,0,.45);
-}
-
-/* header */
-.review-header{
-  display: flex;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.avatar{
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  color: #fff;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* stars */
-.stars{
-  color: #facc15;
-  margin-bottom: 6px;
-}
-
-/* text */
-.review-text{
-  font-size: .9rem;
-  line-height: 1.5;
-  color: #475569;
-}
-
-.dark .review-text{
-  color: #cbd5f5;
-}
-
-/* nav button */
-.nav-btn{
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  background: rgba(0,0,0,.6);
-  color: #fff;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: .2s;
-}
-
-.nav-btn:hover{
-  background: #2563eb;
-}
-</style>
-
-
-<!-- ================= PORTFOLIO ================= -->
-
-<section id="portfolio" class="px-6 py-24">
-  <div class="max-w-7xl mx-auto">
-
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-extrabold mb-4">Portfolio</h2>
-      <p class="text-slate-600 dark:text-slate-300">
-        Proyek aplikasi, sistem, dan layanan IT yang telah kami kerjakan
-      </p>
-    </div>
-
-    <!-- APLIKASI & SOFTWARE -->
-    <h3 class="text-xl font-semibold mb-8 text-center text-blue-500">
-      🖥️ Aplikasi & Software
-    </h3>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-
-      <div class="portfolio-card">
-        <img src="https://danzdev.web.id/ss/simatren.png">
-        <h4>SiMatren</h4>
-        <p>Sistem Manajemen Pesantren Digital – Ponpes Miftahul Huda 06</p>
-      </div>
-
-      <div class="portfolio-card">
-        <img src="https://danzdev.web.id/ss/sipedis.png">
-        <h4>SiPedis</h4>
-        <p>Sistem Presensi Digital QR Code – SMKN Rajapolah</p>
-      </div>
-
-      <div class="portfolio-card">
-        <img src="https://danzdev.web.id/ss/aspri.png">
-        <h4>ASPRI</h4>
-        <p>Sistem Pencatatan Retribusi Parkir – Dishub Kota Tasikmalaya</p>
-      </div>
-
-      <div class="portfolio-card">
-        <img src="https://danzdev.web.id/ss/rudat.png">
-        <h4>Media Rumah Adat</h4>
-        <p>Media pembelajaran interaktif Android – Universitas Perjuangan</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>Bangun Ruang Interaktif</h4>
-        <p>Media pembelajaran berbasis Flash – SMPN 1 Banjar</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>CBT Online</h4>
-        <p>Sistem ujian berbasis web – SMPN 1 Ciawi</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>Sistem Asuransi Laravel</h4>
-        <p>Aplikasi manajemen asuransi – Universitas Negeri Semarang</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>Sistem Booking Antrian</h4>
-        <p>Aplikasi booking antrian – Politeknik Kesehatan</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>Kelurahan On Mobile (KELOM)</h4>
-        <p>Platform layanan kelurahan – Pemkot Tasikmalaya</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>Goso Tasik</h4>
-        <p>Aplikasi layanan sosial – Diskominfo Kota Tasikmalaya</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>Setaman Cinta Tasik</h4>
-        <p>Platform layanan sosial – Diskominfo Kota Tasikmalaya</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>Sibageur</h4>
-        <p>Sistem basis data penerima bantuan – Diskominfo Kota Tasikmalaya</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>SiHebat</h4>
-        <p>Sistem informasi pelayanan sosial – Dinsos Kota Tasikmalaya</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>Sistem Antrian RS</h4>
-        <p>Sistem antrian digital – RS JHC Tasikmalaya</p>
-      </div>
-
-    </div>
-
-    <!-- IT SUPPORT -->
-    <h3 class="text-xl font-semibold mb-8 text-center text-blue-500">
-      🛠️ Layanan IT Support
-    </h3>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-      <div class="portfolio-card">
-        <h4>Maintenance Jaringan LAN</h4>
-        <p>Perawatan & troubleshooting jaringan – Dishub Kota Tasikmalaya</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>Instalasi & Peremajaan PC</h4>
-        <p>Bank Syariah Indonesia – Tasikmalaya</p>
-      </div>
-
-      <div class="portfolio-card">
-        <h4>Maintenance Laptop</h4>
-        <p>Perawatan dan optimasi laptop</p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-
-
-<!-- ================= iOS CARD STYLE ================= -->
-<style>
-/* === FIX PORTFOLIO CARD === */
-.portfolio-card{
-  background: rgba(255,255,255,.95);
-  border-radius: 20px;
-  padding: 20px;
-  transition: all .3s ease;
-  box-shadow:
-    0 8px 20px rgba(0,0,0,.12),
-    0 20px 40px rgba(0,0,0,.10);
-}
-
-/* dark mode */
-.dark .portfolio-card{
-  background: rgba(15,23,42,.85); /* slate-900 */
-  box-shadow:
-    0 10px 25px rgba(0,0,0,.6),
-    0 25px 60px rgba(0,0,0,.4);
-}
-
-/* hover */
-.portfolio-card:hover{
-  transform: translateY(-6px);
-  box-shadow:
-    0 15px 35px rgba(0,0,0,.25),
-    0 35px 70px rgba(0,0,0,.2);
-}
-
-/* image */
-.portfolio-card img{
-  width: 100%;
-  border-radius: 14px;
-  margin-bottom: 14px;
-  box-shadow: 0 6px 14px rgba(0,0,0,.25);
-}
-
-/* title */
-.portfolio-card h4{
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-/* desc */
-.portfolio-card p{
-  font-size: .9rem;
-  line-height: 1.5;
-  color: #475569;
-}
-
-.dark .portfolio-card p{
-  color: #cbd5f5;
-}
-</style>
-
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/6282214641824"
-   target="_blank"
-   aria-label="Chat WhatsApp"
-   class="fixed bottom-6 right-6 z-50
-          flex items-center gap-3
-          px-4 py-3 rounded-full
-          bg-green-500 hover:bg-green-600
-          text-white font-semibold
-          shadow-[0_10px_30px_rgba(0,0,0,.35)]
-          hover:shadow-[0_15px_45px_rgba(34,197,94,.6)]
-          transition-all duration-300
-          hover:scale-105 active:scale-95">
-
-  <!-- Icon -->
-  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
-       viewBox="0 0 16 16">
-    <path d="M13.601 2.326A7.92 7.92 0 0 0 8.003 0C3.582 0 0 3.582 0 8.003c0 1.41.368 2.782 1.07 3.996L0 16l4.12-1.056a7.95 7.95 0 0 0 3.883 1.004h.001c4.42 0 8.002-3.582 8.002-8.003a7.92 7.92 0 0 0-2.405-5.619zM8.004 14.63a6.63 6.63 0 0 1-3.385-.93l-.242-.144-2.445.627.652-2.382-.158-.246a6.6 6.6 0 0 1-.998-3.552c0-3.657 2.976-6.633 6.633-6.633a6.58 6.58 0 0 1 4.692 1.94 6.58 6.58 0 0 1 1.94 4.693c0 3.657-2.976 6.633-6.633 6.633zm3.63-4.968c-.198-.099-1.173-.579-1.354-.646-.18-.066-.312-.099-.445.099-.132.198-.51.646-.626.778-.115.132-.23.148-.428.05-.198-.099-.836-.308-1.592-.983-.588-.524-.985-1.172-1.1-1.37-.115-.198-.012-.305.087-.404.089-.088.198-.23.297-.346.099-.115.132-.198.198-.33.066-.132.033-.248-.017-.347-.05-.099-.445-1.074-.61-1.471-.162-.389-.327-.336-.445-.342l-.379-.007c-.132 0-.347.05-.528.248-.18.198-.693.677-.693 1.652s.71 1.918.81 2.051c.099.132 1.397 2.135 3.385 2.994.473.204.842.326 1.13.417.475.151.908.13 1.25.079.382-.057 1.173-.479 1.338-.942.165-.463.165-.86.116-.942-.05-.083-.181-.132-.38-.231z"/>
-  </svg>
-
-  <span class="hidden sm:block">Chat WhatsApp</span>
-</a>
-
-
-
-<!-- ================= FOOTER ================= -->
-<footer class="mt-24 px-6 pb-10">
-  <div class="max-w-7xl mx-auto">
-
-    <!-- FOOTER CARD -->
-    <div class="rounded-2xl p-8
-                bg-white/95 dark:bg-slate-900/90
-                shadow-[0_10px_30px_rgba(0,0,0,.15)]
-                dark:shadow-[0_20px_60px_rgba(0,0,0,.6)]">
-
-      <div class="grid md:grid-cols-3 gap-10">
-
-        <!-- BRAND -->
-        <div>
-          <h3 class="text-xl font-extrabold mb-2">
-            DaNz ID Dev
-          </h3>
-          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-            Penyedia layanan pengembangan aplikasi dan sistem digital
-            untuk instansi pemerintahan, pendidikan, dan UMKM.
-          </p>
-          <p class="mt-4 text-sm font-medium">
-            PT. Pratama Sistem Indonesia
+      <!-- Bento Grid Services -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1 -->
+        <div class="reveal glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
+          <div class="w-14 h-14 rounded-2xl bg-brand-500 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-brand-500/30 group-hover:scale-110 transition-transform">💻</div>
+          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">Web Development</h3>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+            Pembuatan website profile, portal berita, dan landing page yang modern, responsif, dan teroptimasi.
           </p>
         </div>
 
-        <!-- INFO -->
-        <div>
-          <h4 class="font-semibold mb-3">Informasi</h4>
-          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-            <li>Tasikmalaya, Jawa Barat</li>
-            <li>NPWP: 28.120.399.2-425.000</li>
-            <li>NIB (OSS): 2309240030134</li>
-          </ul>
+        <!-- Card 2 -->
+        <div class="reveal delay-100 glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
+          <div class="w-14 h-14 rounded-2xl bg-purple-500 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">🧩</div>
+          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">Aplikasi Web Kustom</h3>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+            Sistem informasi akademik, manajemen instansi, kasir (POS), dan software khusus sesuai alur kerja Anda.
+          </p>
         </div>
 
-        <!-- CONTACT -->
-        <div>
-          <h4 class="font-semibold mb-3">Kontak</h4>
-          <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-            <li>📞 +62 822-1464-1824</li>
-            <li>📧 contact@danzdev.web.id</li>
-          </ul>
+        <!-- Card 3 -->
+        <div class="reveal delay-200 glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-500 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">🔐</div>
+          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">Keamanan Sistem</h3>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+            Implementasi autentikasi, manajemen role, enkripsi data, dan perlindungan dari celah kerentanan web.
+          </p>
+        </div>
 
-          <!-- SOCIAL -->
-          <div class="flex gap-3 mt-4">
-            <a href="#"
-               class="w-9 h-9 flex items-center justify-center rounded-full
-                      bg-slate-100 dark:bg-slate-800
-                      hover:bg-blue-500 hover:text-white
-                      transition">
-              <i class="bi bi-instagram"></i>
-            </a>
-            <a href="#"
-               class="w-9 h-9 flex items-center justify-center rounded-full
-                      bg-slate-100 dark:bg-slate-800
-                      hover:bg-blue-500 hover:text-white
-                      transition">
-              <i class="bi bi-linkedin"></i>
-            </a>
-            <a href="#"
-               class="w-9 h-9 flex items-center justify-center rounded-full
-                      bg-slate-100 dark:bg-slate-800
-                      hover:bg-blue-500 hover:text-white
-                      transition">
-              <i class="bi bi-github"></i>
-            </a>
+        <!-- Card 4 -->
+        <div class="reveal glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
+          <div class="w-14 h-14 rounded-2xl bg-orange-500 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">⚙️</div>
+          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">Maintenance & Support</h3>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+            Perawatan server, update fitur, perbaikan bug, dan jaminan sistem berjalan lancar 24/7.
+          </p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="reveal delay-100 glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
+          <div class="w-14 h-14 rounded-2xl bg-pink-500 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-pink-500/30 group-hover:scale-110 transition-transform">📈</div>
+          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">SEO & Optimasi</h3>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+            Tingkatkan kecepatan loading web dan pastikan sistem Anda mudah ditemukan di mesin pencari Google.
+          </p>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="reveal delay-200 glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
+          <div class="w-14 h-14 rounded-2xl bg-slate-700 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-slate-700/30 group-hover:scale-110 transition-transform">🛠️</div>
+          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">IT Support & Jaringan</h3>
+          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+            Instalasi LAN/WLAN, peremajaan hardware (PC/Laptop), dan troubleshooting jaringan kantor.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REVIEWS (MARQUEE) ================= -->
+  <section id="reviews" class="py-32 overflow-hidden relative">
+    <div class="max-w-7xl mx-auto px-6 mb-16 text-center reveal">
+      <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6">Apa Kata Klien</h2>
+      <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+        Kepercayaan mereka adalah bukti dedikasi kami dalam memberikan kualitas terbaik.
+      </p>
+    </div>
+
+    <!-- Marquee Container -->
+    <div class="w-full flex overflow-hidden marquee-mask reveal delay-100 py-4">
+      
+      <!-- Track (Duplicate this div to make the infinite effect smooth) -->
+      <div class="flex gap-6 animate-marquee w-max pl-6">
+        
+        <!-- Review Cards... -->
+        <!-- Card 1 -->
+        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
+          <div class="flex gap-4 items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-xl">A</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white">AI Linda Nurahmah</h4>
+              <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 italic">"Oh, it’s really good, I know it’s recommended. Sangat membantu sistem kerja kami."</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
+          <div class="flex gap-4 items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl">A</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Ari Pebriana</h4>
+              <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 italic">"Awesome, I’m really satisfied with it, it’s exactly what I expected 👍👍👍"</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
+          <div class="flex gap-4 items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">D</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Dean Ramadhan</h4>
+              <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 italic">"Recommended for those of you who are confused about doing programming assignments 😍"</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
+          <div class="flex gap-4 items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xl">N</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Novalsyah</h4>
+              <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 italic">"It’s really great 👍. Pekerjaan cepat dan hasilnya maksimal."</p>
+        </div>
+        
+        <!-- Card 5 -->
+        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
+          <div class="flex gap-4 items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-xl">M</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Muh Taufik Akmal</h4>
+              <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 italic">"Excellent support and very responsive. Sangat diandalkan."</p>
+        </div>
+
+        <!-- ================= DUPLICATE FOR SEAMLESS LOOP ================= -->
+         <!-- Card 1 -->
+         <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
+          <div class="flex gap-4 items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-xl">A</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white">AI Linda Nurahmah</h4>
+              <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 italic">"Oh, it’s really good, I know it’s recommended. Sangat membantu sistem kerja kami."</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
+          <div class="flex gap-4 items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl">A</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Ari Pebriana</h4>
+              <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 italic">"Awesome, I’m really satisfied with it, it’s exactly what I expected 👍👍👍"</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
+          <div class="flex gap-4 items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">D</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Dean Ramadhan</h4>
+              <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 italic">"Recommended for those of you who are confused about doing programming assignments 😍"</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
+          <div class="flex gap-4 items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xl">N</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Novalsyah</h4>
+              <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 italic">"It’s really great 👍. Pekerjaan cepat dan hasilnya maksimal."</p>
+        </div>
+        
+        <!-- Card 5 -->
+        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
+          <div class="flex gap-4 items-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-xl">M</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Muh Taufik Akmal</h4>
+              <div class="flex text-yellow-400 text-sm">★★★★★</div>
+            </div>
+          </div>
+          <p class="text-slate-600 dark:text-slate-300 italic">"Excellent support and very responsive. Sangat diandalkan."</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PORTFOLIO ================= -->
+  <section id="portfolio" class="px-6 py-32 bg-slate-50 dark:bg-slate-950/50">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6">Karya & Proyek</h2>
+        <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+          Berbagai sistem informasi, aplikasi android, dan website yang telah kami rilis untuk klien-klien kami.
+        </p>
+      </div>
+
+      <!-- Apps Grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        
+        <!-- Port Card 1 -->
+        <div class="reveal glass-card rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-brand-500/20 transition-all duration-500">
+          <div class="overflow-hidden aspect-[4/3] relative p-4 pb-0 bg-gradient-to-br from-brand-100 to-indigo-50 dark:from-slate-800 dark:to-slate-900">
+            <img src="https://danzdev.web.id/ss/simatren.png" alt="SiMatren" 
+                 class="w-full h-full object-cover rounded-t-xl shadow-lg transform group-hover:-translate-y-2 group-hover:scale-105 transition-all duration-500 origin-bottom" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=SiMatren'">
+          </div>
+          <div class="p-6">
+            <h4 class="font-heading font-bold text-xl mb-2 text-slate-900 dark:text-white">SiMatren</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Sistem Manajemen Pesantren Digital – Ponpes Miftahul Huda 06</p>
+          </div>
+        </div>
+
+        <!-- Port Card 2 -->
+        <div class="reveal delay-100 glass-card rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-brand-500/20 transition-all duration-500">
+          <div class="overflow-hidden aspect-[4/3] relative p-4 pb-0 bg-gradient-to-br from-purple-100 to-pink-50 dark:from-slate-800 dark:to-slate-900">
+            <img src="https://danzdev.web.id/ss/sipedis.png" alt="SiPedis" 
+                 class="w-full h-full object-cover rounded-t-xl shadow-lg transform group-hover:-translate-y-2 group-hover:scale-105 transition-all duration-500 origin-bottom" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=SiPedis'">
+          </div>
+          <div class="p-6">
+            <h4 class="font-heading font-bold text-xl mb-2 text-slate-900 dark:text-white">SiPedis</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Sistem Presensi Digital QR Code – SMKN Rajapolah</p>
+          </div>
+        </div>
+
+        <!-- Port Card 3 -->
+        <div class="reveal delay-200 glass-card rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-brand-500/20 transition-all duration-500">
+          <div class="overflow-hidden aspect-[4/3] relative p-4 pb-0 bg-gradient-to-br from-orange-100 to-yellow-50 dark:from-slate-800 dark:to-slate-900">
+            <img src="https://danzdev.web.id/ss/aspri.png" alt="ASPRI" 
+                 class="w-full h-full object-cover rounded-t-xl shadow-lg transform group-hover:-translate-y-2 group-hover:scale-105 transition-all duration-500 origin-bottom" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=ASPRI'">
+          </div>
+          <div class="p-6">
+            <h4 class="font-heading font-bold text-xl mb-2 text-slate-900 dark:text-white">ASPRI</h4>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Sistem Pencatatan Retribusi Parkir – Dishub Kota Tasikmalaya</p>
+          </div>
+        </div>
+        
+        <!-- Text Only Portfolios as minimal list -->
+        <div class="reveal col-span-1 sm:col-span-2 lg:col-span-3 glass-card rounded-[2rem] p-8 md:p-10">
+          <h3 class="text-2xl font-heading font-bold mb-8 text-center text-slate-900 dark:text-white">Proyek Lainnya</h3>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-10">
+            
+            <div class="group flex items-start gap-4">
+              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
+              <div>
+                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">Media Rumah Adat</h5>
+                <p class="text-sm text-slate-500">Media interaktif Android – Unper</p>
+              </div>
+            </div>
+            
+            <div class="group flex items-start gap-4">
+              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
+              <div>
+                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">CBT Online</h5>
+                <p class="text-sm text-slate-500">Sistem ujian web – SMPN 1 Ciawi</p>
+              </div>
+            </div>
+
+            <div class="group flex items-start gap-4">
+              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
+              <div>
+                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">Sistem Asuransi Laravel</h5>
+                <p class="text-sm text-slate-500">Manajemen asuransi – UNNES</p>
+              </div>
+            </div>
+
+            <div class="group flex items-start gap-4">
+              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
+              <div>
+                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">KELOM (Kelurahan On Mobile)</h5>
+                <p class="text-sm text-slate-500">Layanan kelurahan – Pemkot Tasikmalaya</p>
+              </div>
+            </div>
+
+            <div class="group flex items-start gap-4">
+              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
+              <div>
+                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">Sibageur</h5>
+                <p class="text-sm text-slate-500">Basis data bantuan – Diskominfo Tasik</p>
+              </div>
+            </div>
+
+            <div class="group flex items-start gap-4">
+              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
+              <div>
+                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">Sistem Antrian RS</h5>
+                <p class="text-sm text-slate-500">Sistem digital – RS JHC Tasikmalaya</p>
+              </div>
+            </div>
+
           </div>
         </div>
 
       </div>
 
-      <!-- DIVIDER -->
-      <div class="border-t border-slate-200 dark:border-slate-700 my-6"></div>
+      <div class="mt-8 reveal delay-100">
+        <h3 class="text-2xl font-heading font-bold mb-8 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3">
+          <span class="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-xl">🛠️</span>
+          Proyek IT Support & Jaringan
+        </h3>
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- IT Card 1 -->
+          <div class="glass-card p-6 rounded-[2rem] group hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300 flex items-start gap-4">
+            <div class="w-12 h-12 shrink-0 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🔌</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">Maintenance Jaringan LAN</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Perawatan rutin & troubleshooting jaringan terintegrasi – <span class="font-medium text-slate-700 dark:text-slate-300">Dishub Kota Tasikmalaya</span>.</p>
+            </div>
+          </div>
 
-      <!-- COPYRIGHT -->
-      <div class="text-center text-sm text-slate-500 dark:text-slate-400">
-        © <span id="year"></span> DaNz ID Dev — PT. Pratama Sistem Indonesia.  
-        All rights reserved.
+          <!-- IT Card 2 -->
+          <div class="glass-card p-6 rounded-[2rem] group hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300 flex items-start gap-4">
+            <div class="w-12 h-12 shrink-0 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🖥️</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">Instalasi & Peremajaan PC</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Setup hardware, instalasi OS, dan peremajaan sistem komputer – <span class="font-medium text-slate-700 dark:text-slate-300">Bank Syariah Indonesia Tasikmalaya</span>.</p>
+            </div>
+          </div>
+
+          <!-- IT Card 3 -->
+          <div class="glass-card p-6 rounded-[2rem] group hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300 flex items-start gap-4">
+            <div class="w-12 h-12 shrink-0 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">💻</div>
+            <div>
+              <h4 class="font-heading font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">Maintenance Laptop & PC</h4>
+              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Perawatan berkala, optimasi software, pergantian thermal paste, dan perbaikan hardware untuk klien individu/kantor.</p>
+            </div>
+          </div>
+
+        </div>
       </div>
 
     </div>
+  </section>
 
-  </div>
-</footer>
-<script>
-const track = document.getElementById('reviewTrack');
-const slides = document.querySelectorAll('.review-slide');
-const prev = document.getElementById('prevReview');
-const next = document.getElementById('nextReview');
+  <!-- ================= FLOATING WHATSAPP ================= -->
+  <a href="https://wa.me/6282214641824" target="_blank" aria-label="Chat WhatsApp"
+     class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-full bg-green-500 hover:bg-green-600 text-white font-semibold shadow-[0_10px_30px_rgba(34,197,94,0.4)] hover:shadow-[0_15px_45px_rgba(34,197,94,0.6)] transition-all duration-300 hover:scale-105 active:scale-95 group">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" class="group-hover:animate-bounce">
+      <path d="M13.601 2.326A7.92 7.92 0 0 0 8.003 0C3.582 0 0 3.582 0 8.003c0 1.41.368 2.782 1.07 3.996L0 16l4.12-1.056a7.95 7.95 0 0 0 3.883 1.004h.001c4.42 0 8.002-3.582 8.002-8.003a7.92 7.92 0 0 0-2.405-5.619zM8.004 14.63a6.63 6.63 0 0 1-3.385-.93l-.242-.144-2.445.627.652-2.382-.158-.246a6.6 6.6 0 0 1-.998-3.552c0-3.657 2.976-6.633 6.633-6.633a6.58 6.58 0 0 1 4.692 1.94 6.58 6.58 0 0 1 1.94 4.693c0 3.657-2.976 6.633-6.633 6.633zm3.63-4.968c-.198-.099-1.173-.579-1.354-.646-.18-.066-.312-.099-.445.099-.132.198-.51.646-.626.778-.115.132-.23.148-.428.05-.198-.099-.836-.308-1.592-.983-.588-.524-.985-1.172-1.1-1.37-.115-.198-.012-.305.087-.404.089-.088.198-.23.297-.346.099-.115.132-.198.198-.33.066-.132.033-.248-.017-.347-.05-.099-.445-1.074-.61-1.471-.162-.389-.327-.336-.445-.342l-.379-.007c-.132 0-.347.05-.528.248-.18.198-.693.677-.693 1.652s.71 1.918.81 2.051c.099.132 1.397 2.135 3.385 2.994.473.204.842.326 1.13.417.475.151.908.13 1.25.079.382-.057 1.173-.479 1.338-.942.165-.463.165-.86.116-.942-.05-.083-.181-.132-.38-.231z"/>
+    </svg>
+    <span class="hidden sm:block">Chat Kami</span>
+  </a>
 
-let index = 0;
+  <!-- ================= FOOTER ================= -->
+  <footer class="px-6 pb-12 pt-12 mt-auto">
+    <div class="max-w-7xl mx-auto">
+      <div class="glass-card rounded-[2.5rem] p-10 md:p-16">
+        
+        <div class="grid md:grid-cols-12 gap-12 lg:gap-16">
+          
+          <!-- BRAND -->
+          <div class="md:col-span-5">
+            <h3 class="font-heading font-extrabold text-2xl mb-4 text-slate-900 dark:text-white flex items-center gap-2">
+              <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white text-sm">D</div>
+              DaNz ID Dev
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+              Penyedia layanan pengembangan aplikasi dan sistem digital untuk instansi pemerintahan, pendidikan, dan bisnis modern. Mengutamakan performa, UI/UX, dan skalabilitas tinggi.
+            </p>
+            <div class="inline-block px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-sm font-semibold">
+              PT. Pratama Sistem Indonesia
+            </div>
+          </div>
 
-function updateSlide(){
-  const slideWidth = slides[0].offsetWidth + 24; // gap
-  track.style.transform = `translateX(-${index * slideWidth}px)`;
-}
+          <!-- INFO -->
+          <div class="md:col-span-3">
+            <h4 class="font-heading font-bold text-lg mb-6 text-slate-900 dark:text-white">Legal & Info</h4>
+            <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex items-start gap-3">
+                <span class="text-brand-500 mt-1">📍</span>
+                <span>Tasikmalaya, Jawa Barat<br>Indonesia</span>
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-brand-500">📄</span> NPWP: 28.120.399.2-425.000
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-brand-500">🔖</span> NIB: 2309240030134
+              </li>
+            </ul>
+          </div>
 
-next.onclick = () => {
-  index = (index + 1) % slides.length;
-  updateSlide();
-};
+          <!-- CONTACT -->
+          <div class="md:col-span-4">
+            <h4 class="font-heading font-bold text-lg mb-6 text-slate-900 dark:text-white">Hubungi Kami</h4>
+            <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400 mb-8">
+              <li class="flex items-center gap-3 hover:text-brand-500 transition-colors">
+                <span class="text-brand-500">📞</span> 
+                <a href="tel:+6282214641824">+62 822-1464-1824</a>
+              </li>
+              <li class="flex items-center gap-3 hover:text-brand-500 transition-colors">
+                <span class="text-brand-500">📧</span> 
+                <a href="mailto:contact@danzdev.web.id">contact@danzdev.web.id</a>
+              </li>
+            </ul>
 
-prev.onclick = () => {
-  index = (index - 1 + slides.length) % slides.length;
-  updateSlide();
-};
+            <!-- SOCIAL LINKS -->
+            <div class="flex gap-4">
+              <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition-all transform hover:-translate-y-1">
+                <!-- IG Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.036 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
+              </a>
+              <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition-all transform hover:-translate-y-1">
+                <!-- LinkedIn Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
 
-// auto slide
-setInterval(() => {
-  index = (index + 1) % slides.length;
-  updateSlide();
-}, 5000);
+        <div class="border-t border-slate-200 dark:border-slate-800 mt-12 pt-8 text-center text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div>© <span id="year"></span> DaNz ID Dev. All rights reserved.</div>
+          <div class="flex gap-4">
+            <a href="#" class="hover:text-brand-500">Privacy Policy</a>
+            <a href="#" class="hover:text-brand-500">Terms of Service</a>
+          </div>
+        </div>
 
-// responsive fix
-window.addEventListener('resize', updateSlide);
-</script>
+      </div>
+    </div>
+  </footer>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
 
-<!-- ================= SCRIPT ================= -->
-<script>
-  const toggle = document.getElementById('themeToggle');
-  const html = document.documentElement;
+  <!-- ================= SCRIPTS ================= -->
+  <script>
+    // --- Dynamic Year ---
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-  if (localStorage.theme === 'dark') html.classList.add('dark');
+    // --- Theme Toggle Logic ---
+    const toggleBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    const themeIcon = document.getElementById('themeIcon');
 
-  toggle.onclick = () => {
-    html.classList.toggle('dark');
-    localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-  };
-</script>
-<script>
-  window.addEventListener('load', () => {
-    document.body.classList.remove('opacity-0');
-  });
-</script>
+    const updateIcon = (isDark) => {
+      if(isDark) {
+        themeIcon.innerHTML = `<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>`;
+      } else {
+        themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
+      }
+    }
 
+    // Init Theme
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      html.classList.add('dark');
+      updateIcon(true);
+    } else {
+      updateIcon(false);
+    }
+
+    // Toggle Click
+    toggleBtn.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      const isDark = html.classList.contains('dark');
+      localStorage.theme = isDark ? 'dark' : 'light';
+      updateIcon(isDark);
+    });
+
+    // --- Scroll Reveal Animation ---
+    const revealElements = document.querySelectorAll('.reveal');
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -100px 0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target); // Stop observing once revealed
+        }
+      });
+    }, observerOptions);
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // --- Header Background on Scroll ---
+    const header = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('backdrop-blur-md');
+      } else {
+        header.classList.remove('backdrop-blur-md');
+      }
+    });
+  </script>
 
 </body>
 </html>
