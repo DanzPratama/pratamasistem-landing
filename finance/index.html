@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Keuangan Pratama</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="icon" type="image/png" href="1.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        /* Style untuk tombol pagination saat didisable */
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+    </style>
+</head>
+<body class="text-gray-800 pb-12">
+
+    <div class="max-w-6xl mx-auto pt-8 px-4">
+        <!-- Header & Action Buttons -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 bg-white p-6 rounded-xl shadow-sm">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">PT. PRATAMA SISTEM INDONESIA</h1>
+                <p class="text-sm text-gray-500">Finance Report Apps</p>
+            </div>
+            <div class="mt-4 md:mt-0 flex gap-3">
+                <button onclick="exportData()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition shadow-sm">
+                    ⬇️ Backup Data
+                </button>
+                <label class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition cursor-pointer shadow-sm">
+                    ⬆️ Import Data
+                    <input type="file" id="importFile" class="hidden" accept=".json" onchange="importData(event)">
+                </label>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                <h3 class="text-sm font-semibold text-gray-500 uppercase">Total Omset</h3>
+                <p class="text-2xl font-bold text-gray-900 mt-2" id="val-omset">Rp 0</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500">
+                <h3 class="text-sm font-semibold text-gray-500 uppercase">Total Modal/Keluar</h3>
+                <p class="text-2xl font-bold text-gray-900 mt-2" id="val-modal">Rp 0</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500">
+                <h3 class="text-sm font-semibold text-gray-500 uppercase">Profit Bersih</h3>
+                <p class="text-2xl font-bold text-green-600 mt-2" id="val-profit">Rp 0</p>
+            </div>
+            <div class="bg-gray-900 p-6 rounded-xl shadow-sm border-l-4 border-yellow-400">
+                <h3 class="text-sm font-semibold text-gray-400 uppercase">Gaji Karyawan (10%)</h3>
+                <p class="text-2xl font-bold text-yellow-400 mt-2" id="val-gaji">Rp 0</p>
+            </div>
+        </div>
+
+        <!-- Grafik Line Chart dengan Filter Tahun -->
+        <div class="bg-white p-6 rounded-xl shadow-sm mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold">Grafik Pertumbuhan Keuangan</h2>
+                <div class="flex items-center gap-2">
+                    <label class="text-sm font-semibold text-gray-600">Tahun:</label>
+                    <select id="filter-chart-year" onchange="renderChart()" class="border bg-white rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer shadow-sm">
+                        <!-- Option akan dirender via JS -->
+                    </select>
+                </div>
+            </div>
+            <div class="relative h-[300px] w-full">
+                <canvas id="financeChart"></canvas>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Form Input -->
+            <div class="lg:col-span-1">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h2 class="text-lg font-bold mb-4 border-b pb-2">Catat Transaksi</h2>
+                    <form id="form-transaksi" onsubmit="addTransaction(event)">
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">Tanggal</label>
+                            <input type="date" id="input-date" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">Keterangan</label>
+                            <input type="text" id="input-desc" placeholder="Contoh: Topup 200 DM / Servis" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">Tipe</label>
+                            <select id="input-type" class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="pemasukan">Omset (Pemasukan)</option>
+                                <option value="pengeluaran">Modal (Pengeluaran)</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">Nominal (Rp)</label>
+                            <input type="number" id="input-amount" min="1" required class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <button type="submit" class="w-full bg-gray-900 text-white font-bold py-2 px-4 rounded-lg hover:bg-gray-800 transition">
+                            Simpan Data
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Tabel Data dengan Pagination -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden flex flex-col h-full">
+                    <div class="p-4 border-b bg-gray-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <h2 class="text-lg font-bold">Riwayat Transaksi</h2>
+                        <div class="flex items-center gap-2">
+                            <label class="text-sm font-semibold text-gray-600 whitespace-nowrap">Filter Bulan:</label>
+                            <select id="filter-month" onchange="onMonthFilterChange()" class="border bg-white rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm cursor-pointer min-w-[140px]">
+                                <option value="all">Semua Waktu</option>
+                            </select>
+                            <button onclick="clearAllData()" class="ml-2 text-sm bg-red-100 text-red-600 hover:bg-red-200 px-3 py-1.5 rounded-lg font-semibold transition">Kosongkan</button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto flex-grow">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-100 text-gray-600 text-sm uppercase">
+                                    <th class="p-4 border-b">Tanggal</th>
+                                    <th class="p-4 border-b">Keterangan</th>
+                                    <th class="p-4 border-b">Tipe</th>
+                                    <th class="p-4 border-b">Nominal</th>
+                                    <th class="p-4 border-b text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body" class="text-sm">
+                                <!-- Data render here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination Controls -->
+                    <div class="p-4 border-t bg-white flex justify-between items-center">
+                        <span id="page-info" class="text-sm text-gray-600 font-medium">Halaman 1 dari 1</span>
+                        <div class="flex gap-2">
+                            <button id="btn-prev" onclick="changePage(-1)" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 font-semibold text-sm transition">Sebelumnya</button>
+                            <button id="btn-next" onclick="changePage(1)" class="px-3 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300 font-semibold text-sm transition">Selanjutnya</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'pratama_finance_data';
+        let transactions = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        let financeChart;
+        
+        // Setup Pagination
+        let currentPage = 1;
+        const rowsPerPage = 20;
+
+        const formatRp = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
+
+        function updateFilterOptions() {
+            // Dropdown Bulan (untuk Tabel)
+            const filterMonthSelect = document.getElementById('filter-month');
+            const currentMonthVal = filterMonthSelect.value;
+            const uniqueMonths = [...new Set(transactions.map(t => t.date.substring(0, 7)))].sort().reverse();
+            
+            filterMonthSelect.innerHTML = '<option value="all">Semua Waktu</option>';
+            uniqueMonths.forEach(monthStr => {
+                const [year, month] = monthStr.split('-');
+                const monthName = new Date(year, month - 1).toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+                const option = document.createElement('option');
+                option.value = monthStr;
+                option.textContent = monthName;
+                filterMonthSelect.appendChild(option);
+            });
+            if (uniqueMonths.includes(currentMonthVal) || currentMonthVal === 'all') {
+                filterMonthSelect.value = currentMonthVal;
+            }
+
+            // Dropdown Tahun (untuk Grafik)
+            const chartYearSelect = document.getElementById('filter-chart-year');
+            const currentYearVal = chartYearSelect.value;
+            const uniqueYears = [...new Set(transactions.map(t => t.date.substring(0, 4)))].sort().reverse();
+            
+            chartYearSelect.innerHTML = '<option value="all">Semua Tahun</option>';
+            uniqueYears.forEach(year => {
+                const opt = document.createElement('option');
+                opt.value = year;
+                opt.textContent = 'Tahun ' + year;
+                chartYearSelect.appendChild(opt);
+            });
+
+            // Set default tahun grafik ke tahun ini (misal 2026), jika tidak ada, biarkan apa adanya
+            const currentRealYear = new Date().getFullYear().toString();
+            if (!currentYearVal && uniqueYears.includes(currentRealYear)) {
+                chartYearSelect.value = currentRealYear;
+            } else if (currentYearVal) {
+                chartYearSelect.value = uniqueYears.includes(currentYearVal) ? currentYearVal : 'all';
+            }
+        }
+
+        function renderChart() {
+            const selectedYear = document.getElementById('filter-chart-year').value;
+            const monthlyData = {};
+            
+            transactions.forEach(t => {
+                const year = t.date.substring(0, 4);
+                // Filter berdasarkan dropdown tahun
+                if (selectedYear !== 'all' && year !== selectedYear) return;
+
+                const monthKey = t.date.substring(0, 7); 
+                if (!monthlyData[monthKey]) {
+                    monthlyData[monthKey] = { omset: 0, modal: 0 };
+                }
+                if (t.type === 'pemasukan') monthlyData[monthKey].omset += t.amount;
+                if (t.type === 'pengeluaran') monthlyData[monthKey].modal += t.amount;
+            });
+
+            const sortedMonths = Object.keys(monthlyData).sort();
+            const labels = [];
+            const dataOmset = [];
+            const dataProfit = [];
+
+            sortedMonths.forEach(m => {
+                const [year, month] = m.split('-');
+                // Kalau sedang memfilter 1 tahun tertentu, labelnya cukup nama bulan. Kalau semua waktu, pakai bulan+tahun.
+                const format = selectedYear === 'all' ? { month: 'short', year: 'numeric' } : { month: 'short' };
+                const monthLabel = new Date(year, month - 1).toLocaleDateString('id-ID', format);
+                
+                labels.push(monthLabel);
+                dataOmset.push(monthlyData[m].omset);
+                dataProfit.push(monthlyData[m].omset - monthlyData[m].modal); 
+            });
+
+            const ctx = document.getElementById('financeChart').getContext('2d');
+            if (financeChart) financeChart.destroy();
+
+            financeChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Omset',
+                            data: dataOmset,
+                            borderColor: '#3b82f6', 
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Profit Bersih',
+                            data: dataProfit,
+                            borderColor: '#22c55e', 
+                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) { return context.dataset.label + ': ' + formatRp(context.raw); }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    if(value >= 1000000) return 'Rp' + (value/1000000) + ' Jt';
+                                    if(value >= 1000) return 'Rp' + (value/1000) + ' Rb';
+                                    return 'Rp' + value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function onMonthFilterChange() {
+            currentPage = 1; // Reset ke halaman 1 kalau ganti filter bulan
+            updateUI();
+        }
+
+        function changePage(delta) {
+            currentPage += delta;
+            updateUI();
+        }
+
+        function updateUI() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+            updateFilterOptions();
+            renderChart(); // Render grafik (dipengaruhi filter tahun)
+            
+            // Logika Tabel (Dipengaruhi filter bulan)
+            const selectedMonth = document.getElementById('filter-month').value;
+            let filteredTransactions = [...transactions].sort((a, b) => new Date(b.date) - new Date(a.date));
+            if (selectedMonth !== 'all') {
+                filteredTransactions = filteredTransactions.filter(t => t.date.startsWith(selectedMonth));
+            }
+            
+            // 1. Hitung total Dashboard (Hitung SELURUH data yg difilter, BUKAN cuma 50 per halaman)
+            let totalOmset = 0;
+            let totalModal = 0;
+            filteredTransactions.forEach(t => {
+                if (t.type === 'pemasukan') totalOmset += t.amount;
+                if (t.type === 'pengeluaran') totalModal += t.amount;
+            });
+            let profit = totalOmset - totalModal;
+            let gaji = profit > 0 ? profit * 0.10 : 0;
+
+            document.getElementById('val-omset').innerText = formatRp(totalOmset);
+            document.getElementById('val-modal').innerText = formatRp(totalModal);
+            document.getElementById('val-profit').innerText = formatRp(profit);
+            document.getElementById('val-gaji').innerText = formatRp(gaji);
+
+            // 2. Pagination Logic
+            const totalPages = Math.ceil(filteredTransactions.length / rowsPerPage) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const startIndex = (currentPage - 1) * rowsPerPage;
+            const paginatedData = filteredTransactions.slice(startIndex, startIndex + rowsPerPage);
+
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+
+            if (paginatedData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="p-8 text-center text-gray-500">Belum ada data transaksi di periode ini.</td></tr>';
+            } else {
+                paginatedData.forEach(t => {
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-gray-50 border-b";
+                    row.innerHTML = `
+                        <td class="p-4 whitespace-nowrap">${t.date}</td>
+                        <td class="p-4 font-medium text-gray-800">${t.desc}</td>
+                        <td class="p-4">
+                            <span class="px-2 py-1 text-xs font-semibold rounded-full ${t.type === 'pemasukan' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                ${t.type === 'pemasukan' ? 'Omset' : 'Modal'}
+                            </span>
+                        </td>
+                        <td class="p-4 font-semibold ${t.type === 'pemasukan' ? 'text-green-600' : 'text-red-600'}">
+                            ${formatRp(t.amount)}
+                        </td>
+                        <td class="p-4 text-center">
+                            <button onclick="deleteTransaction(${t.id})" class="text-red-500 hover:text-red-700 font-bold px-3 py-1 bg-red-50 hover:bg-red-100 rounded transition">Hapus</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+
+            // Update UI Pagination
+            document.getElementById('page-info').textContent = `Halaman ${currentPage} dari ${totalPages}`;
+            document.getElementById('btn-prev').disabled = currentPage === 1;
+            document.getElementById('btn-next').disabled = currentPage === totalPages;
+        }
+
+        function addTransaction(e) {
+            e.preventDefault();
+            const date = document.getElementById('input-date').value;
+            const newTx = {
+                id: Date.now(),
+                date,
+                desc: document.getElementById('input-desc').value,
+                type: document.getElementById('input-type').value,
+                amount: parseFloat(document.getElementById('input-amount').value)
+            };
+            transactions.push(newTx);
+            document.getElementById('form-transaksi').reset();
+            document.getElementById('input-date').valueAsDate = new Date();
+            
+            updateFilterOptions();
+            document.getElementById('filter-month').value = date.substring(0, 7);
+            
+            // Reset page ke halaman pertama setelah tambah data baru
+            currentPage = 1; 
+            updateUI();
+        }
+
+        function deleteTransaction(id) {
+            if(confirm("Yakin ingin menghapus data ini?")) {
+                transactions = transactions.filter(t => t.id !== id);
+                updateUI();
+            }
+        }
+
+        function clearAllData() {
+            if(confirm("PERINGATAN! Menghapus SEMUA data. Yakin?")) {
+                transactions = [];
+                document.getElementById('filter-month').value = 'all';
+                currentPage = 1;
+                updateUI();
+            }
+        }
+
+        function exportData() {
+            if (transactions.length === 0) return alert("Data kosong.");
+            const dataStr = JSON.stringify(transactions, null, 2);
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([dataStr], { type: "application/json" }));
+            a.download = `Backup_Pratama_Sistem_${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (Array.isArray(importedData)) {
+                        transactions = importedData;
+                        document.getElementById('filter-month').value = 'all';
+                        currentPage = 1;
+                        updateUI();
+                        alert("Data berhasil di-restore!");
+                    } else alert("Format file tidak valid.");
+                } catch (error) { alert("Gagal membaca file JSON."); }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // Jalankan saat pertama kali direfresh
+        document.getElementById('input-date').valueAsDate = new Date();
+        // Inisialisasi opsi tahun dan update UI
+        updateFilterOptions();
+        updateUI();
+    </script>
+</body>
+</html>
