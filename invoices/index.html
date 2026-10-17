@@ -57,7 +57,7 @@ button{cursor:pointer}
   </div>
   <div class="top-actions">
     <div class="cloud-status" title="Status penyimpanan JSONBin"><span class="status-dot" id="cloudDot"></span><span id="cloudStatus">Cloud belum terhubung</span></div>
- 
+    <button type="button" class="btn btn-ghost" id="openSettings">⚙ <span>API</span></button>
   </div>
 </header>
 <main class="app-shell no-print">
@@ -228,7 +228,7 @@ button{cursor:pointer}
   }
   function hideAlert() { $('cloudAlert').className = 'cloud-alert'; $('cloudAlert').textContent = ''; }
   function setCloudStatus(connected, label) {
-    state.cloudReady = connected; $('cloudDot').classList.toggle('connected', connected); $('cloudStatus').textContent = label || (connected ? 'Database terhubung' : 'Cloud belum terhubung');
+    state.cloudReady = connected; $('cloudDot').classList.toggle('connected', connected); $('cloudStatus').textContent = label || (connected ? 'JSONBin terhubung' : 'Cloud belum terhubung');
   }
   function getItems() {
     return [...$('itemsEditor').querySelectorAll('.item-editor')].map(row => ({
