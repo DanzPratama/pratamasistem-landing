@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CALIK — Pendataan Becak Listrik</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    tailwind.config = { theme: { extend: { colors: { ink:'#111b16', brand:'#167346', mist:'#f3f7f4' } } } };
+  </script>
+  <style>
+    *{box-sizing:border-box} body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:#f3f7f4;color:#142019}
+    .nav-btn{display:flex;align-items:center;gap:.75rem;width:100%;padding:.75rem .9rem;border-radius:12px;color:#cbd5e1;font-size:.9rem;text-align:left;transition:.2s}
+    .nav-btn:hover,.nav-btn.active{background:#263b67;color:white}.nav-btn.active{box-shadow:inset 3px 0 #7ea5ff}
+    .panel{background:white;border:1px solid #e8edf5;border-radius:18px;box-shadow:0 5px 18px rgba(18,36,70,.035)}
+    .field{width:100%;border:1px solid #dce3ee;border-radius:10px;padding:.65rem .8rem;outline:none;background:white;font-size:.9rem}
+    .field:focus{border-color:#329765;box-shadow:0 0 0 3px rgba(22,115,70,.1)}
+    .btn{border-radius:10px;padding:.65rem .95rem;font-size:.875rem;font-weight:600;transition:.2s}
+    .btn-primary{background:#167346;color:white}.btn-primary:hover{background:#105b36}
+    .btn-light{background:#e8f4ec;color:#176b40}.btn-danger{background:#fff0f0;color:#c73535}
+    .table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#7b8799;background:#f8faff;text-align:left;padding:13px 15px}td{padding:13px 15px;border-top:1px solid #edf1f6;font-size:.86rem}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(12,22,42,.55);z-index:50;display:none;align-items:center;justify-content:center;padding:16px}
+    .modal{width:min(760px,100%);max-height:92vh;overflow:auto;background:white;border-radius:18px;padding:22px}
+    .stat-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center}
+    .print-card{width:86mm;min-height:54mm;border:1px solid #cbd5e1;border-radius:10px;padding:12px;background:white;color:#111827;position:relative;overflow:hidden}
+    .print-card:after{content:"CALIK";position:absolute;right:8px;bottom:3px;font-size:25px;font-weight:900;color:rgba(36,87,214,.07);letter-spacing:3px}
+    .stnk{width:190mm;min-height:125mm;border:1px solid #94a3b8;padding:16mm;background:white;color:#111827;position:relative}
+    .hidden-page{display:none}
+
+
+    #mobileBottomNav{display:none!important}
+    @media(max-width:1023px){
+      #sidebar{display:none!important}
+      #menuToggle{display:none!important}
+      #sidebarShade{display:none!important}
+      body.app-authenticated #mobileBottomNav{display:flex!important;position:fixed;z-index:9999;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom, 0px));padding:8px 7px;gap:3px;justify-content:space-around;align-items:center;border:1px solid rgba(255,255,255,.62);border-radius:22px;background:rgba(246,250,247,.92);backdrop-filter:blur(24px) saturate(185%);-webkit-backdrop-filter:blur(24px) saturate(185%);box-shadow:0 10px 35px rgba(15,35,24,.18),inset 0 1px 0 rgba(255,255,255,.9)}
+      .mobile-nav-btn{flex:1;min-width:0;border:0;background:transparent;color:#65756a;border-radius:16px;padding:7px 2px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:.2s}
+      .mobile-nav-btn span{font-size:19px;line-height:1.1}
+      .mobile-nav-btn small{font-size:9px;font-weight:700;letter-spacing:.1px}
+      .mobile-nav-btn.active{background:rgba(22,115,70,.13);color:#14683d}
+      main{padding-bottom:82px}
+    }
+    @media(min-width:1024px){#mobileBottomNav{display:none!important}}
+    .bulk-card-grid{display:grid;grid-template-columns:repeat(2,85.6mm);gap:7mm;justify-content:center;align-items:start}
+    .bulk-stnk-page{page-break-after:always;break-after:page;display:flex;justify-content:center;align-items:flex-start;padding:0}
+    .bulk-stnk-page:last-child{page-break-after:auto;break-after:auto}
+    @media print{
+      @page{size:A4;margin:9mm}
+      .bulk-card-grid{grid-template-columns:repeat(2,85.6mm);gap:6mm}
+      .calik-id-card{break-inside:avoid;page-break-inside:avoid}
+      .stnk-sheet{break-inside:avoid;page-break-inside:avoid}
+    }
+
+    /* Desain dokumen cetak CALIK */
+    .calik-id-card{width:85.6mm;height:54mm;border:0;position:relative;overflow:hidden;border-radius:3mm;background:#fff;color:#17251c;font-family:Arial,sans-serif;box-shadow:0 2mm 5mm rgba(0,0,0,.12);print-color-adjust:exact;-webkit-print-color-adjust:exact}
+    .id-head{height:15mm;background:#123b28;color:#fff;padding:3mm 4mm;display:flex;align-items:center;justify-content:space-between;position:relative}
+    .id-head:after{content:"";position:absolute;width:35mm;height:35mm;border:1mm solid rgba(255,255,255,.08);border-radius:50%;right:8mm;top:-20mm}
+    .id-brand{font-size:11pt;font-weight:900;letter-spacing:1.8px}.id-sub{font-size:5.5pt;letter-spacing:.8px;color:#c9e6d3;margin-top:1mm}
+    .id-body{display:flex;gap:3mm;padding:3mm 4mm 1mm;position:relative;z-index:1}
+    .id-photo{width:18mm;height:23mm;border:1px solid #b9c9bf;border-radius:1.5mm;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#edf4ef;color:#819489;font-size:6pt;text-align:center;flex-shrink:0}
+    .id-photo img{width:100%;height:100%;object-fit:cover}
+    .id-info{flex:1;min-width:0}.id-name{font-size:9pt;font-weight:800;line-height:1.15;color:#153d29;margin-bottom:1.5mm}
+    .id-line{font-size:6.2pt;line-height:1.55;color:#35463b}.id-line strong{color:#17251c}
+    .id-reg{display:inline-block;background:#e7f2ea;color:#14532d;padding:1mm 2mm;border-radius:1mm;font-size:7pt;font-weight:800;letter-spacing:.5px;margin-top:1mm}
+    .id-foot{position:absolute;left:4mm;right:4mm;bottom:2mm;border-top:.3mm solid #dce7df;padding-top:1mm;display:flex;justify-content:space-between;align-items:center;font-size:5pt;color:#66766b}
+    .id-seal{font-size:6pt;font-weight:900;letter-spacing:1px;color:#167346}
+    .stnk-sheet{width:190mm;min-height:125mm;border:1px solid #b7c9bc;padding:0;background:#fff;color:#17251c;font-family:Arial,sans-serif;position:relative;overflow:hidden;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+    .stnk-head{background:#123b28;color:white;padding:9mm 12mm 7mm;display:flex;justify-content:space-between;align-items:center}
+    .stnk-kicker{font-size:8pt;letter-spacing:2px;color:#c9e6d3;font-weight:700}
+    .stnk-title{font-size:19pt;line-height:1.15;font-weight:900;letter-spacing:.5px;margin-top:2mm}
+    .stnk-subtitle{font-size:8pt;color:#dcebe1;margin-top:2mm}
+    .stnk-mark{width:22mm;height:22mm;border:1px solid rgba(255,255,255,.55);border-radius:50%;display:grid;place-items:center;font-size:8pt;font-weight:900;letter-spacing:1px}
+    .stnk-regbar{background:#e9f2ec;padding:5mm 12mm;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #d5e3d9}
+    .stnk-reglabel{font-size:7pt;text-transform:uppercase;letter-spacing:1.4px;color:#607267}
+    .stnk-regvalue{font-size:19pt;font-weight:900;letter-spacing:2px;color:#14532d;margin-top:1mm}
+    .stnk-content{padding:8mm 12mm 6mm}
+    .stnk-section-title{font-size:8pt;font-weight:900;letter-spacing:1.3px;color:#167346;border-bottom:1px solid #dce7df;padding-bottom:2mm;margin-bottom:4mm}
+    .stnk-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:14mm;row-gap:5mm}
+    .stnk-field label{display:block;font-size:6.5pt;letter-spacing:1px;text-transform:uppercase;color:#718076;margin-bottom:1mm}
+    .stnk-field strong{font-size:9pt;color:#1b2d22;font-weight:700;overflow-wrap:anywhere}
+    .stnk-footer{display:flex;justify-content:space-between;align-items:flex-end;padding:0 12mm 7mm;gap:12mm}
+    .stnk-note{font-size:6.5pt;line-height:1.5;color:#758278;max-width:95mm}
+    .stnk-sign{width:55mm;text-align:center;font-size:7pt;color:#34463a}
+    .stnk-signline{border-top:1px solid #718076;margin-top:17mm;padding-top:2mm;font-weight:700}
+    .prototype-stamp{display:inline-block;border:1px solid #c48b36;color:#9a681b;border-radius:2mm;padding:1.5mm 2.5mm;font-size:6pt;font-weight:800;letter-spacing:1px}
+    @media print{
+      @page{margin:10mm}
+      body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .calik-id-card,.stnk-sheet{box-shadow:none!important}
+    }
+
+    @media print{body{background:white!important}.no-print{display:none!important}#printArea{display:block!important;padding:0!important}.print-card,.stnk{break-inside:avoid;box-shadow:none!important;margin:0 auto 8mm}.print-sheet{display:flex;gap:8mm;flex-wrap:wrap;justify-content:center}}
+  </style>
+</head>
+<body>
+<div id="loginScreen" class="min-h-screen flex items-center justify-center p-5 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950">
+  <div class="w-full max-w-4xl grid md:grid-cols-2 bg-white rounded-3xl overflow-hidden shadow-2xl">
+    <div class="hidden md:flex flex-col justify-between p-10 text-white bg-gradient-to-br from-emerald-800 to-[#101a14]">
+      <div><div class="w-12 h-12 rounded-2xl bg-white/15 grid place-items-center text-2xl">⚡</div><p class="mt-8 text-sm uppercase tracking-[.25em] text-emerald-200">Sistem pendataan</p><h1 class="text-4xl font-black mt-3 leading-tight">CALIK</h1><p class="text-emerald-100 mt-3 leading-relaxed">Catatan Administrasi dan Identitas Becak Listrik.</p></div>
+      <p class="text-xs text-emerald-200">Prototype • Penyimpanan lokal perangkat</p>
+    </div>
+    <div class="p-8 md:p-12 flex flex-col justify-center">
+      <div class="md:hidden text-emerald-700 font-black text-2xl mb-7">⚡ CALIK</div>
+      <p class="text-sm font-semibold text-emerald-700">SELAMAT DATANG</p><h2 class="text-2xl font-bold mt-2">Masuk ke sistem</h2><p class="text-sm text-slate-500 mt-2">Gunakan akun demo untuk mengakses prototype.</p>
+      <form id="loginForm" class="mt-7 space-y-4">
+        <div><label class="text-sm font-medium">Username</label><input id="username" class="field mt-1" value="admin" autocomplete="username" required></div>
+        <div><label class="text-sm font-medium">Password</label><input id="password" type="password" class="field mt-1" value="admin123" autocomplete="current-password" required></div>
+        <p id="loginError" class="text-sm text-red-600 hidden">Username atau password tidak sesuai.</p>
+        <button class="btn btn-primary w-full py-3">Masuk Dashboard <span class="ml-1">→</span></button>
+      </form>
+      <p class="text-xs text-slate-400 mt-5">Demo login: <b>admin</b> / <b>admin123</b></p>
+    </div>
+  </div>
+</div>
+
+<div id="app" class="hidden min-h-screen">
+  <aside id="sidebar" class="fixed z-30 inset-y-0 left-0 w-64 bg-[#111b16] text-white flex flex-col transition-transform -translate-x-full lg:translate-x-0 no-print">
+    <div class="px-6 py-6 border-b border-white/10"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-700 grid place-items-center text-xl">⚡</div><div><div class="font-black tracking-wide">CALIK</div><div class="text-[10px] text-slate-400 tracking-widest">BECak LISTRIK</div></div></div></div>
+    <div class="px-4 pt-6 pb-2 text-[10px] tracking-[.2em] text-slate-500 font-bold">MENU UTAMA</div>
+    <nav class="px-3 space-y-1">
+      <button class="nav-btn active" data-page="dashboard"><span>▦</span> Dashboard</button>
+      <button class="nav-btn" data-page="pemilik"><span>♙</span> Data Master Pemilik</button>
+      <button class="nav-btn" data-page="laporan"><span>▤</span> Laporan</button>
+      <button class="nav-btn" data-page="setting"><span>⚙</span> Setting Web</button>
+      <button class="nav-btn" data-page="kredit"><span>✦</span> Kredit Web</button>
+    </nav>
+    <div class="mt-auto p-4 border-t border-white/10"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-emerald-500 grid place-items-center font-bold">A</div><div class="min-w-0"><p class="text-sm font-semibold">Administrator</p><p class="text-xs text-slate-400">Admin Sistem</p></div><button id="logoutBtn" class="ml-auto text-slate-400 hover:text-white" title="Keluar">↪</button></div></div>
+  </aside>
+  <div id="sidebarShade" class="fixed inset-0 bg-black/40 z-20 hidden no-print"></div>
+  <main class="lg:ml-64 min-h-screen">
+    <header class="h-[76px] bg-white border-b border-slate-200 flex items-center justify-between px-5 md:px-8 sticky top-0 z-10 no-print">
+      <div class="flex items-center gap-3"><button id="menuToggle" class="lg:hidden text-xl p-2">☰</button><div><p class="text-xs text-slate-400">CALIK / <span id="breadcrumb">Dashboard</span></p><h2 id="pageTitle" class="font-bold text-lg">Dashboard</h2></div></div>
+      <div class="flex items-center gap-3"><span class="hidden sm:block text-xs text-slate-500" id="todayLabel"></span><div class="w-9 h-9 rounded-full bg-emerald-50 text-emerald-700 grid place-items-center font-bold">A</div></div>
+    </header>
+    <div class="p-5 md:p-8 max-w-[1500px] mx-auto no-print">
+      <section id="page-dashboard" class="page space-y-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3"><div><p class="text-sm text-emerald-700 font-semibold">Ringkasan data</p><h1 class="text-2xl font-black mt-1">Dashboard</h1><p class="text-sm text-slate-500 mt-1">Pantau data pemilik dan identitas becak listrik.</p></div></div>
+        <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="panel p-5"><div class="flex justify-between"><span class="text-sm text-slate-500">Total Pemilik</span><div class="stat-icon bg-emerald-50 text-emerald-700">♙</div></div><div id="statPemilik" class="text-3xl font-black mt-3">0</div><p class="text-xs text-slate-400 mt-1">Data terdaftar</p></div>
+          <div class="panel p-5"><div class="flex justify-between"><span class="text-sm text-slate-500">Becak Terdata</span><div class="stat-icon bg-slate-100 text-slate-800">▣</div></div><div id="statBecak" class="text-3xl font-black mt-3">0</div><p class="text-xs text-slate-400 mt-1">Unit becak listrik</p></div>
+          <div class="panel p-5"><div class="flex justify-between"><span class="text-sm text-slate-500">Izin Aktif</span><div class="stat-icon bg-emerald-50 text-emerald-700">✓</div></div><div id="statAktif" class="text-3xl font-black mt-3">0</div><p class="text-xs text-slate-400 mt-1">Status izin aktif</p></div>
+          <div class="panel p-5"><div class="flex justify-between"><span class="text-sm text-slate-500">Belum Lengkap</span><div class="stat-icon bg-amber-50 text-amber-700">!</div></div><div id="statBelum" class="text-3xl font-black mt-3">0</div><p class="text-xs text-slate-400 mt-1">Perlu verifikasi</p></div>
+        </div>
+        <div class="grid xl:grid-cols-3 gap-5">
+          <div class="panel xl:col-span-2 p-5"><div class="flex justify-between items-center mb-4"><div><h3 class="font-bold">Data Pemilik Terbaru</h3><p class="text-xs text-slate-400 mt-1">Lima data terakhir yang dimasukkan</p></div><button class="text-sm text-emerald-700 font-semibold" data-goto="pemilik">Lihat semua →</button></div><div class="table-wrap"><table><thead><tr><th>Nama Pemilik</th><th>NIK</th><th>No. Registrasi</th><th>Status</th></tr></thead><tbody id="recentTable"></tbody></table></div></div>
+          <div class="panel p-5"><h3 class="font-bold">Akses Cepat</h3><p class="text-xs text-slate-400 mt-1 mb-4">Kelola administrasi becak listrik</p><div class="space-y-3"><button class="w-full text-left p-3 rounded-xl bg-slate-50 hover:bg-slate-100" data-goto="laporan"><b class="text-sm">▤ Rekapitulasi data</b><p class="text-xs text-slate-500 mt-1">Lihat dan cetak laporan</p></button></div><div class="mt-5 p-3 rounded-xl border border-amber-100 bg-amber-50 text-xs text-amber-800">Data prototype disimpan pada browser/perangkat ini melalui LocalStorage. Lakukan ekspor berkala.</div></div>
+        </div>
+      </section>
+
+      <section id="page-pemilik" class="page hidden space-y-5">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3"><div><p class="text-sm text-emerald-700 font-semibold">Data master</p><h1 class="text-2xl font-black mt-1">Data Master Pemilik</h1><p class="text-sm text-slate-500 mt-1">Identitas pemilik dan spesifikasi becak listrik.</p></div><button class="btn btn-primary" id="addBtn">＋ Tambah Pemilik</button></div>
+        <div class="panel p-4 flex flex-col md:flex-row gap-3"><input id="searchInput" class="field md:max-w-sm" placeholder="Cari nama, NIK, nomor registrasi..."><select id="statusFilter" class="field md:w-48"><option value="">Semua status</option><option>Aktif</option><option>Proses</option><option>Nonaktif</option></select><div class="md:ml-auto flex gap-2"><button class="btn btn-light" id="exportBtn">↓ Ekspor JSON</button><button class="btn btn-light" id="importBtn">↑ Impor JSON</button><input type="file" id="importFile" accept=".json,application/json" class="hidden"></div></div>
+        <div class="panel p-4 space-y-3">
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+            <div><h3 class="font-bold">Cetak Dokumen Massal</h3><p class="text-xs text-slate-500 mt-1">Pilih beberapa pemilik atau cetak seluruh data sekaligus.</p></div>
+            <div class="flex flex-wrap gap-2">
+              <button class="btn btn-light" id="selectAllBtn">Pilih Semua</button>
+              <button class="btn btn-light" id="clearSelectBtn">Batal Pilih</button>
+              <button class="btn btn-primary" id="bulkCardBtn">▣ Cetak Kartu Terpilih</button>
+              <button class="btn btn-primary" id="bulkStnkBtn">▤ Cetak STNK Terpilih</button>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3">
+            <span class="text-xs text-slate-500" id="selectedCount">0 data dipilih</span>
+            <span class="text-slate-300">|</span>
+            <button class="text-xs font-semibold text-emerald-700" id="printAllCards">Cetak Semua Kartu</button>
+            <button class="text-xs font-semibold text-emerald-700" id="printAllStnk">Cetak Semua STNK</button>
+          </div>
+        </div>
+        <div class="panel"><div class="table-wrap"><table><thead><tr><th><input type="checkbox" id="checkAllVisible" aria-label="Pilih semua data tampil"></th><th>No.</th><th>Nama Pemilik</th><th>NIK</th><th>No. Registrasi</th><th>No. Rangka</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="ownerTable"></tbody></table></div><div id="emptyState" class="hidden p-10 text-center text-slate-400 text-sm">Belum ada data. Klik “Tambah Pemilik” untuk memulai.</div><div class="px-5 py-3 border-t border-slate-100 text-xs text-slate-400" id="tableCount"></div></div>
+      </section>
+
+      <section id="page-laporan" class="page hidden space-y-5">
+        <div><p class="text-sm text-emerald-700 font-semibold">Rekapitulasi</p><h1 class="text-2xl font-black mt-1">Laporan Pendataan</h1><p class="text-sm text-slate-500 mt-1">Ringkasan data pemilik dan unit becak listrik.</p></div>
+        <div class="panel p-5"><div class="flex flex-col md:flex-row gap-3 md:items-end justify-between"><div class="grid sm:grid-cols-2 gap-3 flex-1"><div><label class="text-xs text-slate-500">Status</label><select id="reportStatus" class="field mt-1"><option value="">Semua status</option><option>Aktif</option><option>Proses</option><option>Nonaktif</option></select></div><div><label class="text-xs text-slate-500">Pencarian</label><input id="reportSearch" class="field mt-1" placeholder="Nama / NIK / registrasi"></div></div><button class="btn btn-primary" id="printReport">⎙ Cetak Laporan</button></div></div>
+        <div class="grid sm:grid-cols-3 gap-4"><div class="panel p-5"><p class="text-xs text-slate-500">Total pemilik</p><p id="reportTotal" class="text-2xl font-black mt-2">0</p></div><div class="panel p-5"><p class="text-xs text-slate-500">Izin aktif</p><p id="reportActive" class="text-2xl font-black mt-2">0</p></div><div class="panel p-5"><p class="text-xs text-slate-500">Dalam proses / nonaktif</p><p id="reportOther" class="text-2xl font-black mt-2">0</p></div></div>
+        <div class="panel"><div class="p-5 border-b border-slate-100"><h3 class="font-bold">Rincian Pendataan</h3></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Nama</th><th>NIK</th><th>Registrasi</th><th>Wilayah</th><th>Status</th><th>Dokumen</th></tr></thead><tbody id="reportTable"></tbody></table></div></div>
+      </section>
+
+      <section id="page-setting" class="page hidden space-y-5">
+        <div><p class="text-sm text-emerald-700 font-semibold">Konfigurasi aplikasi</p><h1 class="text-2xl font-black mt-1">Setting Web</h1><p class="text-sm text-slate-500 mt-1">Atur identitas tampilan CALIK untuk kebutuhan prototype presentasi.</p></div>
+        <div class="panel p-5 max-w-2xl">
+          <form id="settingForm" class="space-y-4">
+            <div><label class="text-sm font-semibold">Nama instansi</label><input id="settingAgency" class="field mt-1" placeholder="Contoh: Pemerintah Kota Tasikmalaya"></div>
+            <div><label class="text-sm font-semibold">Nama aplikasi</label><input id="settingAppName" class="field mt-1" placeholder="CALIK"></div>
+            <div><label class="text-sm font-semibold">Teks footer</label><input id="settingFooter" class="field mt-1" placeholder="© 2026 CALIK • Dinas Perhubungan"></div>
+            <div class="rounded-xl bg-emerald-50 p-3 text-xs text-emerald-800">Pengaturan disimpan pada browser ini dan akan digunakan pada tampilan footer serta dokumen cetak.</div>
+            <button class="btn btn-primary" type="submit">Simpan Pengaturan</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="page-kredit" class="page hidden space-y-5">
+        <div><p class="text-sm text-emerald-700 font-semibold">Tentang aplikasi</p><h1 class="text-2xl font-black mt-1">Kredit Web</h1><p class="text-sm text-slate-500 mt-1">Informasi pengembang dan implementasi prototype.</p></div>
+        <div class="panel max-w-2xl overflow-hidden">
+          <div class="bg-[#111b16] text-white p-7">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-700 grid place-items-center text-2xl">⚡</div>
+            <p class="text-xs tracking-[.25em] text-emerald-300 mt-5">DIGITAL ADMINISTRATION</p>
+            <h2 class="text-3xl font-black mt-1">CALIK</h2>
+            <p class="text-sm text-slate-300 mt-2">Catatan Administrasi dan Identitas Becak Listrik</p>
+          </div>
+          <div class="p-6 space-y-4">
+            <div><p class="text-xs text-slate-400 uppercase tracking-wider">Designed & Developed by</p><p class="text-xl font-black mt-1">Danz Dev</p></div>
+            <div class="border-t border-slate-100 pt-4"><p class="text-xs text-slate-400 uppercase tracking-wider">Platform</p><p class="text-sm font-semibold mt-1">HTML • Tailwind CSS • JavaScript • jQuery</p></div>
+            <div class="border-t border-slate-100 pt-4"><p class="text-xs text-slate-400 uppercase tracking-wider">Mode Prototype</p><p class="text-sm mt-1">LocalStorage — data tersimpan pada browser/perangkat lokal.</p></div>
+            <p class="text-xs text-slate-400">© 2026 CALIK. Seluruh hak cipta dilindungi.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer class="mx-5 md:mx-8 mb-24 lg:mb-6 mt-8 border-t border-slate-200 pt-4 text-xs text-slate-400 flex flex-col sm:flex-row justify-between gap-2 no-print">
+      <span id="appFooterText">© 2026 CALIK • Catatan Administrasi dan Identitas Becak Listrik</span>
+      <span>Designed & Developed by <b class="text-slate-600">Danz Dev</b></span>
+    </footer>
+  </main>
+</div>
+
+<nav id="mobileBottomNav" class="mobile-bottom-nav no-print" aria-label="Navigasi utama">
+  <button class="mobile-nav-btn active" data-page="dashboard"><span>▦</span><small>Home</small></button>
+  <button class="mobile-nav-btn" data-page="pemilik"><span>♙</span><small>Pemilik</small></button>
+  <button class="mobile-nav-btn" data-page="laporan"><span>▤</span><small>Laporan</small></button>
+  <button class="mobile-nav-btn" data-page="setting"><span>⚙</span><small>Setting</small></button>
+  <button class="mobile-nav-btn" data-page="kredit"><span>✦</span><small>Kredit</small></button>
+</nav>
+
+<div id="ownerModal" class="modal-backdrop no-print"><div class="modal">
+  <div class="flex items-center justify-between mb-5"><div><h3 id="modalTitle" class="text-xl font-bold">Tambah Data Pemilik</h3><p class="text-xs text-slate-500 mt-1">Lengkapi identitas pemilik dan kendaraan.</p></div><button id="closeModal" class="text-2xl text-slate-400">×</button></div>
+  <form id="ownerForm" class="space-y-5">
+    <input type="hidden" id="editId">
+    <div class="mb-5">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="wizard-dot w-7 h-7 rounded-full bg-emerald-700 text-white text-xs grid place-items-center font-bold">1</span>
+        <span class="wizard-dot w-7 h-7 rounded-full bg-slate-200 text-slate-500 text-xs grid place-items-center font-bold">2</span>
+        <span class="wizard-dot w-7 h-7 rounded-full bg-slate-200 text-slate-500 text-xs grid place-items-center font-bold">3</span>
+        <span id="stepCaption" class="text-xs text-slate-500 ml-2">Langkah 1 dari 3 • Identitas Pemilik</span>
+      </div>
+      <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden"><div id="wizardProgress" class="h-full bg-emerald-700 rounded-full" style="width:33.33%"></div></div>
+    </div>
+    <div class="wizard-step" data-step="1"><h4 class="font-bold text-sm text-emerald-800 mb-3">A. Identitas Pemilik</h4><div class="grid md:grid-cols-2 gap-3">
+      <div><label class="text-xs font-medium">Nama lengkap *</label><input id="fNama" class="field mt-1" required></div>
+      <div><label class="text-xs font-medium">NIK *</label><input id="fNik" class="field mt-1" maxlength="16" inputmode="numeric" required></div>
+      <div><label class="text-xs font-medium">Tempat lahir</label><input id="fTempat" class="field mt-1"></div>
+      <div><label class="text-xs font-medium">Tanggal lahir</label><input id="fTgl" type="date" class="field mt-1"></div>
+      <div><label class="text-xs font-medium">Jenis kelamin</label><select id="fGender" class="field mt-1"><option value="">Pilih</option><option>Laki-laki</option><option>Perempuan</option></select></div>
+      <div><label class="text-xs font-medium">No. HP</label><input id="fHp" class="field mt-1" inputmode="tel"></div>
+      <div class="md:col-span-2">
+        <label class="text-xs font-medium">Foto pemilik</label>
+        <div class="mt-1 flex flex-col sm:flex-row gap-3 sm:items-center">
+          <div class="w-24 h-28 rounded-xl border border-dashed border-slate-300 bg-slate-50 overflow-hidden flex items-center justify-center shrink-0">
+            <img id="photoPreview" class="hidden w-full h-full object-cover" alt="Preview foto pemilik">
+            <span id="photoPlaceholder" class="text-[10px] text-slate-400 text-center px-2">Preview foto</span>
+          </div>
+          <div class="flex-1"><input id="fFoto" type="file" accept="image/*" class="field text-xs"><p class="text-[11px] text-slate-400 mt-1">Format gambar, disarankan JPG/PNG maksimal 1 MB.</p><button type="button" id="removePhoto" class="text-xs text-red-600 mt-1">Hapus foto</button></div>
+        </div>
+      </div>
+      <div class="md:col-span-2"><label class="text-xs font-medium">Alamat lengkap</label><textarea id="fAlamat" class="field mt-1" rows="2"></textarea></div>
+      <div><label class="text-xs font-medium">Kelurahan / Desa</label><input id="fKelurahan" class="field mt-1"></div>
+      <div><label class="text-xs font-medium">Kecamatan</label><input id="fKecamatan" class="field mt-1"></div>
+    </div></div>
+    <div class="wizard-step hidden" data-step="2"><h4 class="font-bold text-sm text-emerald-800 mb-3">B. Identitas Becak Listrik</h4><div class="grid md:grid-cols-2 gap-3">
+      <div><label class="text-xs font-medium">Nomor registrasi *</label><input id="fReg" class="field mt-1" placeholder="Contoh: BL-0001" required></div>
+      <div><label class="text-xs font-medium">Nomor rangka / VIN</label><input id="fRangka" class="field mt-1"></div>
+      <div><label class="text-xs font-medium">Nomor motor / mesin</label><input id="fMesin" class="field mt-1"></div>
+      <div><label class="text-xs font-medium">Warna kendaraan</label><input id="fWarna" class="field mt-1"></div>
+      <div><label class="text-xs font-medium">Tahun pengadaan</label><input id="fTahun" type="number" min="2000" max="2100" class="field mt-1"></div>
+      <div><label class="text-xs font-medium">Wilayah operasional</label><input id="fWilayah" class="field mt-1" placeholder="Contoh: Kecamatan Cihideung"></div>
+      <div><label class="text-xs font-medium">Status pendataan</label><select id="fStatus" class="field mt-1"><option>Aktif</option><option>Proses</option><option>Nonaktif</option></select></div>
+      <div><label class="text-xs font-medium">Tanggal pendataan</label><input id="fTanggal" type="date" class="field mt-1"></div>
+    </div></div>
+    <div class="wizard-step hidden" data-step="3">
+      <h4 class="font-bold text-sm text-emerald-800 mb-3">C. Pemeriksaan & Konfirmasi</h4>
+      <div class="rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-sm text-emerald-900">
+        <b>Periksa kembali data sebelum disimpan.</b>
+        <p class="text-xs mt-1">Pastikan NIK, nomor registrasi, identitas pemilik, dan data kendaraan sudah benar. Data dapat diperbarui melalui tombol Edit.</p>
+      </div>
+      <div id="wizardSummary" class="mt-3 grid sm:grid-cols-2 gap-2 text-xs"></div>
+    </div>
+    <div class="flex flex-col-reverse sm:flex-row justify-between gap-2 pt-4 border-t border-slate-100">
+      <div class="flex gap-2"><button type="button" id="cancelModal" class="btn btn-light">Batal</button><button type="button" id="wizardBack" class="btn btn-light hidden">← Sebelumnya</button></div>
+      <div class="flex gap-2"><button type="button" id="wizardNext" class="btn btn-primary">Selanjutnya →</button><button type="submit" id="wizardSave" class="btn btn-primary hidden">Simpan Data</button></div>
+    </div>
+  </form>
+</div></div>
+
+<div id="printArea" class="hidden-page"></div>
+<script>
+(function($){
+  const KEY='calik_becak_listrik_v1';
+  let owners=[];
+  let selectedIds=new Set();
+  let appSettings={agency:'Pemerintah Kota Tasikmalaya',appName:'CALIK',footer:'© 2026 CALIK • Catatan Administrasi dan Identitas Becak Listrik'};
+  let currentStep=1;
+  let photoData='';
+  const today=new Date().toISOString().slice(0,10);
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const get=(id)=>$('#'+id).val();
+  const set=(id,v)=>$('#'+id).val(v??'');
+  function load(){try{let raw=localStorage.getItem(KEY);if(raw===null){owners=[
+    {id:'BL-DEMO-001',nama:'Asep Saepudin',nik:'3278011201850001',tempat:'Tasikmalaya',tgl:'1985-01-12',gender:'Laki-laki',hp:'081234567801',alamat:'Jl. Cihideung No. 12',kelurahan:'Yudanagara',kecamatan:'Cihideung',reg:'BL-0001',rangka:'BLTSM202600001',mesin:'MTR-0001',warna:'Hijau',tahun:'2026',wilayah:'Kecamatan Cihideung',status:'Aktif',tanggal:today,createdAt:'2026-10-28T08:00:00'},
+    {id:'BL-DEMO-002',nama:'Siti Rohayati',nik:'3278024502900002',tempat:'Tasikmalaya',tgl:'1990-02-05',gender:'Perempuan',hp:'081234567802',alamat:'Kp. Cibogor RT 02/RW 04',kelurahan:'Cipedes',kecamatan:'Cipedes',reg:'BL-0002',rangka:'BLTSM202600002',mesin:'MTR-0002',warna:'Hitam',tahun:'2026',wilayah:'Kecamatan Cipedes',status:'Aktif',tanggal:today,createdAt:'2026-10-29T09:00:00'},
+    {id:'BL-DEMO-003',nama:'Dedi Mulyadi',nik:'3278031503780003',tempat:'Tasikmalaya',tgl:'1978-03-15',gender:'Laki-laki',hp:'081234567803',alamat:'Jl. R.E. Martadinata',kelurahan:'Panglayungan',kecamatan:'Cipedes',reg:'BL-0003',rangka:'BLTSM202600003',mesin:'MTR-0003',warna:'Biru',tahun:'2026',wilayah:'Kecamatan Cipedes',status:'Proses',tanggal:today,createdAt:'2026-10-30T10:00:00'},
+    {id:'BL-DEMO-004',nama:'Rudi Hartono',nik:'3278042206820004',tempat:'Tasikmalaya',tgl:'1982-06-22',gender:'Laki-laki',hp:'081234567804',alamat:'Jl. Sukarindik',kelurahan:'Sukarindik',kecamatan:'Bungursari',reg:'BL-0004',rangka:'BLTSM202600004',mesin:'MTR-0004',warna:'Merah',tahun:'2026',wilayah:'Kecamatan Bungursari',status:'Nonaktif',tanggal:today,createdAt:'2026-10-31T11:00:00'},
+    {id:'BL-DEMO-005',nama:'Euis Komariah',nik:'3278055508950005',tempat:'Tasikmalaya',tgl:'1995-08-15',gender:'Perempuan',hp:'081234567805',alamat:'Kp. Cilembang',kelurahan:'Argasari',kecamatan:'Cihideung',reg:'BL-0005',rangka:'BLTSM202600005',mesin:'MTR-0005',warna:'Putih',tahun:'2026',wilayah:'Kecamatan Cihideung',status:'Aktif',tanggal:today,createdAt:'2026-11-01T12:00:00'}
+  ];localStorage.setItem(KEY,JSON.stringify(owners))}else{owners=JSON.parse(raw);if(!Array.isArray(owners))owners=[]}}catch(e){owners=[]}}
+  function save(){localStorage.setItem(KEY,JSON.stringify(owners));renderAll()}
+  function statusPill(s){let cls=s==='Aktif'?'bg-emerald-50 text-emerald-700':s==='Proses'?'bg-amber-50 text-amber-700':'bg-slate-100 text-slate-600';return `<span class="inline-flex px-2.5 py-1 rounded-full text-xs font-semibold ${cls}">${esc(s||'Proses')}</span>`}
+  function nav(page){$('.page').addClass('hidden');$('#page-'+page).removeClass('hidden');$('.nav-btn,.mobile-nav-btn').removeClass('active');$(`.nav-btn[data-page="${page}"],.mobile-nav-btn[data-page="${page}"]`).addClass('active');let title={dashboard:'Dashboard',pemilik:'Data Master Pemilik',laporan:'Laporan',setting:'Setting Web',kredit:'Kredit Web'}[page]||'Dashboard';$('#pageTitle,#breadcrumb').text(title);$('#sidebar').addClass('-translate-x-full');$('#sidebarShade').addClass('hidden');}
+  function renderDashboard(){
+    $('#statPemilik').text(owners.length);$('#statBecak').text(owners.length);$('#statAktif').text(owners.filter(x=>x.status==='Aktif').length);$('#statBelum').text(owners.filter(x=>x.status!=='Aktif').length);
+    let rows=owners.slice().sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||'')).slice(0,5);
+    $('#recentTable').html(rows.length?rows.map(x=>`<tr><td class="font-semibold">${esc(x.nama)}</td><td>${esc(x.nik)}</td><td>${esc(x.reg)}</td><td>${statusPill(x.status)}</td></tr>`).join(''):`<tr><td colspan="4" class="text-center text-slate-400 py-8">Belum ada data pemilik.</td></tr>`);
+  }
+  function filtered(){let q=($('#searchInput').val()||'').toLowerCase(),s=$('#statusFilter').val();return owners.filter(x=>(!s||x.status===s)&&(!q||[x.nama,x.nik,x.reg,x.rangka,x.wilayah].join(' ').toLowerCase().includes(q)))}
+  function renderOwners(){let list=filtered();$('#ownerTable').html(list.map((x,i)=>`<tr><td><input type="checkbox" class="owner-check accent-emerald-700" value="${esc(x.id)}" ${selectedIds.has(x.id)?'checked':''}></td><td>${i+1}</td><td class="font-semibold">${esc(x.nama)}</td><td>${esc(x.nik)}</td><td class="font-semibold text-emerald-700">${esc(x.reg)}</td><td>${esc(x.rangka||'-')}</td><td>${statusPill(x.status)}</td><td><div class="flex gap-1"><button class="btn btn-light !px-2 !py-1" data-action="edit" data-id="${x.id}">Edit</button><button class="btn btn-light !px-2 !py-1" data-action="card" data-id="${x.id}">Kartu</button><button class="btn btn-light !px-2 !py-1" data-action="stnk" data-id="${x.id}">STNK</button><button class="btn btn-danger !px-2 !py-1" data-action="delete" data-id="${x.id}">Hapus</button></div></td></tr>`).join(''));$('#emptyState').toggleClass('hidden',list.length>0);$('#tableCount').text(`Menampilkan ${list.length} dari ${owners.length} data`);$('#selectedCount').text(`${selectedIds.size} data dipilih`);$('#checkAllVisible').prop('checked',list.length>0&&list.every(x=>selectedIds.has(x.id)))}
+  function renderReport(){let q=($('#reportSearch').val()||'').toLowerCase(),s=$('#reportStatus').val(),list=owners.filter(x=>(!s||x.status===s)&&(!q||[x.nama,x.nik,x.reg].join(' ').toLowerCase().includes(q)));$('#reportTotal').text(list.length);$('#reportActive').text(list.filter(x=>x.status==='Aktif').length);$('#reportOther').text(list.filter(x=>x.status!=='Aktif').length);$('#reportTable').html(list.map((x,i)=>`<tr><td>${i+1}</td><td class="font-semibold">${esc(x.nama)}</td><td>${esc(x.nik)}</td><td>${esc(x.reg)}</td><td>${esc(x.wilayah||'-')}</td><td>${statusPill(x.status)}</td><td><span class="text-xs text-slate-500">Kartu • STNK</span></td></tr>`).join('')||'<tr><td colspan="7" class="text-center text-slate-400 py-8">Tidak ada data sesuai filter.</td></tr>')}
+  function renderAll(){renderDashboard();renderOwners();renderReport()}
+  function openModal(item){$('#ownerForm')[0].reset();$('#editId').val(item?.id||'');photoData=item?.foto||'';showPhoto(photoData);currentStep=1;showWizardStep();$('#modalTitle').text(item?'Edit Data Pemilik':'Tambah Data Pemilik');$('#fTanggal').val(item?.tanggal||today);['Nama','Nik','Tempat','Tgl','Gender','Hp','Alamat','Kelurahan','Kecamatan','Reg','Rangka','Mesin','Warna','Tahun','Wilayah','Status'].forEach(k=>{let map={Nama:'nama',Nik:'nik',Tempat:'tempat',Tgl:'tgl',Gender:'gender',Hp:'hp',Alamat:'alamat',Kelurahan:'kelurahan',Kecamatan:'kecamatan',Reg:'reg',Rangka:'rangka',Mesin:'mesin',Warna:'warna',Tahun:'tahun',Wilayah:'wilayah',Status:'status'};if(item)set('f'+k,item[map[k]])});if(!item)$('#fStatus').val('Aktif');$('#ownerModal').css('display','flex')}
+  function closeModal(){$('#ownerModal').hide()}
+  function showPhoto(src){if(src){$('#photoPreview').attr('src',src).removeClass('hidden');$('#photoPlaceholder').addClass('hidden')}else{$('#photoPreview').attr('src','').addClass('hidden');$('#photoPlaceholder').removeClass('hidden')}}
+  function showWizardStep(){
+    $('.wizard-step').addClass('hidden');$(`.wizard-step[data-step="${currentStep}"]`).removeClass('hidden');
+    $('.wizard-dot').each(function(i){$(this).toggleClass('bg-emerald-700 text-white',i+1<=currentStep).toggleClass('bg-slate-200 text-slate-500',i+1>currentStep)});
+    $('#wizardProgress').css('width',(currentStep/3*100)+'%');
+    $('#stepCaption').text(['','Langkah 1 dari 3 • Identitas Pemilik','Langkah 2 dari 3 • Data Becak Listrik','Langkah 3 dari 3 • Konfirmasi'][currentStep]);
+    $('#wizardBack').toggleClass('hidden',currentStep===1);$('#wizardNext').toggleClass('hidden',currentStep===3);$('#wizardSave').toggleClass('hidden',currentStep!==3);
+    if(currentStep===3){let d=collect();$('#wizardSummary').html([['Nama',d.nama],['NIK',d.nik],['No. Registrasi',d.reg],['No. Rangka',d.rangka||'-'],['Wilayah',d.wilayah||'-'],['Status',d.status]].map(a=>`<div class="p-3 rounded-lg bg-slate-50"><span class="text-slate-400">${a[0]}</span><br><b>${esc(a[1])}</b></div>`).join(''))}
+  }
+  function validateStep(){
+    if(currentStep===1){for(let id of ['fNama','fNik']){if(!get(id).trim()){$('#'+id).trigger('focus');alert('Lengkapi nama dan NIK terlebih dahulu.');return false}}if(!/^\d{16}$/.test(get('fNik').trim())){alert('NIK harus terdiri dari 16 digit angka.');$('#fNik').trigger('focus');return false}}
+    if(currentStep===2){if(!get('fReg').trim()){alert('Nomor registrasi wajib diisi.');$('#fReg').trigger('focus');return false}let id=get('editId');if(owners.some(x=>x.reg.toLowerCase()===get('fReg').trim().toLowerCase()&&x.id!==id)){alert('Nomor registrasi sudah digunakan.');$('#fReg').trigger('focus');return false}}
+    return true;
+  }
+  function collect(){return {foto:photoData,nama:get('fNama').trim(),nik:get('fNik').trim(),tempat:get('fTempat'),tgl:get('fTgl'),gender:get('fGender'),hp:get('fHp'),alamat:get('fAlamat'),kelurahan:get('fKelurahan'),kecamatan:get('fKecamatan'),reg:get('fReg').trim(),rangka:get('fRangka'),mesin:get('fMesin'),warna:get('fWarna'),tahun:get('fTahun'),wilayah:get('fWilayah'),status:get('fStatus'),tanggal:get('fTanggal')||today}}
+  function find(id){return owners.find(x=>x.id===id)}
+  function cardMarkup(x){return `<div class="calik-id-card">
+    <div class="id-head"><div><div class="id-brand">${esc(appSettings.appName)}</div><div class="id-sub">IDENTITAS PENGGUNA BECAK LISTRIK</div></div><div class="text-right"><div style="font-size:6pt;font-weight:800;letter-spacing:1px">KARTU IDENTITAS</div><div style="font-size:5pt;color:#c9e6d3">PROTOTYPE</div></div></div>
+    <div class="id-body"><div class="id-photo">${x.foto?`<img src="${x.foto}" alt="Foto pemilik">`:'FOTO<br>3 × 4'}</div><div class="id-info"><div class="id-name">${esc(x.nama)}</div><div class="id-line"><strong>NIK</strong> : ${esc(x.nik)}</div><div class="id-line"><strong>Wilayah</strong> : ${esc(x.wilayah||'-')}</div><div class="id-line"><strong>Status</strong> : ${esc(x.status||'Proses')}</div><div class="id-reg">${esc(x.reg)}</div></div></div>
+    <div class="id-foot"><span>Dokumen konsep • Verifikasi pada instansi penerbit</span><span class="id-seal">CALIK / BECAK LISTRIK</span></div>
+  </div>`}
+  function stnkMarkup(x){return `<div class="stnk-sheet">
+    <div class="stnk-head"><div><div class="stnk-kicker">${esc(appSettings.agency)} • CATATAN ADMINISTRASI BECAK LISTRIK</div><div class="stnk-title">SURAT TANDA NOMOR<br>KENDARAAN</div><div class="stnk-subtitle">Identitas kendaraan operasional becak listrik • Format prototype</div></div><div class="stnk-mark">${esc(appSettings.appName)}</div></div>
+    <div class="stnk-regbar"><div><div class="stnk-reglabel">Nomor Registrasi Kendaraan</div><div class="stnk-regvalue">${esc(x.reg)}</div></div><div class="prototype-stamp">DOKUMEN PROTOTYPE</div></div>
+    <div class="stnk-content">
+      <div class="stnk-section-title">A. IDENTITAS PEMILIK</div>
+      <div class="stnk-grid">
+        <div class="stnk-field"><label>Nama Pemilik</label><strong>${esc(x.nama)}</strong></div>
+        <div class="stnk-field"><label>Nomor Induk Kependudukan</label><strong>${esc(x.nik)}</strong></div>
+        <div class="stnk-field"><label>Alamat</label><strong>${esc(x.alamat||'-')}</strong></div>
+        <div class="stnk-field"><label>Wilayah Operasional</label><strong>${esc(x.wilayah||'-')}</strong></div>
+      </div>
+      <div class="stnk-section-title" style="margin-top:8mm">B. IDENTITAS KENDARAAN</div>
+      <div class="stnk-grid">
+        <div class="stnk-field"><label>Nomor Rangka / VIN</label><strong>${esc(x.rangka||'-')}</strong></div>
+        <div class="stnk-field"><label>Nomor Motor / Mesin</label><strong>${esc(x.mesin||'-')}</strong></div>
+        <div class="stnk-field"><label>Warna Kendaraan</label><strong>${esc(x.warna||'-')}</strong></div>
+        <div class="stnk-field"><label>Tahun Pengadaan</label><strong>${esc(x.tahun||'-')}</strong></div>
+        <div class="stnk-field"><label>Tanggal Pendataan</label><strong>${esc(x.tanggal||'-')}</strong></div>
+        <div class="stnk-field"><label>Status Pendataan</label><strong>${esc(x.status||'Proses')}</strong></div>
+      </div>
+    </div>
+    <div class="stnk-footer"><div class="stnk-note">Dokumen ini merupakan desain simulasi untuk prototype aplikasi CALIK. Bukan STNK resmi dan tidak dapat digunakan sebagai bukti legalitas kendaraan. Format, nomor, masa berlaku, serta pengesahan harus ditetapkan instansi berwenang.</div><div class="stnk-sign"><div>Tasikmalaya, ....................</div><div>Petugas / Pejabat Berwenang</div><div class="stnk-signline">(........................................)</div></div></div>
+  </div>`}
+  function printDoc(id,type){let x=find(id);if(!x)return;printDocs([x],type)}
+  function printDocs(list,type){
+    if(!list.length){alert('Belum ada data yang dipilih untuk dicetak.');return}
+    let html=type==='card'?`<div class="bulk-card-grid">${list.map(cardMarkup).join('')}</div>`:list.map(x=>`<div class="bulk-stnk-page">${stnkMarkup(x)}</div>`).join('');
+    $('#printArea').removeClass('hidden-page').html(html);
+    document.title=type==='card'?'Cetak Massal Kartu Becak Listrik':'Cetak Massal STNK Becak Listrik';
+    setTimeout(()=>{window.print();setTimeout(()=>{$('#printArea').addClass('hidden-page').empty();document.title='CALIK — Pendataan Becak Listrik'},700)},250);
+  }
+  function selectedOwners(){return owners.filter(x=>selectedIds.has(x.id))}
+  function loadSettings(){try{let v=JSON.parse(localStorage.getItem('calik_settings_v1')||'{}');appSettings={...appSettings,...v}}catch(e){};$('#settingAgency').val(appSettings.agency);$('#settingAppName').val(appSettings.appName);$('#settingFooter').val(appSettings.footer);$('#appFooterText').text(appSettings.footer);$('.id-head .id-brand').text(appSettings.appName)}
+  function saveSettings(){appSettings={agency:get('settingAgency').trim()||'Pemerintah Kota Tasikmalaya',appName:get('settingAppName').trim()||'CALIK',footer:get('settingFooter').trim()||'© 2026 CALIK'};localStorage.setItem('calik_settings_v1',JSON.stringify(appSettings));$('#appFooterText').text(appSettings.footer);alert('Pengaturan berhasil disimpan.')}
+  function download(name,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
+  $(function(){
+    load();loadSettings();$('#todayLabel').text(new Intl.DateTimeFormat('id-ID',{dateStyle:'full'}).format(new Date()));
+    $('#loginForm').on('submit',function(e){e.preventDefault();if(get('username')==='admin'&&get('password')==='admin123'){$('#loginScreen').addClass('hidden');$('#app').removeClass('hidden');document.body.classList.add('app-authenticated');renderAll()}else $('#loginError').removeClass('hidden')});
+    $('#logoutBtn').on('click',()=>{if(confirm('Keluar dari aplikasi?')){$('#app').addClass('hidden');$('#loginScreen').removeClass('hidden');document.body.classList.remove('app-authenticated')}});
+    $('.nav-btn,.mobile-nav-btn').on('click',function(){nav($(this).data('page'))});$('[data-goto]').on('click',function(){nav($(this).data('goto'))});
+    $('#settingForm').on('submit',function(e){e.preventDefault();saveSettings()});
+    $('#ownerTable').on('change','.owner-check',function(){let id=String(this.value);if(this.checked)selectedIds.add(id);else selectedIds.delete(id);$('#selectedCount').text(`${selectedIds.size} data dipilih`);let visible=filtered();$('#checkAllVisible').prop('checked',visible.length>0&&visible.every(x=>selectedIds.has(x.id)))});
+    $('#checkAllVisible').on('change',function(){filtered().forEach(x=>this.checked?selectedIds.add(x.id):selectedIds.delete(x.id));renderOwners()});
+    $('#selectAllBtn').on('click',()=>{filtered().forEach(x=>selectedIds.add(x.id));renderOwners()});
+    $('#clearSelectBtn').on('click',()=>{selectedIds.clear();renderOwners()});
+    $('#bulkCardBtn').on('click',()=>printDocs(selectedOwners(),'card'));
+    $('#bulkStnkBtn').on('click',()=>printDocs(selectedOwners(),'stnk'));
+    $('#printAllCards').on('click',()=>printDocs(owners,'card'));
+    $('#printAllStnk').on('click',()=>printDocs(owners,'stnk'));
+    $('#menuToggle').on('click',()=>{$('#sidebar').removeClass('-translate-x-full');$('#sidebarShade').removeClass('hidden')});$('#sidebarShade').on('click',()=>{$('#sidebar').addClass('-translate-x-full');$('#sidebarShade').addClass('hidden')});
+    $('#addBtn').on('click',()=>openModal());
+    $('#wizardNext').on('click',()=>{if(validateStep()){currentStep=Math.min(3,currentStep+1);showWizardStep()}});
+    $('#wizardBack').on('click',()=>{currentStep=Math.max(1,currentStep-1);showWizardStep()});
+    $('#fFoto').on('change',function(){let file=this.files[0];if(!file)return;if(!file.type.startsWith('image/')){alert('Pilih file gambar.');this.value='';return}if(file.size>1024*1024){alert('Ukuran foto maksimal 1 MB agar LocalStorage tidak cepat penuh.');this.value='';return}let reader=new FileReader();reader.onload=e=>{photoData=e.target.result;showPhoto(photoData)};reader.readAsDataURL(file)});
+    $('#removePhoto').on('click',()=>{photoData='';$('#fFoto').val('');showPhoto('')});$('#closeModal,#cancelModal').on('click',closeModal);$('#ownerModal').on('click',e=>{if(e.target.id==='ownerModal')closeModal()});
+    $('#ownerForm').on('submit',function(e){e.preventDefault();if(currentStep!==3)return;let d=collect(),id=get('editId');if(id){let i=owners.findIndex(x=>x.id===id);owners[i]={...owners[i],...d,updatedAt:new Date().toISOString()}}else owners.push({...d,id:'BL'+Date.now(),createdAt:new Date().toISOString()});save();closeModal()});
+    $('#ownerTable').on('click','button',function(){let x=find($(this).data('id')),act=$(this).data('action');if(!x)return;if(act==='edit')openModal(x);if(act==='card'||act==='stnk')printDoc(x.id,act);if(act==='delete'&&confirm('Hapus data '+x.nama+'? Tindakan ini tidak dapat dibatalkan.')){owners=owners.filter(y=>y.id!==x.id);selectedIds.delete(x.id);save()}});
+    $('#searchInput,#statusFilter').on('input change',renderOwners);$('#reportSearch,#reportStatus').on('input change',renderReport);
+    $('#exportBtn').on('click',()=>download('data-calik-'+today+'.json',JSON.stringify(owners,null,2),'application/json'));
+    $('#importBtn').on('click',()=>$('#importFile').click());$('#importFile').on('change',function(){let f=this.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let a=JSON.parse(r.result);if(!Array.isArray(a))throw Error();if(confirm('Impor akan mengganti seluruh data saat ini. Lanjutkan?')){owners=a;save();alert('Data berhasil diimpor.')}}catch(e){alert('File JSON tidak valid.')}this.value=''};r.readAsText(f)});
+    $('#printReport').on('click',()=>{let list=owners.filter(x=>(!get('reportStatus')||x.status===get('reportStatus'))&&(!get('reportSearch')||[x.nama,x.nik,x.reg].join(' ').toLowerCase().includes(get('reportSearch').toLowerCase())));let rows=list.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.nama)}</td><td>${esc(x.nik)}</td><td>${esc(x.reg)}</td><td>${esc(x.wilayah||'-')}</td><td>${esc(x.status)}</td></tr>`).join('');$('#printArea').removeClass('hidden-page').html(`<div style="font-family:Arial;padding:12mm;color:#111"><h2 style="text-align:center;margin:0">LAPORAN PENDATAAN BECAK LISTRIK</h2><p style="text-align:center;font-size:12px">Pemerintah Kota Tasikmalaya • Dicetak ${today}</p><p style="font-size:12px">Jumlah data: ${list.length}</p><table style="width:100%;border-collapse:collapse;font-size:11px"><thead><tr>${['No','Nama Pemilik','NIK','No. Registrasi','Wilayah','Status'].map(t=>`<th style="border:1px solid #aaa;padding:7px;background:#eee">${t}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table><p style="font-size:9px;margin-top:15px">Dokumen prototype — data bersumber dari penyimpanan lokal browser.</p></div>`);window.print();setTimeout(()=>$('#printArea').addClass('hidden-page').empty(),500)});
+    renderAll();
+  });
+})(jQuery);
+</script>
+</body>
+                                                                                                                                                                                             </html>
