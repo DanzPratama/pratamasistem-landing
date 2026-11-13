@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#18181d">
+  <title>SEV Indonesia — Sistem Pendataan Anggota</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+:root{--green-950:#101014;--green-900:#18181d;--green-800:#292930;--green-700:#b42332;--green-600:#d13a49;--green-100:#f8e9eb;--green-50:#fff7f7;--gold:#d6b7a0;--ink:#202026;--muted:#777780;--line:#ece8e9;--surface:#fff;--bg:#f6f5f5;--red:#c95151;--amber:#a96d1b;--shadow:0 16px 40px rgba(25,18,20,.08);--radius:18px}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px}button,input,textarea,select{font:inherit}button{cursor:pointer}h1,h2,h3,h4,p{margin-top:0}h1,h2,h3,h4,.brand strong,.metric-value,.auth-heading h2{font-family:'Plus Jakarta Sans',sans-serif}.hidden{display:none!important}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:700;color:var(--green-700)}
+/* Auth */.auth-shell{min-height:100vh;display:grid;grid-template-columns:minmax(340px,.88fr) 1.12fr;background:#fff}.auth-aside{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:42px 7.5%;background:radial-gradient(circle at 85% 72%,rgba(180,35,50,.28),transparent 30%),linear-gradient(145deg,#111115,#29292f 72%,#17171b);color:#fff}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:45px;height:45px;border:1px solid rgba(220,190,190,.65);border-radius:14px;display:grid;place-items:center;color:var(--gold);font:800 17px 'Plus Jakarta Sans';letter-spacing:-1px;background:rgba(255,255,255,.05)}.brand strong{display:block;font-size:13px;letter-spacing:1.2px}.brand small{display:block;font-size:10px;color:#c8bfc1;margin-top:4px;letter-spacing:.4px}.aside-copy{position:relative;z-index:1;margin:auto 0;max-width:470px;padding:65px 0}.auth-aside .eyebrow{color:#e6c5c8}.aside-copy h1{font-size:clamp(44px,5.6vw,72px);letter-spacing:-3.5px;line-height:1.1;margin:22px 0}.aside-copy h1 em{font-style:normal;color:#f0c6ca}.aside-copy p{color:#d0c9ca;font-size:15px;line-height:1.8;max-width:390px}.aside-foot{position:relative;z-index:1;color:#bdb5b7;font-size:11px;display:flex;align-items:center;gap:10px}.pulse-dot{height:7px;width:7px;background:#e45b68;border-radius:50%;box-shadow:0 0 0 5px rgba(119,213,157,.12)}.decor-ring{position:absolute;border:1px solid rgba(218,188,126,.12);border-radius:50%;pointer-events:none}.ring-one{width:490px;height:490px;right:-170px;top:15%}.ring-two{width:320px;height:320px;right:-80px;top:27%}.auth-main{display:flex;align-items:center;justify-content:center;padding:45px 7%}.auth-card-wrap{width:min(100%,510px)}.auth-mobile-brand{display:none}.auth-heading{margin-bottom:24px}.auth-heading h2{font-size:30px;letter-spacing:-1.1px;margin:10px 0 8px}.auth-heading p{color:var(--muted);margin:0;font-size:13px}.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:#f3eff0;border-radius:11px;padding:4px;margin:25px 0 24px}.auth-tab{border:0;background:transparent;padding:11px;color:#777780;border-radius:8px;font-weight:700;font-size:12px}.auth-tab.active{background:#fff;color:var(--green-800);box-shadow:0 2px 7px rgba(35,20,23,.08)}.auth-form>label,.field label{display:block;font-size:11px;font-weight:700;margin:0 0 8px;color:#46564d}.input-wrap{height:48px;border:1px solid #e8e3e4;border-radius:9px;display:flex;align-items:center;margin-bottom:18px;padding:0 13px;gap:10px}.input-wrap:focus-within,.field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:#d88b93;box-shadow:0 0 0 3px rgba(180,35,50,.09)}.input-wrap input{border:0;outline:0;flex:1;min-width:0;height:100%;font-size:13px;background:transparent}.input-icon{color:#9ba99f;font-size:17px}.password-toggle{border:0;background:transparent;color:#829088}.btn{border:0;border-radius:10px;padding:13px 17px;font-weight:700;font-size:12px;display:inline-flex;align-items:center;justify-content:center;gap:15px;transition:.18s ease}.btn-primary{color:#fff;background:var(--green-800);box-shadow:0 6px 15px rgba(180,35,50,.14)}.btn-primary:hover{background:var(--green-700);transform:translateY(-1px)}.btn-full{width:100%;margin-top:4px}.btn span{font-size:17px;font-weight:400}.demo-credentials{margin-top:20px;background:#f7f3f4;border:1px solid #ece8e9;border-radius:10px;padding:12px;display:flex;gap:11px}.demo-icon{width:28px;height:28px;flex:0 0 auto;display:grid;place-items:center;border-radius:8px;background:#f8e9eb;color:var(--green-700)}.demo-credentials b{font-size:11px}.demo-credentials span{display:block;color:#777780;font-size:10px;margin-top:4px}.copy-login,.auth-switch-note button{border:0;background:none;color:var(--green-700);font-weight:700;font-size:10px;padding:0;margin-left:5px}.auth-bottom-note{text-align:center;color:#a1aaa4;font-size:10px;margin:27px 0 0}.register-form{max-height:calc(100vh - 230px);overflow:auto;padding:0 5px 3px 0}.register-intro{display:flex;align-items:center;justify-content:space-between;margin:-6px 0 18px}.step-pill{font-size:9px;letter-spacing:1px;font-weight:800;color:var(--green-800);background:var(--green-100);padding:7px 10px;border-radius:30px}.required-note{font-size:10px;color:#9aa59e}.form-section-title{display:flex;gap:11px;align-items:center;margin:17px 0 12px}.form-section-title>span{width:26px;height:26px;border-radius:8px;background:#f8edef;color:var(--green-700);display:grid;place-items:center;font-size:10px;font-weight:800}.form-section-title b{font-size:12px;display:block}.form-section-title small{font-size:10px;color:#929e96;display:block;margin-top:3px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{min-width:0}.field label i{color:var(--red);font-style:normal}.field input,.field select,.field textarea{width:100%;border:1px solid #e8e3e4;border-radius:8px;background:#fff;padding:11px 12px;color:#314238;font-size:11px;min-height:39px}.field textarea{resize:vertical}.field input[readonly]{background:#f7f3f4;color:#839189}.field-help{font-size:9px;color:#8c9991;display:block;margin-top:5px;line-height:1.4}.field-span{grid-column:1/-1}.check-line{display:flex!important;align-items:flex-start;gap:9px;margin:16px 0 13px!important;font-size:10px!important;line-height:1.6;font-weight:500!important;color:#718078!important}.check-line input{accent-color:var(--green-700);margin-top:2px}.auth-switch-note{text-align:center;color:#87938b;font-size:11px;margin:13px 0}.auth-switch-note button{font-size:11px}
+/* App shell */.app-shell{min-height:100vh}.sidebar{position:fixed;z-index:20;left:0;top:0;bottom:0;width:248px;background:var(--green-950);color:#fff;display:flex;flex-direction:column;padding:25px 17px 15px}.sidebar-brand{padding:0 7px 34px}.sidebar-brand .brand-mark{width:39px;height:39px;border-radius:12px}.sidebar-brand strong{font-size:11px}.sidebar-brand small{font-size:9px}.workspace-label{font-size:9px;letter-spacing:1.5px;color:#769486;font-weight:700;padding:0 12px 13px}.side-nav{display:flex;flex-direction:column;gap:5px}.nav-item{position:relative;display:flex;gap:12px;align-items:center;width:100%;text-align:left;color:#a7beb2;border:0;background:transparent;padding:12px;border-radius:9px;font-size:11px;font-weight:600;transition:.15s}.nav-item:hover{background:rgba(255,255,255,.06);color:#fff}.nav-item.active{background:#29292f;color:#fff}.nav-item.active:before{content:"";position:absolute;left:-17px;width:3px;height:24px;border-radius:0 4px 4px 0;background:#d8b977}.nav-symbol{width:18px;text-align:center;font-size:15px;opacity:.9}.nav-count{margin-left:auto;background:#d8b977;color:#29292f;border-radius:20px;min-width:19px;height:19px;display:grid;place-items:center;font-size:9px;font-weight:800}.sidebar-bottom{margin-top:auto}.sidebar-help{display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.1);border-radius:11px;padding:11px;margin:0 0 15px}.help-icon{width:26px;height:26px;border-radius:8px;background:rgba(255,255,255,.09);display:grid;place-items:center;color:#d6b7a0}.sidebar-help b{display:block;font-size:10px}.sidebar-help small{display:block;color:#8aa697;font-size:9px;margin-top:4px}.sidebar-user{display:flex;align-items:center;gap:9px;border-top:1px solid rgba(255,255,255,.11);padding:15px 3px 0}.avatar,.topbar-avatar{width:32px;height:32px;border-radius:50%;background:#f3e5e7;color:var(--green-900);display:grid;place-items:center;font-size:10px;font-weight:800;flex:0 0 auto}.sidebar-user-info{min-width:0;flex:1}.sidebar-user-info b{display:block;font-size:10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.sidebar-user-info small{display:block;color:#91ad9e;font-size:9px;margin-top:3px}.icon-btn{border:0;background:transparent;color:inherit;font-size:17px;position:relative}.logout-btn{color:#9eb6a8;font-size:17px}.app-main{margin-left:248px;min-height:100vh;display:flex;flex-direction:column}.topbar{height:82px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;position:sticky;top:0;z-index:10}.topbar-left{display:flex;align-items:center;gap:12px}.breadcrumb{font-size:9px;color:#9aa59e;letter-spacing:.7px;margin-bottom:5px}.breadcrumb span{padding:0 7px;color:#c0c9c3}.breadcrumb b{font-weight:600;color:#78877e}.topbar h2{font-size:18px;margin:0;letter-spacing:-.5px}.topbar-right{display:flex;align-items:center;gap:20px}.today-label{font-size:10px;color:#8b988f}.notification-btn{font-size:18px;color:#67756c}.notification-btn i{position:absolute;width:5px;height:5px;background:#c78b91;border-radius:50%;right:1px;top:1px;border:1px solid white}.topbar-avatar{width:34px;height:34px}.mobile-menu{display:none}.page-content{padding:29px 34px 35px;flex:1;max-width:1600px;width:100%;margin:0 auto}.app-footer{display:flex;justify-content:space-between;padding:14px 34px;border-top:1px solid var(--line);color:#a0aaa3;font-size:9px}.app-footer b{padding:0 5px;color:#c78b91}
+/* Dashboard + components */.welcome-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:23px}.welcome-row h3{font-size:20px;letter-spacing:-.7px;margin:0 0 5px}.welcome-row p{font-size:11px;color:#8a978f;margin:0}.welcome-actions{display:flex;gap:8px}.btn-outline{border:1px solid #dce6df;background:#fff;color:#496052}.btn-soft{background:#eaf5ee;color:var(--green-800)}.btn-sm{padding:10px 13px;font-size:10px}.metrics-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:19px}.metric-card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px 17px 15px;min-height:119px;box-shadow:0 4px 12px rgba(21,57,37,.02)}.metric-top{display:flex;align-items:center;justify-content:space-between;color:#8b9990;font-size:10px}.metric-icon{width:30px;height:30px;border-radius:9px;background:#f8edef;color:var(--green-700);display:grid;place-items:center;font-size:15px}.metric-value{font-size:27px;font-weight:800;letter-spacing:-1px;margin:10px 0 4px}.metric-foot{font-size:9px;color:#9aa59e}.metric-foot strong{color:var(--green-700)}.content-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(250px,.85fr);gap:16px;margin-bottom:17px}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.panel-head h4{font-size:12px;margin:0}.panel-head p{font-size:9px;color:#9aa59e;margin:5px 0 0}.text-link{border:0;background:transparent;color:var(--green-700);font-size:10px;font-weight:700}.chart-wrap{height:200px;display:flex;align-items:flex-end;gap:13px;padding:10px 5px 23px;border-bottom:1px solid #f0eded;position:relative}.chart-col{height:100%;flex:1;display:flex;align-items:flex-end;justify-content:center;gap:4px;position:relative}.chart-bar{width:min(17px,35%);border-radius:5px 5px 2px 2px;background:#b7d9c3;min-height:4px}.chart-bar.second{background:#a91f2d}.chart-label{position:absolute;bottom:-20px;font-size:9px;color:#98a49c}.chart-legend{display:flex;gap:15px;margin-top:13px;color:#87948b;font-size:9px}.legend-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;background:#b7d9c3}.legend-dot.dark{background:#a91f2d}.chapter-list{display:flex;flex-direction:column;gap:15px}.chapter-row{display:grid;grid-template-columns:82px 1fr 28px;align-items:center;gap:9px}.chapter-row span{font-size:10px;color:#65746a}.progress{height:6px;background:#edf2ee;border-radius:9px;overflow:hidden}.progress i{display:block;height:100%;border-radius:9px;background:#39986a}.chapter-row b{text-align:right;font-size:10px}.table-panel{padding:0;overflow:hidden}.table-panel .panel-head{padding:17px 18px 12px;margin:0}.table-wrap{overflow:auto}.data-table{width:100%;border-collapse:collapse;white-space:nowrap}.data-table th{text-align:left;background:#f8faf8;color:#96a198;text-transform:uppercase;letter-spacing:.7px;font-size:8px;font-weight:700;padding:11px 15px;border-top:1px solid #f0eded;border-bottom:1px solid #f0eded}.data-table td{padding:12px 15px;border-bottom:1px solid #f0f3f1;font-size:10px;color:#59685f}.data-table tr:last-child td{border-bottom:0}.member-cell{display:flex;align-items:center;gap:9px}.mini-avatar{width:29px;height:29px;background:#eaf4ee;color:#276b49;border-radius:9px;display:grid;place-items:center;font-size:9px;font-weight:800}.member-cell b{font-size:10px;color:#273b2f;display:block}.member-cell small{display:block;font-size:9px;color:#9aa59e;margin-top:3px}.status{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:30px;font-size:8px;font-weight:700}.status:before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor}.status.approved{background:#e8f5ed;color:#25804e}.status.pending{background:#fff4df;color:#ae781f}.status.rejected{background:#fcecec;color:#c15353}.status.candidate{background:#f0ecfb;color:#7256a7}.row-actions{display:flex;gap:5px}.mini-btn{border:1px solid #e5ece7;background:#fff;color:#63746a;border-radius:6px;padding:5px 7px;font-size:9px}.mini-btn:hover{border-color:#9bc9ad;color:var(--green-700)}.empty-state{text-align:center;padding:35px 20px;color:#93a097;font-size:11px}.empty-state b{display:block;color:#53665a;margin-bottom:5px}.table-tools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 14px}.search-box{border:1px solid #e8e3e4;background:#fff;border-radius:8px;padding:0 11px;height:37px;display:flex;align-items:center;gap:8px;min-width:220px}.search-box span{color:#98a59c}.search-box input{border:0;outline:0;background:transparent;min-width:0;font-size:10px;width:100%}.filter-select{border:1px solid #e8e3e4;background:#fff;border-radius:8px;height:37px;padding:0 10px;font-size:10px;color:#607067}.tool-group{display:flex;gap:8px;flex-wrap:wrap}.pagination{display:flex;align-items:center;justify-content:space-between;padding:13px 17px;color:#98a49c;font-size:9px;border-top:1px solid #f0f3f1}.page-buttons{display:flex;gap:5px}.page-button{border:1px solid #e4ebe6;background:#fff;border-radius:6px;color:#65756a;padding:5px 9px;font-size:9px}.page-button.active{background:var(--green-800);color:#fff;border-color:var(--green-800)}
+/* Member pages */.profile-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(250px,.75fr);gap:16px}.profile-card{padding:22px}.profile-hero{display:flex;align-items:center;gap:14px;padding-bottom:19px;border-bottom:1px solid var(--line);margin-bottom:18px}.profile-big-avatar{width:58px;height:58px;border-radius:17px;background:#e6f3eb;color:#226d49;display:grid;place-items:center;font-size:17px;font-weight:800}.profile-hero h3{font-size:16px;margin:0 0 5px}.profile-hero p{font-size:10px;color:#8e9b92;margin:0}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px 20px}.detail-item small{font-size:9px;color:#9aa69e;display:block;margin-bottom:6px}.detail-item b{font-size:11px;color:#3b4d42;font-weight:600;overflow-wrap:anywhere}.notice{border-radius:11px;padding:13px 14px;font-size:10px;line-height:1.6;margin-bottom:15px}.notice.info{background:#eff6f1;color:#557461;border:1px solid #e1eee5}.notice.warning{background:#fff7e9;color:#98702d;border:1px solid #f6ead0}.candidate-list{display:flex;flex-direction:column;gap:10px}.candidate-check{display:flex;gap:10px;align-items:flex-start;border:1px solid #e9efeb;padding:12px;border-radius:9px;color:#627168;font-size:10px;line-height:1.55}.candidate-check input{accent-color:var(--green-700);margin-top:2px}.candidate-check b{color:#4d5f54}.form-card .field{margin-bottom:12px}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.settings-item{border:1px solid var(--line);border-radius:10px;padding:15px}.settings-item b{display:block;font-size:11px;margin-bottom:5px}.settings-item p{color:#8e9a92;font-size:9px;line-height:1.6;margin:0 0 10px}.modal-host{position:fixed;inset:0;z-index:50;pointer-events:none}.modal-backdrop{position:absolute;inset:0;background:rgba(8,27,18,.55);display:grid;place-items:center;padding:20px;pointer-events:auto;backdrop-filter:blur(3px)}.modal{background:#fff;width:min(100%,620px);max-height:90vh;overflow:auto;border-radius:16px;box-shadow:0 24px 80px rgba(0,0,0,.2)}.modal-head{display:flex;align-items:center;justify-content:space-between;padding:19px 21px;border-bottom:1px solid var(--line)}.modal-head h3{font-size:15px;margin:0}.modal-close{border:0;background:#f3eff0;border-radius:7px;width:28px;height:28px;color:#627269}.modal-body{padding:20px}.modal-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}.modal-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.modal-form-grid .field-span{grid-column:1/-1}.toast-host{position:fixed;right:20px;top:20px;z-index:100;display:flex;flex-direction:column;gap:8px}.toast{background:#123d2b;color:#fff;padding:12px 16px;border-radius:9px;box-shadow:var(--shadow);font-size:11px;animation:toastIn .2s ease}.toast.error{background:#9d3838}.toast.warning{background:#95691f}@keyframes toastIn{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}.mobile-overlay{display:none}
+@media(max-width:1100px){.metrics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.content-grid{grid-template-columns:1fr}.auth-shell{grid-template-columns:.78fr 1.22fr}.auth-aside{padding-left:8%;padding-right:8%}.aside-copy h1{font-size:54px}}
+@media(max-width:760px){.auth-shell{display:block}.auth-aside{display:none}.auth-main{min-height:100vh;padding:27px 20px;align-items:flex-start}.auth-mobile-brand{display:flex;margin-bottom:35px}.auth-heading h2{font-size:27px}.register-form{max-height:none;overflow:visible}.form-grid{grid-template-columns:1fr}.field-span{grid-column:auto}.sidebar{transform:translateX(-100%);transition:transform .22s ease;width:265px}.sidebar.open{transform:translateX(0)}.mobile-overlay.show{display:block;position:fixed;inset:0;background:rgba(8,27,18,.38);z-index:15}.app-main{margin-left:0}.topbar{height:70px;padding:0 17px}.mobile-menu{display:block;color:#40564a}.topbar h2{font-size:16px}.topbar-right{gap:12px}.today-label{display:none}.page-content{padding:22px 16px 28px}.app-footer{padding:13px 16px;font-size:8px}.welcome-row{align-items:flex-start;gap:12px;flex-direction:column}.welcome-row h3{font-size:18px}.metrics-grid{gap:9px}.metric-card{padding:13px;min-height:108px}.metric-value{font-size:23px}.metric-top{font-size:9px}.metric-icon{width:27px;height:27px}.panel{padding:14px}.content-grid{gap:11px}.table-tools{align-items:stretch;flex-direction:column}.search-box{width:100%}.tool-group{width:100%}.tool-group .btn{flex:1}.profile-grid{grid-template-columns:1fr}.settings-grid{grid-template-columns:1fr}.app-footer span:last-child{display:none}.modal-backdrop{padding:10px}.modal-form-grid{grid-template-columns:1fr}.modal-form-grid .field-span{grid-column:auto}}
+@media(max-width:420px){.metrics-grid{grid-template-columns:1fr 1fr}.metric-value{font-size:21px}.topbar-avatar{width:30px;height:30px}.notification-btn{display:none}.detail-grid{grid-template-columns:1fr}.welcome-actions{width:100%}.welcome-actions .btn{flex:1}.chart-wrap{gap:7px}.chart-bar{width:35%}}
+/* Member card preview */
+.sev-member-card{width:min(100%,520px);min-height:250px;margin:10px auto 0;padding:24px 26px;border-radius:18px;color:#fff;background:radial-gradient(circle at 90% 10%,rgba(255,255,255,.16),transparent 32%),linear-gradient(125deg,#18181d,#a91f2d);box-shadow:0 18px 38px rgba(16,61,43,.2);display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}.sev-member-card:after{content:"";position:absolute;width:220px;height:220px;border:1px solid #ffffff22;border-radius:50%;right:-65px;bottom:-130px;box-shadow:0 0 0 22px #ffffff08,0 0 0 48px #ffffff06}.sev-card-top,.sev-card-body,.sev-card-foot{display:flex;align-items:center;position:relative;z-index:1}.sev-card-top{gap:11px}.sev-card-logo{font-size:19px;font-weight:800;border:1px solid #ffffff88;border-radius:9px;padding:7px 9px}.sev-card-top b{font-size:12px;letter-spacing:1px;display:block}.sev-card-top small{font-size:8px;opacity:.7;letter-spacing:1.2px}.sev-card-chip{margin-left:auto;font-size:8px;letter-spacing:1px;border:1px solid #ffffff66;padding:6px 9px;border-radius:20px}.sev-card-body{justify-content:space-between;margin:20px 0}.sev-card-body small{display:block;font-size:8px;opacity:.7;letter-spacing:1px;margin:8px 0 4px}.sev-card-body b,.sev-card-body strong{font-size:13px;letter-spacing:.3px}.sev-card-avatar{width:64px;height:72px;border-radius:11px;background:#ffffff20;border:1px solid #ffffff66;display:grid;place-items:center;font-size:21px;font-weight:800}.sev-card-foot{justify-content:space-between;border-top:1px solid #ffffff55;padding-top:12px;font-size:8px;letter-spacing:1px}.field-help{font-size:9px;color:#89968e;line-height:1.5}
+@media(max-width:520px){.sev-member-card{padding:19px;min-height:220px}.sev-card-avatar{width:54px;height:62px}}
+
+
+/* Member experience: Android-style mobile app, separate from admin workspace */
+.member-bottom-nav{display:none}
+.app-shell.member-mode{background:#f5f7f5;min-height:100dvh}
+.member-mode .sidebar{display:none}
+.member-mode .app-main{margin-left:0;min-height:100dvh;padding-bottom:88px}
+.member-mode .topbar{height:68px;padding:0 max(18px,calc((100vw - 680px)/2));border:0;background:#f5f7f5;position:sticky;top:0}
+.member-mode .topbar-left{gap:0}.member-mode .mobile-menu,.member-mode .breadcrumb{display:none}
+.member-mode .topbar h2{font-size:17px;font-weight:800;color:#173d2b}
+.member-mode .topbar-right{gap:10px}.member-mode .today-label,.member-mode .notification-btn{display:none}
+.member-mode .topbar-avatar{width:38px;height:38px;background:#dceee2;font-size:12px}
+.member-mode .page-content{max-width:680px;padding:13px 17px 30px}
+.member-mode .app-footer{display:none}
+.member-bottom-nav{position:fixed;z-index:30;bottom:0;left:0;right:0;height:calc(68px + env(safe-area-inset-bottom));padding:7px 9px calc(7px + env(safe-area-inset-bottom));background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-top:1px solid #e7eee8;display:none;grid-template-columns:repeat(5,1fr);box-shadow:0 -7px 25px rgba(23,61,43,.07)}
+.member-mode .member-bottom-nav{display:grid}
+.member-bottom-nav button{border:0;background:transparent;color:#89978e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:9px;font-weight:700;border-radius:12px}
+.member-bottom-nav button .bottom-icon{font-size:20px;line-height:1.1}
+.member-bottom-nav button.active{color:#17623e;background:#edf6ef}
+.member-mode .welcome-row{margin-bottom:15px}
+.member-home-hero{background:linear-gradient(135deg,#18181d,#1e704b);color:#fff;border-radius:22px;padding:22px 20px;margin-bottom:15px;box-shadow:0 12px 25px rgba(16,61,43,.13);position:relative;overflow:hidden}
+.member-home-hero:after{content:"";position:absolute;width:190px;height:190px;border:1px solid #ffffff20;border-radius:50%;right:-75px;top:-90px;box-shadow:0 0 0 22px #ffffff08,0 0 0 46px #ffffff06}
+.member-home-hero .eyebrow{font-size:10px;color:#c6dfcf;letter-spacing:1.2px;font-weight:700}
+.member-home-hero h3{font-size:23px;letter-spacing:-.8px;margin:8px 0 5px;position:relative;z-index:1}
+.member-home-hero p{font-size:11px;color:#d1e3d7;margin:0;position:relative;z-index:1}
+.member-id-strip{display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:14px;border-top:1px solid #ffffff35;position:relative;z-index:1}
+.member-id-strip small{display:block;color:#c2ddcd;font-size:8px;letter-spacing:1px;margin-bottom:4px}.member-id-strip b{font-size:12px;letter-spacing:.4px}
+.member-status-pill{background:#ffffff1c;border:1px solid #ffffff55;border-radius:30px;padding:7px 10px;font-size:9px;font-weight:800}
+.member-quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0 20px}
+.member-quick{border:1px solid #ece8e9;background:#fff;border-radius:16px;padding:15px 9px;text-align:center;color:#315440;box-shadow:0 3px 12px rgba(24,64,42,.03)}
+.member-quick .quick-icon{width:38px;height:38px;margin:0 auto 9px;border-radius:13px;background:#edf6ef;color:#216844;display:grid;place-items:center;font-size:19px}
+.member-quick b{display:block;font-size:10px}.member-quick small{display:block;color:#96a198;font-size:8px;margin-top:4px}
+.member-section-head{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 10px}.member-section-head h4{font-size:13px;margin:0;color:#243d2e}.member-section-head button{border:0;background:none;color:#24734b;font-size:10px;font-weight:800}
+.member-info-card{background:#fff;border:1px solid #ece8e9;border-radius:16px;padding:15px;box-shadow:0 3px 12px rgba(24,64,42,.025)}
+.member-info-row{display:flex;align-items:center;gap:11px}.member-info-row .avatar{width:42px;height:42px;font-size:12px}.member-info-row b{display:block;font-size:12px}.member-info-row small{display:block;color:#8c9a91;font-size:9px;margin-top:4px}
+.member-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:15px;padding-top:14px;border-top:1px solid #eef2ee}.member-info-grid small{display:block;color:#98a49c;font-size:8px;margin-bottom:4px}.member-info-grid b{font-size:10px;color:#40594a}
+.member-mode .notice{border-radius:14px;font-size:10px;line-height:1.6}
+.member-mode .panel{border-radius:16px;box-shadow:0 3px 12px rgba(24,64,42,.025)}
+.member-mode .panel-head h4{font-size:13px}.member-mode .panel-head p{font-size:9px}
+@media(min-width:761px){.member-mode .page-content{padding-top:24px}.member-mode .member-bottom-nav{max-width:520px;left:50%;right:auto;transform:translateX(-50%);border:1px solid #e7eee8;border-bottom:0;border-radius:18px 18px 0 0}}
+@media(max-width:760px){.member-mode .page-content{padding:10px 15px 24px}.member-mode .topbar{height:62px;padding:0 17px}.member-mode .app-main{padding-bottom:calc(78px + env(safe-area-inset-bottom))}.member-mode .welcome-row{flex-direction:row;align-items:center}.member-mode .welcome-actions{width:auto}.member-mode .member-home-hero{padding:20px 18px}.member-mode .metrics-grid{grid-template-columns:1fr 1fr}.member-mode .profile-grid{grid-template-columns:1fr}.member-mode .member-bottom-nav{height:calc(66px + env(safe-area-inset-bottom))}}
+
+/* FIX: member area behaves like a standalone Android app */
+.member-mode .sidebar{display:none!important}
+.member-mode .app-main{margin-left:0!important}
+.member-mode .mobile-menu{display:none!important}
+.member-mode .topbar{padding-left:18px;padding-right:18px}
+.member-mode .breadcrumb{display:none}
+.member-mode .member-bottom-nav{display:grid}
+.member-mode .page-content{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+.member-mode .member-bottom-nav button{min-width:0;cursor:pointer;touch-action:manipulation}
+.member-mode .member-bottom-nav button:focus-visible{outline:2px solid #b42332;outline-offset:2px}
+@media(max-width:760px){.member-mode .page-content{padding-bottom:calc(94px + env(safe-area-inset-bottom))}.member-mode .member-bottom-nav{left:0;right:0;max-width:none;transform:none;border-radius:16px 16px 0 0}}
+</style>
+<style>
+
+/* SEV FINAL EXPERIENCE — deep charcoal / crimson mobile member app */
+.member-logout-btn{display:none;align-items:center;gap:6px;border:1px solid #b42332;background:#b42332;color:#fff;border-radius:999px;padding:8px 12px;font-size:10px;font-weight:800;box-shadow:0 5px 14px rgba(180,35,50,.18);transition:transform .2s ease,background .2s ease}
+.member-logout-btn span:first-child{font-size:15px;line-height:1}
+.member-mode #memberLogoutBtn{display:inline-flex}
+.member-logout-btn:hover{background:#941b29;transform:translateY(-1px)}
+.member-home-hero{background:radial-gradient(circle at 90% 5%,rgba(190,35,53,.34),transparent 38%),linear-gradient(135deg,#111115 0%,#242329 58%,#711b29 120%);box-shadow:0 14px 30px rgba(25,10,15,.18);animation:sevRise .42s ease both}
+.member-home-hero .eyebrow{color:#f0aab2}
+.member-home-hero p{color:#d6cbd0}
+.member-id-strip small{color:#d8bfc4}
+.member-status-pill{background:rgba(180,35,50,.24);border-color:rgba(255,190,198,.42)}
+.member-card-cta{width:100%;min-height:104px;display:flex;align-items:center;gap:15px;text-align:left;padding:17px 18px;margin:0 0 16px;border:1px solid rgba(255,255,255,.12);border-radius:19px;color:#fff;background:radial-gradient(circle at 95% 0%,rgba(214,58,73,.5),transparent 42%),linear-gradient(120deg,#111115,#25232a 65%,#741c2a);box-shadow:0 13px 28px rgba(18,10,15,.2);position:relative;overflow:hidden;cursor:pointer;transition:transform .22s ease,box-shadow .22s ease}
+.member-card-cta:after{content:"";position:absolute;top:-90%;left:-35%;width:24%;height:280%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.09),transparent);transform:rotate(24deg);animation:sevSheen 7s ease-in-out infinite;pointer-events:none}
+.member-card-cta:active{transform:scale(.985)}
+.member-card-cta-icon{width:58px;height:58px;flex:0 0 58px;display:grid;place-items:center;border-radius:17px;background:linear-gradient(145deg,#d83d4d,#8f1c2a);border:1px solid rgba(255,255,255,.23);font-size:29px;box-shadow:0 7px 18px rgba(0,0,0,.2)}
+.member-card-cta-copy{display:flex;flex-direction:column;gap:4px;min-width:0;position:relative;z-index:1}
+.member-card-cta-copy small{font-size:8px;letter-spacing:1.35px;color:#f1b5bc;font-weight:800}
+.member-card-cta-copy b{font:800 17px 'Plus Jakarta Sans',sans-serif;letter-spacing:-.3px}
+.member-card-cta-copy em{font-size:10px;color:#d4cbd0;font-style:normal}
+.member-card-cta-arrow{margin-left:auto;font-size:24px;color:#ffdce0;position:relative;z-index:1}
+.member-quick{transition:transform .2s ease,border-color .2s ease,background .2s ease}
+.member-quick:active{transform:scale(.97)}
+.member-bottom-nav{background:rgba(17,17,21,.94);border-top:1px solid #373139;box-shadow:0 -8px 26px rgba(0,0,0,.24);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.member-bottom-nav button{color:#aaa2a7;transition:color .2s ease,background .2s ease,transform .2s ease}
+.member-bottom-nav button.active{color:#fff;background:rgba(180,35,50,.2)}
+.member-bottom-nav button.active .bottom-icon{color:#ff8792;transform:translateY(-1px)}
+.member-bottom-nav button .bottom-icon{transition:transform .2s ease,color .2s ease}
+@keyframes sevRise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sevSheen{0%,68%,100%{left:-35%;opacity:0}74%{opacity:1}88%{left:120%;opacity:0}}
+@media(max-width:760px){
+  .member-mode,.member-mode .app-main{background:#101014;color:#f5f0f2}
+  .member-mode{--ink:#f5f0f2;--muted:#aaa1a7;--line:#343038;--surface:#1b1a20;--bg:#101014}
+  .member-mode .topbar{background:rgba(16,16,20,.96);border-bottom:1px solid #2b272e}
+  .member-mode .topbar h2{color:#fff}
+  .member-mode .topbar-avatar{background:#29242b;color:#fff;border:1px solid #49343a}
+  .member-mode .page-content{color:#f5f0f2;padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+  .member-mode .welcome-row h3,.member-mode .member-section-head h4{color:#fff}
+  .member-mode .welcome-row p,.member-mode .field-help{color:#aaa1a7}
+  .member-mode .member-info-card,.member-mode .member-quick,.member-mode .panel,.member-mode .settings-item,.member-mode .candidate-check{background:#1b1a20;border-color:#343038;color:#f3edf0;box-shadow:0 6px 20px rgba(0,0,0,.16)}
+  .member-mode .member-quick{color:#f4edf0}
+  .member-mode .member-quick .quick-icon{background:#3a2028;color:#ff8491}
+  .member-mode .member-quick small,.member-mode .member-info-row small,.member-mode .member-info-grid small{color:#a69ba2}
+  .member-mode .member-info-grid{border-color:#353039}
+  .member-mode .member-info-grid b,.member-mode .detail-item b,.member-mode .candidate-check b{color:#eee5e9}
+  .member-mode .detail-item small,.member-mode .panel-head p{color:#a69ba2}
+  .member-mode .panel-head h4{color:#fff}
+  .member-mode .field label,.member-mode .auth-form>label{color:#e2d9de}
+  .member-mode .field input,.member-mode .field select,.member-mode .field textarea,.member-mode .search-box,.member-mode .filter-select{background:#121216;border-color:#3a343d;color:#f4edf0}
+  .member-mode .field input::placeholder,.member-mode .field textarea::placeholder{color:#716971}
+  .member-mode .notice.info{background:#241b22;color:#e0cbd1;border-color:#4c2a34}
+  .member-mode .notice.warning{background:#2b211b;color:#f0d4b0;border-color:#57402a}
+  .member-mode .table-wrap{background:#1b1a20}
+  .member-mode .data-table th{background:#242229;color:#c5b9c0;border-color:#39333c}
+  .member-mode .data-table td{color:#e7dfe3;border-color:#343038}
+  .member-mode .empty-state,.member-mode .empty-state b{color:#bdb1b8}
+  .member-mode .btn-outline{background:#242128;border-color:#49414a;color:#eee6ea}
+  .member-mode .modal{background:#1b1a20;color:#f5f0f2}
+  .member-mode .modal-head,.member-mode .modal-foot{border-color:#373139}
+  .member-mode .modal-close{background:#302a32;color:#eee}
+  .member-mode .member-bottom-nav{height:calc(72px + env(safe-area-inset-bottom));padding:8px 9px calc(8px + env(safe-area-inset-bottom))}
+  .member-mode .member-bottom-nav button{font-size:9px}
+  .member-mode .member-card-cta{min-height:112px;margin:3px 0 17px}
+  .member-mode .member-card-cta-icon{width:62px;height:62px;flex-basis:62px}
+  .member-mode .sev-member-card{background:radial-gradient(circle at 90% 10%,rgba(255,255,255,.13),transparent 32%),linear-gradient(125deg,#111115,#8e1b2b);box-shadow:0 18px 40px rgba(0,0,0,.38)}
+  .member-mode .sev-member-card,.member-mode .member-home-hero,.member-mode .member-card-cta{animation:sevRise .38s ease both}
+  .member-mode .status.approved{background:#173b2c;color:#9ce2b9}
+  .member-mode .status.pending{background:#3a2c1b;color:#f3ce86}
+  .member-mode .status.rejected{background:#452129;color:#ff9da7}
+}
+@media(prefers-reduced-motion:reduce){.member-home-hero,.member-card-cta,.member-bottom-nav button,.member-quick{animation:none!important;transition:none!important}.member-card-cta:after{animation:none!important}}
+
+</style>
+
+<style>
+/* Centered mobile member-card action and balanced two-shortcut layout */
+.member-mode .member-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:760px){
+ .member-mode .member-card-cta{min-height:150px;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:9px;padding:17px 48px;margin:5px 0 18px}
+ .member-mode .member-card-cta-icon{width:55px;height:55px;flex-basis:55px;border-radius:16px;font-size:27px}
+ .member-mode .member-card-cta-copy{align-items:center}
+ .member-mode .member-card-cta-copy b{font-size:18px}
+ .member-mode .member-card-cta-arrow{position:absolute;right:19px;top:50%;transform:translateY(-50%)}
+ .member-mode .topbar-right{gap:7px}
+ .member-mode .member-logout-btn{padding:8px 10px;font-size:9px}
+}
+</style>
+
+
+<style>
+/* CENTER CARD ACTION — JKN-inspired raised action in bottom navigation */
+.member-bottom-nav{grid-template-columns:repeat(5,minmax(0,1fr));align-items:end;height:calc(82px + env(safe-area-inset-bottom));padding:7px 10px calc(7px + env(safe-area-inset-bottom));overflow:visible}
+.member-bottom-nav button{position:relative;min-width:0;height:58px;gap:4px;justify-content:center;background:transparent!important;border-radius:0!important}
+.member-bottom-nav button .bottom-icon{display:grid;place-items:center;width:27px;height:27px;font-size:21px;line-height:1}
+.member-bottom-nav button .bottom-label{font-size:9px;line-height:1.1;white-space:nowrap}
+.member-bottom-nav button.active{color:#ff8d98;background:transparent!important}
+.member-bottom-nav button.active .bottom-icon{color:#ff8d98}
+.member-bottom-nav button.nav-card-action{height:76px;justify-content:flex-end;gap:0;transform:translateY(-7px);z-index:2}
+.member-bottom-nav button.nav-card-action .bottom-icon{width:61px;height:61px;flex:0 0 61px;border-radius:50%;font-size:29px;color:#fff;background:linear-gradient(145deg,#df4656 0%,#a61e30 72%,#741725 100%);border:4px solid #101014;box-shadow:0 7px 20px rgba(180,35,50,.38),0 2px 6px rgba(0,0,0,.35);transition:transform .2s ease,box-shadow .2s ease}
+.member-bottom-nav button.nav-card-action .bottom-label{position:absolute;bottom:-1px;left:0;right:0;text-align:center;color:#c9c0c4;font-weight:800;font-size:9px}
+.member-bottom-nav button.nav-card-action.active .bottom-icon{color:#fff;box-shadow:0 8px 23px rgba(210,58,73,.48),0 0 0 2px rgba(255,135,146,.18)}
+.member-bottom-nav button.nav-card-action.active .bottom-label{color:#fff}
+.member-bottom-nav button.nav-card-action:active .bottom-icon{transform:scale(.94)}
+.member-mode .page-content{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+@media(min-width:761px){.member-mode .member-bottom-nav{height:calc(88px + env(safe-area-inset-bottom));padding-top:8px}.member-bottom-nav button.nav-card-action{transform:translateY(-8px)}}
+@media(max-width:760px){
+ .member-mode .member-bottom-nav{height:calc(82px + env(safe-area-inset-bottom));padding:7px 8px calc(7px + env(safe-area-inset-bottom));border-radius:19px 19px 0 0}
+ .member-mode .member-bottom-nav button{height:58px}
+ .member-mode .member-bottom-nav button.nav-card-action{height:76px;transform:translateY(-7px)}
+ .member-mode .member-bottom-nav button.nav-card-action .bottom-icon{width:64px;height:64px;flex-basis:64px;font-size:30px}
+ .member-mode .member-bottom-nav button .bottom-label{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){.member-bottom-nav button,.member-bottom-nav button .bottom-icon{transition:none!important}}
+</style>
+
+</head>
+<body>
+  <div id="toastHost" class="toast-host" aria-live="polite"></div>
+
+  <!-- AUTH -->
+  <main id="authView" class="auth-shell">
+    <section class="auth-aside">
+      <div class="brand brand-light">
+        <div class="brand-mark">SEV</div>
+        <div><strong>SEV INDONESIA</strong><small>Member Management System</small></div>
+      </div>
+      <div class="aside-copy">
+        <span class="eyebrow">SATU KOMUNITAS · SATU KELUARGA</span>
+        <h1>Terhubung,<br><em>bertumbuh</em><br>bersama.</h1>
+        <p>Portal resmi pendataan anggota, pengelolaan chapter, dan administrasi organisasi SEV Indonesia.</p>
+      </div>
+      <div class="aside-foot"><span class="pulse-dot"></span> Ruang anggota SEV Indonesia <span>•</span> 2026</div>
+        <div class="decor-ring ring-one"></div><div class="decor-ring ring-two"></div>
+    </section>
+    <section class="auth-main">
+      <div class="auth-card-wrap">
+        <div class="auth-mobile-brand brand">
+          <div class="brand-mark">SEV</div><div><strong>SEV INDONESIA</strong><small>Member Management System</small></div>
+        </div>
+        <div class="auth-heading">
+          <span class="eyebrow" id="authEyebrow">SELAMAT DATANG KEMBALI</span>
+          <h2 id="authTitle">Masuk ke akun</h2>
+          <p id="authSubtitle">Gunakan akun SEV Indonesia untuk melanjutkan.</p>
+        </div>
+        <div class="auth-tabs" role="tablist">
+          <button class="auth-tab active" data-auth-tab="login" type="button">Masuk</button>
+          <button class="auth-tab" data-auth-tab="register" type="button">Daftar anggota</button>
+        </div>
+        <form id="loginForm" class="auth-form">
+          <label>Email</label>
+          <div class="input-wrap"><span class="input-icon">✉</span><input name="email" type="email" placeholder="nama@email.com" autocomplete="username" required></div>
+          <label>Kata sandi</label>
+          <div class="input-wrap"><span class="input-icon">⌑</span><input name="password" type="password" placeholder="Masukkan kata sandi" autocomplete="current-password" required><button class="password-toggle" type="button" aria-label="Tampilkan kata sandi">◉</button></div>
+          <button class="btn btn-primary btn-full" type="submit">Masuk ke dashboard <span>→</span></button>
+          <div class="demo-credentials"><div class="demo-icon">✦</div><div><b>Akun demo administrator</b><span>admin@sevindonesia.id <button type="button" class="copy-login" data-copy="admin@sevindonesia.id">Salin</button></span><span>Kata sandi: <b>admin123</b></span></div></div>
+        </form>
+        <form id="registerForm" class="register-form hidden">
+          <div class="register-intro"><span class="step-pill">FORMULIR PENDAFTARAN</span><span class="required-note">* Wajib diisi</span></div>
+          <div class="form-section-title"><span>01</span><div><b>Informasi akun</b><small>Data untuk masuk ke portal anggota.</small></div></div>
+          <div class="form-grid">
+            <div class="field"><label>Nama lengkap <i>*</i></label><input name="name" required placeholder="Nama sesuai identitas"></div>
+            <div class="field"><label>Email aktif <i>*</i></label><input name="email" type="email" required placeholder="nama@email.com"></div>
+            <div class="field"><label>Kata sandi <i>*</i></label><input name="password" type="password" required minlength="6" placeholder="Minimal 6 karakter"></div>
+            <div class="field"><label>Nomor HP / WhatsApp <i>*</i></label><input name="phone" type="tel" required placeholder="08xxxxxxxxxx"></div>
+          </div>
+          <div class="form-section-title"><span>02</span><div><b>Identitas anggota</b><small>Lengkapi sesuai data diri.</small></div></div>
+          <div class="form-grid">
+            <div class="field"><label>No. ID anggota</label><input name="memberId" id="registerMemberId" readonly></div>
+            <div class="field"><label>No. KTP / NIK <i>*</i></label><input name="ktp" inputmode="numeric" maxlength="16" minlength="16" required placeholder="16 digit NIK"><small class="field-help">Data identitas ditampilkan secara tersamarkan pada daftar anggota.</small></div>
+            <div class="field"><label>Tempat lahir <i>*</i></label><input name="birthPlace" required placeholder="Kota kelahiran"></div>
+            <div class="field"><label>Tanggal lahir <i>*</i></label><input name="birthDate" type="date" required></div>
+            <div class="field field-span"><label>Alamat lengkap <i>*</i></label><textarea name="address" rows="2" required placeholder="Jalan, RT/RW, kelurahan, kecamatan, kota/kabupaten"></textarea></div>
+            <div class="field"><label>Asal chapter <i>*</i></label><select name="chapter" required><option value="">Pilih chapter</option><option>Tasikmalaya</option><option>Bandung</option><option>Jakarta</option><option>Bekasi</option><option>Garut</option><option>Ciamis</option><option>Banjar</option><option>Chapter lainnya</option></select></div>
+            <div class="field"><label>Chapter lainnya</label><input name="chapterOther" placeholder="Isi jika memilih chapter lainnya"></div>
+          </div>
+          <label class="check-line"><input type="checkbox" name="consent" required><span>Saya menyatakan data yang diberikan benar dan menyetujui pengelolaan data untuk keperluan administrasi SEV Indonesia.</span></label>
+          <button class="btn btn-primary btn-full" type="submit">Kirim pendaftaran <span>→</span></button>
+          <p class="auth-switch-note">Sudah punya akun? <button type="button" data-auth-tab="login">Masuk di sini</button></p>
+        </form>
+        <p class="auth-bottom-note">© 2026 SEV Indonesia. Sistem informasi keanggotaan.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- APPLICATION -->
+  <div id="appView" class="app-shell hidden">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-brand brand brand-light"><div class="brand-mark">SEV</div><div><strong>SEV INDONESIA</strong><small>Member Portal</small></div></div>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav id="sideNav" class="side-nav"></nav>
+      <div class="sidebar-bottom">
+        <div class="sidebar-help"><div class="help-icon">?</div><div><b>Butuh bantuan?</b><small>Hubungi administrator</small></div></div>
+        <div class="sidebar-user"><div id="sidebarAvatar" class="avatar">SE</div><div class="sidebar-user-info"><b id="sidebarName">Anggota SEV</b><small id="sidebarRole">Member</small></div><button id="logoutBtn" class="icon-btn logout-btn" title="Keluar">↗</button></div>
+      </div>
+    </aside>
+    <div class="app-main">
+      <header class="topbar">
+        <div class="topbar-left"><button id="menuToggle" class="icon-btn mobile-menu" aria-label="Buka menu">☰</button><div><div class="breadcrumb">SEV INDONESIA <span>/</span> <b id="pageCrumb">Dashboard</b></div><h2 id="pageTitle">Dashboard</h2></div></div>
+        <div class="topbar-right"><span class="today-label" id="todayLabel"></span><button class="icon-btn notification-btn" title="Notifikasi">♧<i></i></button><button type="button" id="memberLogoutBtn" class="member-logout-btn" title="Keluar dari akun"><span aria-hidden="true">↪</span><span>Keluar</span></button><div class="topbar-avatar" id="topAvatar">SE</div></div>
+      </header>
+      <main id="pageContent" class="page-content"></main>
+      <footer class="app-footer"><span>© 2026 SEV Indonesia</span><span>Member Management System <b>•</b> Prototype</span></footer>
+    </div>
+    <div id="mobileOverlay" class="mobile-overlay"></div>
+    <nav id="memberBottomNav" class="member-bottom-nav" aria-label="Navigasi anggota"></nav>
+  </div>
+
+  <!-- MODAL -->
+  <div id="modalHost" class="modal-host" aria-live="polite"></div>
+  <script>
+/* SEV Indonesia Member Portal — browser-only prototype
+ * Demo data is stored in localStorage. Do not enter real KTP/password data in this prototype.
+ */
+(() => {
+  'use strict';
+  const DB_KEY = 'sev_indonesia_members_v1';
+  const SESSION_KEY = 'sev_indonesia_session_v1';
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const statements = [
+    'Bersedia dan sanggup mencalonkan diri serta apabila terpilih bersedia menjadi Ketua Umum SEV Indonesia.',
+    'Bersedia menjalankan Anggaran Dasar dan Anggaran Rumah Tangga (AD/ART), peraturan organisasi, serta seluruh keputusan Musyawarah Nasional SEV Indonesia.',
+    'Bersedia mengemban amanah dan tanggung jawab organisasi dengan penuh keikhlasan, kejujuran, disiplin, serta menjunjung tinggi nilai-nilai persaudaraan dan kekeluargaan.',
+    'Bersedia memimpin, membina, mengoordinasikan, dan mengembangkan seluruh Chapter SEV Indonesia demi kemajuan dan keberlangsungan organisasi.',
+    'Bersedia mengutamakan kepentingan organisasi di atas kepentingan pribadi maupun golongan.',
+    'Bersedia menjaga nama baik, kehormatan, solidaritas, dan persatuan seluruh keluarga besar SEV Indonesia.',
+    'Bersedia mempertanggungjawabkan pelaksanaan tugas dan amanah kepengurusan sesuai dengan ketentuan organisasi.'
+  ];
+  const monthNames = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  let state = { user: null, page: 'dashboard', search: '', statusFilter: 'all', pageNum: 1 };
+
+  function escapeHTML(value) {
+    return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  function readMembers() {
+    try { return JSON.parse(localStorage.getItem(DB_KEY)) || []; }
+    catch { return []; }
+  }
+  function writeMembers(list) { localStorage.setItem(DB_KEY, JSON.stringify(list)); }
+  function initials(name='SEV') { return name.trim().split(/\s+/).slice(0,2).map(s => s[0] || '').join('').toUpperCase(); }
+  function formatDate(value) {
+    if (!value) return '—';
+    const date = new Date(value + (String(value).length === 10 ? 'T00:00:00' : ''));
+    return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat('id-ID',{day:'2-digit',month:'short',year:'numeric'}).format(date);
+  }
+  function getNextId() {
+    const year = new Date().getFullYear();
+    const nums = readMembers().map(m => Number((m.memberId || '').split('-').pop()) || 0);
+    return `SEV-${year}-${String(Math.max(0,...nums)+1).padStart(4,'0')}`;
+  }
+  function seedData() {
+    if (localStorage.getItem(DB_KEY)) return;
+    const now = new Date();
+    const dateOffset = n => { const d = new Date(now); d.setDate(d.getDate()-n); return d.toISOString().slice(0,10); };
+    const demo = [
+      {id:'adm-001',role:'admin',name:'Administrator SEV',email:'admin@sevindonesia.id',password:'admin123',memberId:'SEV-ADMIN',phone:'081234567890',ktp:'0000000000000000',birthPlace:'Tasikmalaya',birthDate:'1990-01-01',address:'Sekretariat SEV Indonesia',chapter:'Nasional',status:'approved',createdAt:dateOffset(180)},
+      {id:'mem-001',role:'member',name:'Rizky Pratama',email:'member@sev.id',password:'member123',memberId:'SEV-2026-0001',phone:'081234567891',ktp:'3200000000000001',birthPlace:'Tasikmalaya',birthDate:'1998-04-12',address:'Tasikmalaya, Jawa Barat',chapter:'Tasikmalaya',status:'approved',createdAt:dateOffset(24)},
+      {id:'mem-002',role:'member',name:'Fajar Nugraha',email:'fajar@sev.id',password:'member123',memberId:'SEV-2026-0002',phone:'081234567892',ktp:'3200000000000002',birthPlace:'Bandung',birthDate:'1996-08-20',address:'Bandung, Jawa Barat',chapter:'Bandung',status:'pending',createdAt:dateOffset(7)},
+      {id:'mem-003',role:'member',name:'Dimas Saputra',email:'dimas@sev.id',password:'member123',memberId:'SEV-2026-0003',phone:'081234567893',ktp:'3200000000000003',birthPlace:'Garut',birthDate:'1997-03-05',address:'Garut, Jawa Barat',chapter:'Garut',status:'approved',createdAt:dateOffset(14)},
+      {id:'mem-004',role:'member',name:'Aulia Rahman',email:'aulia@sev.id',password:'member123',memberId:'SEV-2026-0004',phone:'081234567894',ktp:'3200000000000004',birthPlace:'Ciamis',birthDate:'1999-11-10',address:'Ciamis, Jawa Barat',chapter:'Ciamis',status:'pending',createdAt:dateOffset(2)},
+      {id:'mem-005',role:'member',name:'Bayu Firmansyah',email:'bayu@sev.id',password:'member123',memberId:'SEV-2026-0005',phone:'081234567895',ktp:'3200000000000005',birthPlace:'Jakarta',birthDate:'1995-02-18',address:'Jakarta',chapter:'Jakarta',status:'approved',createdAt:dateOffset(50)}
+    ];
+    writeMembers(demo);
+  }
+  function toast(message, type='success') {
+    const node = document.createElement('div'); node.className = `toast ${type==='error'?'error':type==='warning'?'warning':''}`; node.textContent = message;
+    $('#toastHost').append(node); setTimeout(() => node.remove(), 3200);
+  }
+  function currentMember() { return readMembers().find(m => m.id === state.user?.id) || null; }
+  function statusBadge(status) {
+    const map = {approved:['Aktif','approved'],pending:['Menunggu','pending'],rejected:['Ditolak','rejected'],submitted:['Menunggu review','candidate'],candidate_approved:['Disetujui','approved'],candidate_rejected:['Tidak disetujui','rejected']};
+    const [label,cls] = map[status] || [status || '—','pending'];
+    return `<span class="status ${cls}">${label}</span>`;
+  }
+  function setAuthTab(tab) {
+    const isRegister = tab === 'register';
+    $$('.auth-tab').forEach(b => b.classList.toggle('active', b.dataset.authTab === tab));
+    $('#loginForm').classList.toggle('hidden', isRegister);
+    $('#registerForm').classList.toggle('hidden', !isRegister);
+    $('#authEyebrow').textContent = isRegister ? 'BERGABUNG DENGAN KELUARGA SEV' : 'SELAMAT DATANG KEMBALI';
+    $('#authTitle').textContent = isRegister ? 'Daftar anggota baru' : 'Masuk ke akun';
+    $('#authSubtitle').textContent = isRegister ? 'Lengkapi identitas untuk mengajukan keanggotaan.' : 'Gunakan akun SEV Indonesia untuk melanjutkan.';
+    if (isRegister) $('#registerMemberId').value = getNextId();
+  }
+  function showAuth() {
+    state.user = null; localStorage.removeItem(SESSION_KEY);
+    $('#appView').classList.add('hidden'); $('#authView').classList.remove('hidden'); setAuthTab('login');
+  }
+  function login(email,password) {
+    const member = readMembers().find(m => m.email.toLowerCase() === email.trim().toLowerCase() && m.password === password);
+    if (!member) { toast('Email atau kata sandi tidak sesuai.','error'); return; }
+    if (member.role !== 'admin' && member.status === 'rejected') { toast('Pendaftaran Anda belum disetujui. Hubungi administrator.','warning'); return; }
+    state.user = {id:member.id}; state.page = 'dashboard'; localStorage.setItem(SESSION_KEY,member.id);
+    $('#authView').classList.add('hidden'); $('#appView').classList.remove('hidden'); renderApp();
+    toast(`Selamat datang, ${member.name.split(' ')[0]}!`);
+  }
+  function register(form) {
+    const data = Object.fromEntries(new FormData(form).entries());
+    const list = readMembers();
+    if (list.some(m => m.email.toLowerCase() === data.email.trim().toLowerCase())) { toast('Email sudah terdaftar. Silakan masuk.','error'); return; }
+    if (!/^\d{16}$/.test(data.ktp)) { toast('Nomor KTP harus terdiri dari 16 digit.','error'); return; }
+    if (list.some(m => m.ktp === data.ktp)) { toast('Nomor KTP sudah digunakan pada akun lain.','error'); return; }
+    const chapter = data.chapter === 'Chapter lainnya' ? (data.chapterOther.trim() || 'Chapter lainnya') : data.chapter;
+    const member = {id:`mem-${Date.now()}`,role:'member',name:data.name.trim(),email:data.email.trim(),password:data.password,memberId:getNextId(),phone:data.phone.trim(),ktp:data.ktp,birthPlace:data.birthPlace.trim(),birthDate:data.birthDate,address:data.address.trim(),chapter,status:'pending',createdAt:new Date().toISOString().slice(0,10),candidateStatus:null};
+    list.push(member); writeMembers(list); form.reset(); toast('Pendaftaran berhasil dikirim. Silakan masuk setelah data tersimpan.'); setAuthTab('login');
+  }
+  function logout() { closeMobileNav(); showAuth(); toast('Anda telah keluar dari akun.'); }
+
+  const adminNav = [
+    {id:'dashboard',icon:'⌂',label:'Dashboard'},
+    {id:'members',icon:'♙',label:'Data Anggota',count:true},
+    {id:'dues',icon:'＄',label:'Iuran Anggota',count:true},
+    {id:'candidates',icon:'⚑',label:'Calon Ketua Umum'},
+    {id:'settings',icon:'⚙',label:'Pengaturan'}
+  ];
+  const memberNav = [
+    {id:'dashboard',icon:'⌂',label:'Dashboard'},
+    {id:'profile',icon:'♙',label:'Profil Saya'},
+    {id:'dues',icon:'＄',label:'Iuran Saya'},
+    {id:'card',icon:'▣',label:'Kartu Member'},
+    {id:'candidate',icon:'⚑',label:'Pengajuan Calon Ketum'}
+  ];
+  function renderMemberBottomNav(){
+    const me=currentMember(); const nav=$('#memberBottomNav');
+    if(!me || me.role==='admin'){nav.innerHTML='';return;}
+    const items=[['dashboard','⌂','Beranda'],['dues','＄','Iuran'],['card','▣','Kartu'],['profile','♙','Profil'],['candidate','⚑','Lainnya']];
+    nav.innerHTML=items.map(([id,icon,label])=>`<button type="button" data-page="${id}" class="${state.page===id?'active':''} ${id==='card'?'nav-card-action':''}" ${state.page===id?'aria-current="page"':''} aria-label="${label}"><span class="bottom-icon" aria-hidden="true">${icon}</span><span class="bottom-label">${label}</span></button>`).join('');
+  }
+  function renderNav() {
+    const me = currentMember(); const items = me?.role === 'admin' ? adminNav : memberNav;
+    $('#sideNav').innerHTML = items.map(item => `<button class="nav-item ${state.page===item.id?'active':''}" data-page="${item.id}"><span class="nav-symbol">${item.icon}</span>${item.label}${item.count && readMembers().filter(m=>m.role==='member'&&m.status==='pending').length ? `<span class="nav-count">${readMembers().filter(m=>m.role==='member'&&m.status==='pending').length}</span>`:''}</button>`).join('');
+    $('#sidebarName').textContent = me?.name || 'Anggota SEV'; $('#sidebarRole').textContent = me?.role === 'admin' ? 'Administrator' : 'Member';
+    $('#sidebarAvatar').textContent = initials(me?.name); $('#topAvatar').textContent = initials(me?.name);
+  }
+  function navigate(page) {
+    state.page = page; state.search = ''; state.statusFilter='all'; state.pageNum=1; closeMobileNav(); renderApp();
+  }
+  function renderApp() {
+    const me = currentMember();
+    if (!me) { showAuth(); return; }
+    document.querySelector('#appView').classList.toggle('member-mode', me.role !== 'admin');
+    renderNav();
+    const pages = {dashboard:'Dashboard',members:'Data Anggota',dues:'Iuran Anggota',card:'Kartu Member',candidates:'Calon Ketua Umum',profile:'Profil Saya',candidate:'Pengajuan Calon Ketum',settings:'Pengaturan'};
+    const title = pages[state.page] || 'Dashboard'; $('#pageTitle').textContent=title; $('#pageCrumb').textContent=title;
+    $('#todayLabel').textContent = new Intl.DateTimeFormat('id-ID',{weekday:'long',day:'2-digit',month:'long',year:'numeric'}).format(new Date());
+    if (me.role !== 'admin' && ['members','candidates','settings'].includes(state.page)) state.page='dashboard';
+    if (me.role === 'admin' && ['profile','candidate','card'].includes(state.page)) state.page='dashboard';
+    renderNav();
+    const view = {
+      dashboard: me.role==='admin' ? adminDashboard : memberDashboard,
+      members: membersPage,
+      dues: me.role==='admin' ? duesAdminPage : duesPage,
+      card: memberCardPage,
+      candidates: candidatesPage,
+      profile: profilePage,
+      candidate: candidatePage,
+      settings: settingsPage
+    }[state.page] || (me.role==='admin'?adminDashboard:memberDashboard);
+    $('#pageContent').innerHTML = view();
+    renderMemberBottomNav();
+  }
+  function metric(label,value,icon,foot='') {
+    return `<article class="metric-card"><div class="metric-top"><span>${label}</span><span class="metric-icon">${icon}</span></div><div class="metric-value">${value}</div><div class="metric-foot">${foot}</div></article>`;
+  }
+  function memberRows(items, actions=true) {
+    if (!items.length) return `<tr><td colspan="7"><div class="empty-state"><b>Belum ada data anggota</b>Data yang sesuai akan muncul di sini.</div></td></tr>`;
+    return items.map(m => `<tr>
+      <td><div class="member-cell"><div class="mini-avatar">${escapeHTML(initials(m.name))}</div><div><b>${escapeHTML(m.name)}</b><small>${escapeHTML(m.memberId)}</small></div></div></td>
+      <td>${escapeHTML(m.email)}</td><td>${escapeHTML(m.chapter)}</td><td>${formatDate(m.createdAt)}</td><td>${statusBadge(m.status)}</td>
+      <td>${m.candidateStatus ? statusBadge(m.candidateStatus) : '<span style="color:#a6b0a9">—</span>'}</td>
+      <td>${actions?`<div class="row-actions"><button class="mini-btn" data-action="view" data-id="${m.id}">Detail</button>${m.status==='pending'?`<button class="mini-btn" data-action="approve" data-id="${m.id}" title="Setujui">✓</button>`:''}<button class="mini-btn" data-action="edit" data-id="${m.id}" title="Edit">Edit</button><button class="mini-btn" data-action="delete" data-id="${m.id}" title="Hapus">×</button></div>`:'—'}</td>
+    </tr>`).join('');
+  }
+  function adminDashboard() {
+    const list=readMembers().filter(m=>m.role==='member'); const active=list.filter(m=>m.status==='approved').length; const pending=list.filter(m=>m.status==='pending').length; const cand=list.filter(m=>m.candidateStatus==='submitted').length;
+    const grouped={}; list.forEach(m=>grouped[m.chapter]=(grouped[m.chapter]||0)+1);
+    const chapters=Object.entries(grouped).sort((a,b)=>b[1]-a[1]).slice(0,6); const max=Math.max(1,...chapters.map(c=>c[1]));
+    const months=[]; for(let i=5;i>=0;i--){const d=new Date();d.setMonth(d.getMonth()-i);const key=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;months.push({key,label:monthNames[d.getMonth()],value:list.filter(m=>(m.createdAt||'').slice(0,7)===key).length});}
+    const maxMonth=Math.max(1,...months.map(x=>x.value));
+    const chart=months.map(m=>`<div class="chart-col"><div class="chart-bar" style="height:${Math.max(5,m.value/maxMonth*100)}%"></div><div class="chart-bar second" style="height:${Math.max(3,Math.min(100,(m.value*.7+active*.03)/maxMonth*100))}%"></div><span class="chart-label">${m.label}</span></div>`).join('');
+    return `<div class="welcome-row"><div><h3>Selamat datang, Administrator 👋</h3><p>Berikut ringkasan aktivitas keanggotaan SEV Indonesia.</p></div><div class="welcome-actions"><button class="btn btn-outline btn-sm" data-action="export">↓ Ekspor data</button><button class="btn btn-primary btn-sm" data-action="add">＋ Tambah anggota</button></div></div>
+      <div class="metrics-grid">${metric('Total anggota',list.length,'♙','Seluruh data terdaftar')}${metric('Anggota aktif',active,'✓',`<strong>${list.length?Math.round(active/list.length*100):0}%</strong> dari total anggota`)}${metric('Menunggu verifikasi',pending,'◷','Perlu ditinjau administrator')}${metric('Pengajuan calon Ketum',cand,'⚑','Menunggu review pengurus')}</div>
+      <div class="content-grid"><section class="panel"><div class="panel-head"><div><h4>Ringkasan pendaftaran</h4><p>Jumlah anggota per bulan · 6 bulan terakhir</p></div><span class="step-pill">LIVE DATA</span></div><div class="chart-wrap">${chart}</div><div class="chart-legend"><span><i class="legend-dot"></i>Pendaftaran</span><span><i class="legend-dot dark"></i>Indikator anggota aktif</span></div></section>
+      <section class="panel"><div class="panel-head"><div><h4>Anggota per chapter</h4><p>Distribusi anggota berdasarkan chapter</p></div></div><div class="chapter-list">${chapters.length?chapters.map(([name,n])=>`<div class="chapter-row"><span>${escapeHTML(name)}</span><div class="progress"><i style="width:${n/max*100}%"></i></div><b>${n}</b></div>`).join(''):'<div class="empty-state">Belum ada data chapter.</div>'}</div></section></div>
+      <section class="panel table-panel"><div class="panel-head"><div><h4>Pendaftaran terbaru</h4><p>Anggota yang baru mengirimkan formulir pendaftaran.</p></div><button class="text-link" data-page="members">Lihat semua →</button></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Anggota</th><th>Email</th><th>Chapter</th><th>Tanggal daftar</th><th>Status</th><th>Calon Ketum</th><th>Aksi</th></tr></thead><tbody>${memberRows([...list].sort((a,b)=>(b.createdAt||'').localeCompare(a.createdAt||'')).slice(0,5))}</tbody></table></div></section>`;
+  }
+  const MONTHLY_DUES = 50000; // nilai contoh, sesuaikan keputusan organisasi
+  const BANK_INFO = 'Rekening resmi akan diumumkan oleh pengurus SEV Indonesia.';
+  function paymentStatus(m){ const items=m.duesPayments||[]; return items.filter(x=>x.status==='confirmed').length; }
+  function memberDashboard() {
+    const me=currentMember(); const complete=[me.name,me.email,me.phone,me.ktp,me.birthPlace,me.birthDate,me.address,me.chapter].filter(Boolean).length;
+    const payments=me.duesPayments||[]; const waiting=payments.filter(x=>x.status==='pending').length; const confirmed=paymentStatus(me);
+    const status=me.status==='approved'?'ANGGOTA AKTIF':me.status==='pending'?'MENUNGGU VERIFIKASI':'STATUS DITOLAK';
+    return `${me.status==='pending'?'<div class="notice warning" style="margin-bottom:13px"><b>Pendaftaran sedang diperiksa.</b><br>Admin akan mengaktifkan akun setelah verifikasi data.</div>':''}
+      <section class="member-home-hero"><div class="eyebrow">SEV INDONESIA · MEMBER AREA</div><h3>Halo, ${escapeHTML(me.name.split(' ')[0])} 👋</h3><p>Senang melihatmu kembali. Ini ringkasan keanggotaanmu.</p><div class="member-id-strip"><div><small>MEMBER ID</small><b>${escapeHTML(me.memberId)}</b></div><span class="member-status-pill">● ${status}</span></div></section>
+      <div class="member-quick-grid"><button class="member-quick" data-page="dues"><span class="quick-icon">＄</span><b>Bayar Iuran</b><small>${waiting?waiting+' menunggu':'Iuran bulanan'}</small></button><button class="member-quick" data-page="profile"><span class="quick-icon">♙</span><b>Profil Saya</b><small>${Math.round(complete/8*100)}% lengkap</small></button></div>
+      <div class="member-section-head"><h4>Ringkasan keanggotaan</h4><button data-page="profile">Lihat profil →</button></div>
+      <section class="member-info-card"><div class="member-info-row"><div class="avatar">${escapeHTML(initials(me.name))}</div><div style="flex:1"><b>${escapeHTML(me.name)}</b><small>${escapeHTML(me.chapter)} Chapter</small></div>${statusBadge(me.status)}</div><div class="member-info-grid"><div><small>EMAIL</small><b>${escapeHTML(me.email)}</b></div><div><small>NO. TELEPON</small><b>${escapeHTML(me.phone||'Belum diisi')}</b></div><div><small>KEANGGOTAAN</small><b>${confirmed} bulan terkonfirmasi</b></div><div><small>KELENGKAPAN PROFIL</small><b>${Math.round(complete/8*100)}%</b></div></div></section>
+      <div class="member-section-head"><h4>Layanan lainnya</h4></div><section class="member-info-card" style="display:grid;gap:8px"><button class="btn btn-outline" data-page="candidate" style="justify-content:space-between">Pengajuan Calon Ketua Umum <span>→</span></button><button class="btn btn-outline" data-page="dues" style="justify-content:space-between">Riwayat pembayaran iuran <span>→</span></button></section>`;
+  }
+  function duesPage(){
+    const me=currentMember(); const payments=me.duesPayments||[]; const pending=payments.filter(x=>x.status==='pending');
+    const rows=payments.length?[...payments].sort((a,b)=>b.createdAt.localeCompare(a.createdAt)).map(x=>`<tr><td>${escapeHTML(x.period)}</td><td>Rp ${Number(x.amount||MONTHLY_DUES).toLocaleString('id-ID')}</td><td>${formatDate(x.transferDate)}</td><td>${escapeHTML(x.bankSender||'—')}</td><td>${x.status==='confirmed'?'<span class="status approved">Terkonfirmasi</span>':x.status==='rejected'?'<span class="status rejected">Perlu perbaikan</span>':'<span class="status pending">Menunggu konfirmasi</span>'}</td><td>${escapeHTML(x.note||'—')}</td></tr>`).join(''):'<tr><td colspan="6"><div class="empty-state"><b>Belum ada pembayaran</b>Riwayat iuran Anda akan muncul di sini.</div></td></tr>';
+    return `<div class="welcome-row"><div><h3>Iuran anggota</h3><p>Kirim bukti transfer, lalu tunggu verifikasi manual dari pengurus.</p></div></div><div class="notice info"><b>Nominal prototype: Rp ${MONTHLY_DUES.toLocaleString('id-ID')} / bulan.</b><br>${BANK_INFO}<br>Pastikan rekening tujuan dikonfirmasi kepada pengurus sebelum transfer.</div><section class="panel form-card"><div class="panel-head"><div><h4>Kirim konfirmasi pembayaran</h4><p>Pembayaran tidak otomatis lunas. Admin akan memeriksa dan mengonfirmasi secara manual.</p></div></div><form id="duesForm"><div class="form-grid"><div class="field"><label>Periode iuran *</label><input name="period" type="month" required></div><div class="field"><label>Nominal transfer *</label><input name="amount" type="number" min="1" required value="${MONTHLY_DUES}"></div><div class="field"><label>Tanggal transfer *</label><input name="transferDate" type="date" required value="${new Date().toISOString().slice(0,10)}"></div><div class="field"><label>Bank / rekening pengirim *</label><input name="bankSender" required placeholder="Contoh: BCA a.n. Nama anggota"></div><div class="field"><label>Nomor referensi transfer</label><input name="reference" placeholder="Nomor transaksi (opsional)"></div><div class="field"><label>Bukti transfer (nama file)</label><input name="proof" placeholder="Contoh: bukti-transfer.jpg"></div><div class="field field-span"><label>Catatan</label><textarea name="note" rows="2" placeholder="Informasi tambahan untuk admin"></textarea></div></div><button class="btn btn-primary" type="submit">Kirim untuk dikonfirmasi →</button></form></section><section class="panel table-panel" style="margin-top:16px"><div class="panel-head"><div><h4>Riwayat pembayaran</h4><p>${payments.length} transaksi · ${pending.length} menunggu verifikasi</p></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Periode</th><th>Nominal</th><th>Tanggal transfer</th><th>Pengirim</th><th>Status</th><th>Catatan admin</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  }
+  function memberCardPage(){
+    const me=currentMember();
+    return `<div class="welcome-row"><div><h3>Kartu Anggota SEV</h3><p>Identitas digital keanggotaan SEV Indonesia.</p></div><div class="welcome-actions"><button class="btn btn-primary btn-sm" data-action="print-card" data-id="${me.id}" ${me.status!=='approved'?'disabled title="Menunggu persetujuan admin"':''}>▣ Cetak kartu</button></div></div>${me.status!=='approved'?'<div class="notice warning">Kartu resmi dapat dicetak setelah keanggotaan Anda disetujui administrator.</div>':''}<div class="sev-member-card"><div class="sev-card-top"><div class="sev-card-logo">SEV</div><div><b>SEV INDONESIA</b><small>MEMBER IDENTITY CARD</small></div><span class="sev-card-chip">MEMBER</span></div><div class="sev-card-body"><div><small>NAMA ANGGOTA</small><b>${escapeHTML(me.name)}</b><small>NOMOR IDENTITAS</small><strong>${escapeHTML(me.memberId)}</strong><small>CHAPTER</small><b>${escapeHTML(me.chapter)}</b></div><div class="sev-card-avatar">${escapeHTML(initials(me.name))}</div></div><div class="sev-card-foot"><span>${me.status==='approved'?'ACTIVE MEMBER':'PENDING APPROVAL'}</span><span>SEV INDONESIA · ${new Date().getFullYear()}</span></div></div><p class="field-help" style="margin-top:12px">Kartu ini merupakan preview prototype. Validitas kartu resmi mengikuti persetujuan pengurus.</p>`;
+  }
+  function detail(label,value) { return `<div class="detail-item"><small>${label}</small><b>${escapeHTML(value||'—')}</b></div>`; }
+  function maskKtp(ktp='') { return ktp.length>=8 ? ktp.slice(0,4)+' •••• •••• '+ktp.slice(-4) : 'Belum diisi'; }
+  function membersPage() {
+    const all=readMembers().filter(m=>m.role==='member');
+    let filtered=all.filter(m=>[m.name,m.memberId,m.email,m.chapter].join(' ').toLowerCase().includes(state.search.toLowerCase()));
+    if(state.statusFilter!=='all') filtered=filtered.filter(m=>m.status===state.statusFilter);
+    const pageSize=8, total=filtered.length, pages=Math.max(1,Math.ceil(total/pageSize)); state.pageNum=Math.min(state.pageNum,pages);
+    const shown=filtered.slice((state.pageNum-1)*pageSize,state.pageNum*pageSize);
+    return `<div class="welcome-row"><div><h3>Direktori anggota</h3><p>Kelola identitas, status verifikasi, dan data anggota SEV Indonesia.</p></div><div class="welcome-actions"><button class="btn btn-outline btn-sm" data-action="print-roster">▤ Cetak</button><button class="btn btn-primary btn-sm" data-action="add">＋ Tambah anggota</button></div></div>
+      <section class="panel table-panel"><div class="panel-head"><div><h4>Semua anggota <span class="step-pill">${total} DATA</span></h4><p>Data KTP tidak ditampilkan pada direktori untuk menjaga privasi.</p></div></div><div class="table-tools" style="padding:0 17px 14px"><div class="search-box"><span>⌕</span><input id="memberSearch" placeholder="Cari nama, ID, email, chapter..." value="${escapeHTML(state.search)}"></div><div class="tool-group"><select id="statusFilter" class="filter-select"><option value="all" ${state.statusFilter==='all'?'selected':''}>Semua status</option><option value="approved" ${state.statusFilter==='approved'?'selected':''}>Aktif</option><option value="pending" ${state.statusFilter==='pending'?'selected':''}>Menunggu verifikasi</option><option value="rejected" ${state.statusFilter==='rejected'?'selected':''}>Ditolak</option></select><button class="btn btn-outline btn-sm" data-action="export">↓ Ekspor CSV</button></div></div>
+      <div class="table-wrap"><table class="data-table"><thead><tr><th>Nama anggota / ID</th><th>Email</th><th>Chapter</th><th>Tanggal daftar</th><th>Status</th><th>Calon Ketum</th><th>Aksi</th></tr></thead><tbody>${memberRows(shown)}</tbody></table></div><div class="pagination"><span>Menampilkan ${total?((state.pageNum-1)*pageSize+1):0}–${Math.min(state.pageNum*pageSize,total)} dari ${total} anggota</span><div class="page-buttons">${Array.from({length:pages},(_,i)=>`<button class="page-button ${state.pageNum===i+1?'active':''}" data-page-num="${i+1}">${i+1}</button>`).join('')}</div></div></section>`;
+  }
+  function duesAdminPage(){
+    const list=readMembers().filter(m=>m.role==='member'); const payments=list.flatMap(m=>(m.duesPayments||[]).map(x=>({...x,member:m}))).sort((a,b)=>b.createdAt.localeCompare(a.createdAt));
+    const waiting=payments.filter(x=>x.status==='pending').length; const confirmed=payments.filter(x=>x.status==='confirmed').length;
+    const rows=payments.length?payments.map(x=>`<tr><td><b>${escapeHTML(x.member.name)}</b><small style="display:block;color:#9aa59e">${escapeHTML(x.member.memberId)}</small></td><td>${escapeHTML(x.period)}</td><td>Rp ${Number(x.amount).toLocaleString('id-ID')}</td><td>${formatDate(x.transferDate)}<small style="display:block;color:#9aa59e">${escapeHTML(x.bankSender||'')}</small></td><td>${x.status==='confirmed'?'<span class="status approved">Terkonfirmasi</span>':x.status==='rejected'?'<span class="status rejected">Perlu perbaikan</span>':'<span class="status pending">Menunggu</span>'}</td><td><div class="row-actions">${x.status==='pending'?`<button class="mini-btn" data-action="dues-confirm" data-id="${x.member.id}" data-payment="${x.id}">Konfirmasi</button><button class="mini-btn" data-action="dues-reject" data-id="${x.member.id}" data-payment="${x.id}">Tolak</button>`:'—'}</div></td></tr>`).join(''):'<tr><td colspan="6"><div class="empty-state"><b>Belum ada pembayaran iuran</b>Konfirmasi anggota akan muncul di sini.</div></td></tr>';
+    return `<div class="welcome-row"><div><h3>Administrasi iuran</h3><p>Periksa bukti transfer dan ubah status pembayaran secara manual.</p></div></div><div class="metrics-grid">${metric('Total transaksi',payments.length,'＄','Semua periode')}${metric('Menunggu konfirmasi',waiting,'◷','Perlu diperiksa')}${metric('Terkonfirmasi',confirmed,'✓','Pembayaran diterima')}${metric('Total diterima',`Rp ${payments.filter(x=>x.status==='confirmed').reduce((a,x)=>a+Number(x.amount||0),0).toLocaleString('id-ID')}`,'▤','Akumulasi transaksi terkonfirmasi')}</div><div class="notice info">Nominal iuran prototype Rp ${MONTHLY_DUES.toLocaleString('id-ID')} per bulan. Konfirmasi dilakukan manual oleh administrator setelah mencocokkan mutasi rekening/bukti transfer.</div><section class="panel table-panel"><div class="panel-head"><div><h4>Daftar pembayaran</h4><p>${payments.length} transaksi tercatat</p></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Anggota</th><th>Periode</th><th>Nominal</th><th>Tanggal / pengirim</th><th>Status</th><th>Aksi</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  }
+  function candidatesPage() {
+    const list=readMembers().filter(m=>m.role==='member'&&m.candidateStatus);
+    const rows=list.length?list.map(m=>`<tr><td><div class="member-cell"><div class="mini-avatar">${escapeHTML(initials(m.name))}</div><div><b>${escapeHTML(m.name)}</b><small>${escapeHTML(m.memberId)}</small></div></div></td><td>${escapeHTML(m.chapter)}</td><td>${formatDate(m.candidateSubmittedAt)}</td><td>${statusBadge(m.candidateStatus)}</td><td><div class="row-actions"><button class="mini-btn" data-action="candidate-detail" data-id="${m.id}">Lihat pernyataan</button>${m.candidateStatus==='submitted'?`<button class="mini-btn" data-action="candidate-approve" data-id="${m.id}">Setujui</button><button class="mini-btn" data-action="candidate-reject" data-id="${m.id}">Tolak</button>`:''}</div></td></tr>`).join(''):'<tr><td colspan="5"><div class="empty-state"><b>Belum ada pengajuan calon Ketua Umum</b>Pengajuan dari anggota akan tercatat di halaman ini.</div></td></tr>';
+    return `<div class="welcome-row"><div><h3>Pengajuan calon Ketua Umum</h3><p>Daftar anggota yang mengirim surat pernyataan kesanggupan.</p></div></div><div class="notice info">Tinjau tujuh butir pernyataan dan identitas calon sebelum memberikan keputusan. Persetujuan pada halaman ini tidak mengubah status keanggotaan.</div><section class="panel table-panel"><div class="panel-head"><div><h4>Daftar pengajuan <span class="step-pill">${list.length} PENGAJUAN</span></h4></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Calon</th><th>Chapter</th><th>Tanggal pengajuan</th><th>Status review</th><th>Aksi</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  }
+  function profilePage() {
+    const me=currentMember();
+    return `<div class="welcome-row"><div><h3>Profil anggota</h3><p>Periksa dan perbarui informasi identitas keanggotaan Anda.</p></div></div><div class="notice info">Nomor ID anggota diterbitkan oleh sistem. Data nomor KTP disamarkan pada tampilan ringkasan.</div><section class="panel form-card"><form id="profileForm"><div class="form-section-title"><span>01</span><div><b>Informasi anggota</b><small>Data dasar sesuai formulir pendaftaran SEV Indonesia.</small></div></div><div class="form-grid"><div class="field"><label>Nama lengkap *</label><input name="name" required value="${escapeHTML(me.name)}"></div><div class="field"><label>No. ID anggota</label><input readonly value="${escapeHTML(me.memberId)}"></div><div class="field"><label>Email *</label><input name="email" type="email" required value="${escapeHTML(me.email)}"></div><div class="field"><label>Nomor HP / WhatsApp *</label><input name="phone" required value="${escapeHTML(me.phone)}"></div><div class="field"><label>Tempat lahir *</label><input name="birthPlace" required value="${escapeHTML(me.birthPlace)}"></div><div class="field"><label>Tanggal lahir *</label><input name="birthDate" type="date" required value="${escapeHTML(me.birthDate)}"></div><div class="field"><label>No. KTP / NIK *</label><input name="ktp" required maxlength="16" minlength="16" inputmode="numeric" value="${escapeHTML(me.ktp)}"></div><div class="field"><label>Asal chapter *</label><input name="chapter" required value="${escapeHTML(me.chapter)}"></div><div class="field field-span"><label>Alamat lengkap *</label><textarea name="address" rows="3" required>${escapeHTML(me.address)}</textarea></div></div><div style="display:flex;justify-content:flex-end;margin-top:8px"><button class="btn btn-primary" type="submit">Simpan perubahan →</button></div></form></section>`;
+  }
+  function candidatePage() {
+    const me=currentMember();
+    if(me.candidateStatus==='submitted'||me.candidateStatus==='candidate_approved'||me.candidateStatus==='candidate_rejected') {
+      return `<div class="welcome-row"><div><h3>Pengajuan calon Ketua Umum</h3><p>Riwayat pernyataan kesanggupan Anda.</p></div></div><section class="panel"><div class="profile-hero"><div class="profile-big-avatar">⚑</div><div><h3>Surat Pernyataan Kesanggupan</h3><p>${escapeHTML(me.memberId)} · Diajukan ${formatDate(me.candidateSubmittedAt)}</p></div><div style="margin-left:auto">${statusBadge(me.candidateStatus)}</div></div><div class="notice ${me.candidateStatus==='submitted'?'warning':'info'}">${me.candidateStatus==='submitted'?'Pengajuan telah dikirim dan sedang menunggu pemeriksaan administrator.':me.candidateStatus==='candidate_approved'?'Pengajuan pernyataan Anda telah disetujui administrator.':'Pengajuan pernyataan Anda belum disetujui. Silakan hubungi administrator untuk informasi lebih lanjut.'}</div><button class="btn btn-outline" data-action="print-statement" data-id="${me.id}">▤ Cetak surat pernyataan</button></section>`;
+    }
+    if(me.status!=='approved') return `<div class="welcome-row"><div><h3>Pengajuan calon Ketua Umum</h3><p>Formulir pernyataan kesanggupan calon Ketua Umum SEV Indonesia.</p></div></div><div class="notice warning">Fitur ini tersedia setelah status keanggotaan Anda disetujui administrator.</div>`;
+    return `<div class="welcome-row"><div><h3>Formulir calon Ketua Umum</h3><p>Surat pernyataan kesanggupan menjadi Ketua Umum SEV Indonesia.</p></div></div><div class="notice warning"><b>Perhatian:</b> Formulir ini hanya untuk anggota yang benar-benar bersedia mencalonkan diri sebagai Ketua Umum. Pengajuan bersifat terpisah dari pendaftaran anggota biasa.</div><section class="panel"><div class="panel-head"><div><h4>Identitas pemohon</h4><p>Data diambil dari profil keanggotaan Anda.</p></div></div><div class="detail-grid" style="margin-bottom:20px">${detail('Nama lengkap',me.name)}${detail('No. ID',me.memberId)}${detail('Tempat/tanggal lahir',`${me.birthPlace}, ${formatDate(me.birthDate)}`)}${detail('No. KTP',maskKtp(me.ktp))}${detail('Asal chapter',me.chapter)}${detail('Alamat',me.address)}</div><div class="divider"></div><div class="panel-head" style="margin-top:15px"><div><h4>Pernyataan kesanggupan</h4><p>Centang setiap butir sebagai tanda persetujuan.</p></div><span class="step-pill">7 PERNYATAAN</span></div><form id="candidateForm"><div class="candidate-list">${statements.map((s,i)=>`<label class="candidate-check"><input type="checkbox" name="commitment" value="${i}" required><span><b>${i+1}.</b> ${escapeHTML(s)}</span></label>`).join('')}</div><label class="check-line"><input name="candidateConsent" type="checkbox" required><span>Dengan sadar dan tanpa paksaan, saya menyatakan seluruh keterangan di atas benar dan bersedia mempertanggungjawabkannya sesuai ketentuan organisasi.</span></label><button class="btn btn-primary" type="submit">Kirim pernyataan kesanggupan →</button></form></section>`;
+  }
+  function settingsPage() {
+    return `<div class="welcome-row"><div><h3>Pengaturan sistem</h3><p>Informasi aplikasi dan pengelolaan data prototype.</p></div></div><section class="panel"><div class="panel-head"><div><h4>SEV Indonesia · Member Management System</h4><p>Informasi lingkungan aplikasi.</p></div><span class="step-pill">PROTOTYPE</span></div><div class="settings-grid"><div class="settings-item"><b>Mode aplikasi</b><p>Prototype browser-side. Data disimpan di localStorage pada browser/perangkat ini.</p></div><div class="settings-item"><b>Role pengguna</b><p>Administrator dan Member dengan menu serta hak akses yang berbeda.</p></div><div class="settings-item"><b>Privasi data</b><p>Nomor KTP disamarkan pada direktori. Jangan memasukkan data asli sebelum backend dan keamanan diterapkan.</p></div><div class="settings-item"><b>Pengelolaan data demo</b><p>Hapus data prototype dan kembalikan contoh awal. Tindakan ini tidak dapat dibatalkan.</p><button class="btn btn-outline btn-sm" data-action="reset-demo">Reset data demo</button></div></div></section>`;
+  }
+
+  function memberFormModal(member=null) {
+    const isEdit=!!member;
+    const content=`<form id="adminMemberForm"><div class="modal-form-grid">
+      <div class="field"><label>Nama lengkap *</label><input name="name" required value="${escapeHTML(member?.name||'')}"></div>
+      <div class="field"><label>Email *</label><input name="email" type="email" required value="${escapeHTML(member?.email||'')}"></div>
+      <div class="field"><label>No. HP *</label><input name="phone" required value="${escapeHTML(member?.phone||'')}"></div>
+      <div class="field"><label>No. KTP / NIK *</label><input name="ktp" required maxlength="16" minlength="16" inputmode="numeric" value="${escapeHTML(member?.ktp||'')}"></div>
+      <div class="field"><label>Tempat lahir *</label><input name="birthPlace" required value="${escapeHTML(member?.birthPlace||'')}"></div>
+      <div class="field"><label>Tanggal lahir *</label><input name="birthDate" type="date" required value="${escapeHTML(member?.birthDate||'')}"></div>
+      <div class="field"><label>Asal chapter *</label><input name="chapter" required value="${escapeHTML(member?.chapter||'')}"></div>
+      <div class="field"><label>Status keanggotaan</label><select name="status"><option value="pending" ${member?.status==='pending'?'selected':''}>Menunggu verifikasi</option><option value="approved" ${member?.status==='approved'?'selected':''}>Aktif</option><option value="rejected" ${member?.status==='rejected'?'selected':''}>Ditolak</option></select></div>
+      <div class="field field-span"><label>Alamat lengkap *</label><textarea name="address" required rows="2">${escapeHTML(member?.address||'')}</textarea></div>
+      ${!isEdit?'<div class="field field-span"><label>Kata sandi awal *</label><input name="password" type="text" required minlength="6" placeholder="Minimal 6 karakter"></div>':''}
+    </div></form>`;
+    showModal(isEdit?'Edit data anggota':'Tambah anggota',content,`<button class="btn btn-outline" data-modal-close>Batal</button><button class="btn btn-primary" form="adminMemberForm" type="submit">${isEdit?'Simpan perubahan':'Tambahkan anggota'}</button>`);
+    $('#adminMemberForm').addEventListener('submit',e=>{
+      e.preventDefault(); const data=Object.fromEntries(new FormData(e.currentTarget).entries()); const list=readMembers();
+      if(!/^\d{16}$/.test(data.ktp)){toast('Nomor KTP harus 16 digit.','error');return;}
+      if(list.some(m=>m.email.toLowerCase()===data.email.trim().toLowerCase()&&m.id!==member?.id)){toast('Email sudah digunakan.','error');return;}
+      if(list.some(m=>m.ktp===data.ktp&&m.id!==member?.id)){toast('Nomor KTP sudah digunakan.','error');return;}
+      if(isEdit){const idx=list.findIndex(m=>m.id===member.id);list[idx]={...list[idx],...data,name:data.name.trim(),email:data.email.trim()};}
+      else list.push({id:`mem-${Date.now()}`,role:'member',...data,name:data.name.trim(),email:data.email.trim(),memberId:getNextId(),createdAt:new Date().toISOString().slice(0,10),candidateStatus:null});
+      writeMembers(list);closeModal();renderApp();toast(isEdit?'Data anggota diperbarui.':'Anggota berhasil ditambahkan.');
+    });
+  }
+  function showModal(title,body,footer='') {
+    $('#modalHost').innerHTML=`<div class="modal-backdrop"><section class="modal"><div class="modal-head"><h3>${title}</h3><button class="modal-close" data-modal-close>×</button></div><div class="modal-body">${body}</div>${footer?`<div class="modal-foot">${footer}</div>`:''}</section></div>`;
+  }
+  function closeModal() { $('#modalHost').innerHTML=''; }
+  function showMemberDetail(member) {
+    const body=`<div class="profile-hero"><div class="profile-big-avatar">${escapeHTML(initials(member.name))}</div><div><h3>${escapeHTML(member.name)}</h3><p>${escapeHTML(member.memberId)} · ${escapeHTML(member.chapter)}</p></div><div style="margin-left:auto">${statusBadge(member.status)}</div></div><div class="detail-grid">${detail('Email',member.email)}${detail('Nomor HP',member.phone)}${detail('Tempat lahir',member.birthPlace)}${detail('Tanggal lahir',formatDate(member.birthDate))}${detail('Nomor KTP',maskKtp(member.ktp))}${detail('Asal chapter',member.chapter)}${detail('Alamat',member.address)}${detail('Tanggal daftar',formatDate(member.createdAt))}</div>`;
+    showModal('Detail anggota',body,`<button class="btn btn-outline" data-modal-close>Tutup</button><button class="btn btn-primary" data-action="edit" data-id="${member.id}">Edit data</button>`);
+  }
+  function showCandidateDetail(member) {
+    const body=`<div class="profile-hero"><div class="profile-big-avatar">${escapeHTML(initials(member.name))}</div><div><h3>${escapeHTML(member.name)}</h3><p>${escapeHTML(member.memberId)} · ${escapeHTML(member.chapter)}</p></div><div style="margin-left:auto">${statusBadge(member.candidateStatus)}</div></div><div class="notice info">Diajukan ${formatDate(member.candidateSubmittedAt)}. Seluruh butir pernyataan tercatat sebagai disetujui oleh pemohon.</div><div class="candidate-list">${statements.map((s,i)=>`<div class="candidate-check"><span style="color:#26834f;font-weight:800">✓</span><span><b>${i+1}.</b> ${escapeHTML(s)}</span></div>`).join('')}</div>`;
+    const foot=member.candidateStatus==='submitted'?`<button class="btn btn-outline" data-modal-close>Tutup</button><button class="btn btn-outline" data-action="candidate-reject" data-id="${member.id}">Tolak</button><button class="btn btn-primary" data-action="candidate-approve" data-id="${member.id}">Setujui</button>`:`<button class="btn btn-outline" data-modal-close>Tutup</button><button class="btn btn-outline" data-action="print-statement" data-id="${member.id}">Cetak surat</button>`;
+    showModal('Pernyataan calon Ketua Umum',body,foot);
+  }
+  function approveMember(id) {
+    const list=readMembers();const m=list.find(x=>x.id===id);if(!m)return;
+    m.status='approved';m.approvedAt=new Date().toISOString().slice(0,10);writeMembers(list);closeModal();renderApp();toast('Keanggotaan berhasil diaktifkan.');
+  }
+  function decideCandidate(id,status) {
+    const list=readMembers();const m=list.find(x=>x.id===id);if(!m)return;m.candidateStatus=status; m.candidateReviewedAt=new Date().toISOString().slice(0,10);writeMembers(list);closeModal();renderApp();toast(status==='candidate_approved'?'Pengajuan calon Ketum disetujui.':'Pengajuan calon Ketum ditolak.');
+  }
+  function deleteMember(id) {
+    const m=readMembers().find(x=>x.id===id);if(!m)return;
+    showModal('Hapus data anggota',`<p style="font-size:12px;color:#69786f;line-height:1.7">Anda akan menghapus data <b>${escapeHTML(m.name)}</b> (${escapeHTML(m.memberId)}). Tindakan ini tidak dapat dibatalkan.</p>`,`<button class="btn btn-outline" data-modal-close>Batal</button><button class="btn btn-primary" id="confirmDelete" style="background:#a83e3e">Ya, hapus data</button>`);
+    $('#confirmDelete').addEventListener('click',()=>{writeMembers(readMembers().filter(x=>x.id!==id));closeModal();renderApp();toast('Data anggota dihapus.');});
+  }
+  function downloadCSV() {
+    const list=readMembers().filter(m=>m.role==='member');
+    const headers=['No ID','Nama Lengkap','Email','Nomor HP','Tempat Lahir','Tanggal Lahir','Alamat','Asal Chapter','Status','Tanggal Daftar'];
+    const rows=list.map(m=>[m.memberId,m.name,m.email,m.phone,m.birthPlace,m.birthDate,m.address,m.chapter,m.status,m.createdAt]);
+    const csv=[headers,...rows].map(row=>row.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\r\n');
+    const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`data-anggota-sev-${new Date().toISOString().slice(0,10)}.csv`;a.click();URL.revokeObjectURL(url);toast('File CSV berhasil disiapkan.');
+  }
+  function printPage(title,html) {
+    const win=window.open('','_blank','width=900,height=700'); if(!win){toast('Izinkan popup browser untuk mencetak.','warning');return;}
+    win.document.write(`<!doctype html><html lang="id"><head><meta charset="utf-8"><title>${escapeHTML(title)}</title><style>body{font:12px Arial,sans-serif;color:#222;padding:28px}h1{font-size:17px;text-align:center;margin:0 0 6px}h2{font-size:14px;text-align:center;margin:0 0 25px}.muted{color:#666;font-size:10px}table{width:100%;border-collapse:collapse;margin-top:18px}td,th{border:1px solid #bbb;padding:7px;text-align:left;font-size:10px}th{background:#f2f4f2}.statement{line-height:1.6;margin-top:18px}.statement li{margin-bottom:8px}.signature{margin:45px 0 0 auto;text-align:center;width:250px;line-height:1.6}.line{margin-top:65px;border-bottom:1px dotted #333;padding-bottom:4px}.card-print{width:85.6mm;height:54mm;margin:30px auto;border-radius:5mm;padding:6mm;color:#fff;background:linear-gradient(125deg,#18181d,#a91f2d);box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;font-family:Arial}.card-head{display:flex;align-items:center;gap:10px}.card-head>b{font-size:22px;border:1px solid #ffffff88;border-radius:8px;padding:5px 8px}.card-head span{font-weight:bold;font-size:11px;letter-spacing:1px}.card-head small{font-size:7px;opacity:.75}.card-main{display:flex;justify-content:space-between;align-items:center}.card-main small{display:block;font-size:6px;letter-spacing:1px;opacity:.7;margin-top:6px}.card-main h2{font-size:12px;text-align:left;margin:3px 0}.card-main h3{font-size:11px;margin:3px 0}.card-photo{width:17mm;height:19mm;border:1px solid #ffffff88;border-radius:3mm;display:grid;place-items:center;font-size:20px;font-weight:bold;background:#ffffff22}.card-bottom{border-top:1px solid #ffffff55;padding-top:5px;display:flex;justify-content:space-between;font-size:7px;letter-spacing:.5px}@media print{button{display:none}}</style></head><body>${html}<script>window.onload=()=>window.print()<\/script></body></html>`);win.document.close();
+  }
+  function printRoster() {
+    const rows=readMembers().filter(m=>m.role==='member').map((m,i)=>`<tr><td>${i+1}</td><td>${escapeHTML(m.memberId)}</td><td>${escapeHTML(m.name)}</td><td>${escapeHTML(m.chapter)}</td><td>${escapeHTML(m.email)}</td><td>${m.status==='approved'?'Aktif':m.status==='pending'?'Menunggu':'Ditolak'}</td></tr>`).join('');
+    printPage('Direktori Anggota SEV Indonesia',`<h1>SEV INDONESIA</h1><h2>DAFTAR ANGGOTA</h2><p class="muted">Dicetak pada ${formatDate(new Date().toISOString().slice(0,10))}</p><table><thead><tr><th>No.</th><th>No. ID</th><th>Nama</th><th>Chapter</th><th>Email</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table>`);
+  }
+  function printStatement(member) {
+    const html=`<h1>SURAT PERNYATAAN KESANGGUPAN</h1><h2>MENJADI KETUA UMUM SEV INDONESIA</h2><p>Yang bertanda tangan di bawah ini:</p><table><tbody><tr><td>Nama Lengkap</td><td>${escapeHTML(member.name)}</td></tr><tr><td>No ID</td><td>${escapeHTML(member.memberId)}</td></tr><tr><td>Tempat/Tanggal Lahir</td><td>${escapeHTML(member.birthPlace)}, ${formatDate(member.birthDate)}</td></tr><tr><td>Alamat</td><td>${escapeHTML(member.address)}</td></tr><tr><td>No. KTP</td><td>${maskKtp(member.ktp)}</td></tr><tr><td>Asal Chapter</td><td>${escapeHTML(member.chapter)}</td></tr></tbody></table><p>Dengan ini menyatakan dengan sesungguhnya bahwa saya:</p><ol class="statement">${statements.map(s=>`<li>${escapeHTML(s)}</li>`).join('')}</ol><p class="statement">Demikian surat pernyataan kesanggupan ini saya buat dengan sebenar-benarnya, dalam keadaan sadar, tanpa adanya paksaan atau tekanan dari pihak manapun, untuk dipergunakan sebagaimana mestinya sebagai persyaratan pencalonan Ketua Umum SEV Indonesia.</p><div class="signature">Tasikmalaya, ${formatDate(new Date().toISOString().slice(0,10))}<br>Yang membuat pernyataan,<br><br>Materai Rp10.000<div class="line">(${escapeHTML(member.name)})<br>No ID: ${escapeHTML(member.memberId)}</div></div>`;
+    printPage('Surat Pernyataan Kesanggupan SEV Indonesia',html);
+  }
+  function decidePayment(memberId,paymentId,status){
+    const list=readMembers();const m=list.find(x=>x.id===memberId);if(!m)return;const payment=(m.duesPayments||[]).find(x=>x.id===paymentId);if(!payment)return;
+    const note=status==='confirmed'?'Pembayaran telah diverifikasi pengurus.':(prompt('Catatan untuk anggota (misalnya bukti tidak sesuai):','Mohon periksa kembali bukti transfer.')||'Perlu pemeriksaan ulang.');
+    payment.status=status;payment.reviewedAt=new Date().toISOString().slice(0,10);payment.note=note;writeMembers(list);renderApp();toast(status==='confirmed'?'Pembayaran berhasil dikonfirmasi.':'Pembayaran ditandai perlu perbaikan.');
+  }
+  function printMemberCard(member){
+    if(member.status!=='approved'){toast('Kartu hanya dapat dicetak setelah anggota aktif.','warning');return;}
+    const html=`<div class="card-print"><div class="card-head"><b>SEV</b><span>SEV INDONESIA<br><small>MEMBER IDENTITY CARD</small></span></div><div class="card-main"><div><small>NAMA ANGGOTA</small><h2>${escapeHTML(member.name)}</h2><small>NOMOR IDENTITAS</small><h3>${escapeHTML(member.memberId)}</h3><small>CHAPTER</small><b>${escapeHTML(member.chapter)}</b></div><div class="card-photo">${escapeHTML(initials(member.name))}</div></div><div class="card-bottom"><b>ACTIVE MEMBER</b><span>SEV INDONESIA · ${new Date().getFullYear()}</span></div></div><p style="text-align:center;font-size:9px;color:#666">Kartu anggota prototype · verifikasi keaslian melalui administrator SEV Indonesia.</p>`;
+    printPage('Kartu Member SEV Indonesia',html);
+  }
+  function handleAction(action,id,paymentId) {
+    const member=readMembers().find(m=>m.id===id);
+    switch(action){
+      case 'add':memberFormModal();break;
+      case 'view':if(member)showMemberDetail(member);break;
+      case 'edit':if(member)memberFormModal(member);break;
+      case 'delete':deleteMember(id);break;
+      case 'approve':approveMember(id);break;
+      case 'candidate-detail':if(member)showCandidateDetail(member);break;
+      case 'candidate-approve':decideCandidate(id,'candidate_approved');break;
+      case 'candidate-reject':decideCandidate(id,'candidate_rejected');break;
+      case 'export':downloadCSV();break;
+      case 'print-roster':printRoster();break;
+      case 'print-statement':if(member)printStatement(member);break;
+      case 'print-card':if(member)printMemberCard(member);break;
+      case 'dues-confirm':decidePayment(id,paymentId,'confirmed');break;
+      case 'dues-reject':decidePayment(id,paymentId,'rejected');break;
+      case 'reset-demo':showModal('Reset data prototype','<p style="font-size:12px;line-height:1.7;color:#69786f">Semua pendaftaran dan perubahan yang tersimpan di browser ini akan dihapus, lalu contoh data awal dimuat kembali.</p>','<button class="btn btn-outline" data-modal-close>Batal</button><button class="btn btn-primary" id="confirmReset" style="background:#a83e3e">Reset sekarang</button>');$('#confirmReset').addEventListener('click',()=>{localStorage.removeItem(DB_KEY);seedData();closeModal();renderApp();toast('Data demo dikembalikan ke kondisi awal.');});break;
+    }
+  }
+  function closeMobileNav(){ $('#sidebar').classList.remove('open'); $('#mobileOverlay').classList.remove('show'); }
+
+  // Event delegation
+  document.addEventListener('click',e=>{
+    const authTab=e.target.closest('[data-auth-tab]');if(authTab){setAuthTab(authTab.dataset.authTab);return;}
+    const pageBtn=e.target.closest('[data-page]');if(pageBtn){navigate(pageBtn.dataset.page);return;}
+    const act=e.target.closest('[data-action]');if(act){handleAction(act.dataset.action,act.dataset.id,act.dataset.payment);return;}
+    const pageNum=e.target.closest('[data-page-num]');if(pageNum){state.pageNum=Number(pageNum.dataset.pageNum);renderApp();return;}
+    if(e.target.closest('[data-modal-close]')){closeModal();return;}
+  });
+  $('#loginForm').addEventListener('submit',e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget).entries());login(d.email,d.password);});
+  $('#registerForm').addEventListener('submit',e=>{e.preventDefault();register(e.currentTarget);});
+  $('#logoutBtn').addEventListener('click',logout);
+  $('#memberLogoutBtn').addEventListener('click',logout);
+  $('#menuToggle').addEventListener('click',()=>{$('#sidebar').classList.toggle('open');$('#mobileOverlay').classList.toggle('show');});
+  $('#mobileOverlay').addEventListener('click',closeMobileNav);
+  $('#pageContent').addEventListener('input',e=>{
+    if(e.target.id==='memberSearch'){state.search=e.target.value;state.pageNum=1;const pos=e.target.selectionStart;const fresh=membersPage();$('#pageContent').innerHTML=fresh;const input=$('#memberSearch');input.focus();input.setSelectionRange(pos,pos);}
+  });
+  $('#pageContent').addEventListener('change',e=>{
+    if(e.target.id==='statusFilter'){state.statusFilter=e.target.value;state.pageNum=1;renderApp();}
+  });
+  $('#pageContent').addEventListener('submit',e=>{
+    if(e.target.id==='profileForm'){
+      e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());if(!/^\d{16}$/.test(data.ktp)){toast('Nomor KTP harus 16 digit.','error');return;}
+      const list=readMembers();if(list.some(m=>m.email.toLowerCase()===data.email.toLowerCase()&&m.id!==state.user.id)){toast('Email telah digunakan akun lain.','error');return;}if(list.some(m=>m.ktp===data.ktp&&m.id!==state.user.id)){toast('Nomor KTP telah digunakan akun lain.','error');return;}
+      const m=list.find(x=>x.id===state.user.id);Object.assign(m,data);writeMembers(list);renderApp();toast('Profil berhasil diperbarui.');
+    }
+    if(e.target.id==='duesForm'){
+      e.preventDefault();const data=Object.fromEntries(new FormData(e.target).entries());const list=readMembers();const m=list.find(x=>x.id===state.user.id);m.duesPayments=m.duesPayments||[];
+      if(m.duesPayments.some(x=>x.period===data.period&&x.status!=='rejected')){toast('Periode ini sudah memiliki pengajuan pembayaran.','warning');return;}
+      m.duesPayments.push({id:`dues-${Date.now()}`,period:data.period,amount:Number(data.amount),transferDate:data.transferDate,bankSender:data.bankSender,reference:data.reference,proof:data.proof,note:data.note,status:'pending',createdAt:new Date().toISOString()});writeMembers(list);renderApp();toast('Konfirmasi pembayaran terkirim. Menunggu pemeriksaan admin.');
+    }
+    if(e.target.id==='candidateForm'){
+      e.preventDefault();const checks=$$('input[name="commitment"]:checked',e.target);if(checks.length!==7||!$('input[name="candidateConsent"]',e.target).checked){toast('Setujui seluruh tujuh pernyataan terlebih dahulu.','error');return;}
+      const list=readMembers();const m=list.find(x=>x.id===state.user.id);m.candidateStatus='submitted';m.candidateSubmittedAt=new Date().toISOString().slice(0,10);m.candidateCommitments=checks.map(x=>Number(x.value));writeMembers(list);renderApp();toast('Pernyataan kesanggupan berhasil dikirim.');
+    }
+  });
+  document.addEventListener('click',e=>{
+    const toggle=e.target.closest('.password-toggle');if(toggle){const input=toggle.parentElement.querySelector('input');input.type=input.type==='password'?'text':'password';}
+    const copy=e.target.closest('[data-copy]');if(copy){navigator.clipboard?.writeText(copy.dataset.copy).then(()=>toast('Email admin disalin.')).catch(()=>{});}
+  });
+
+  seedData();
+  const saved=localStorage.getItem(SESSION_KEY);
+  if(saved&&readMembers().some(m=>m.id===saved)){state.user={id:saved};$('#authView').classList.add('hidden');$('#appView').classList.remove('hidden');renderApp();}
+  else showAuth();
+})();
+
+</script>
+</body>
+</html>
+
+<style>
+/* SEV brand refresh: charcoal + ruby red */
+:root{
+ --green-950:#101014;--green-900:#18181d;--green-800:#292930;
+ --green-700:#b42332;--green-600:#d13a49;
+ --green-100:#f8e9eb;--green-50:#fff7f7;
+ --gold:#d6b7a0;--ink:#202026;--muted:#777780;
+ --line:#ece8e9;--surface:#fff;--bg:#f6f5f5;
+ --red:#b42332;--shadow:0 16px 40px rgba(25,18,20,.08)
+}
+.eyebrow,.copy-login,.auth-switch-note button{color:#b42332}
+.auth-aside{background:radial-gradient(circle at 85% 72%,rgba(180,35,50,.28),transparent 30%),linear-gradient(145deg,#111115,#29292f 72%,#17171b)}
+.brand-mark{color:#e0c2b5;border-color:rgba(220,190,190,.65)}
+.btn-primary{background:#b42332;box-shadow:0 6px 15px rgba(180,35,50,.14)}
+.btn-primary:hover{background:#951b28}
+.auth-tab.active{color:#a91f2d}
+.member-bottom-nav button.active,.member-bottom-nav button[aria-current="page"]{color:#b42332}
+.member-bottom-nav button.active .nav-icon,.member-bottom-nav button[aria-current="page"] .nav-icon{background:#f8e9eb;color:#b42332}
+.sidebar{background:#101014}
+.sidebar .nav-item.active{background:rgba(180,35,50,.18);color:#fff}
+.sidebar .nav-item.active:before{background:#d13a49}
+.member-mode .member-bottom-nav{border-color:#ece8e9;box-shadow:0 -8px 28px rgba(25,18,20,.08)}
+.member-mode .member-bottom-nav .active{color:#b42332}
+.member-mode .member-bottom-nav .active svg{stroke:#b42332}
+</style>
