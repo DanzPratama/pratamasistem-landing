@@ -321,7 +321,7 @@
           <div class="form-section-title"><span>02</span><div><b>Identitas anggota</b><small>Lengkapi sesuai data diri.</small></div></div>
           <div class="form-grid">
             <div class="field"><label>No. ID anggota</label><input name="memberId" id="registerMemberId" readonly><small class="field-help">Nomor ID diterbitkan otomatis oleh sistem.</small></div>
-            <div class="field"><label>Jenis keanggotaan <i>*</i></label><select name="membershipType" required><option value="regular">Anggota Biasa</option><option value="honorary">Anggota Kehormatan (Terbatas)</option></select><small class="field-help">Anggota kehormatan bersifat terbatas dan perlu persetujuan pengurus.</small></div>
+            <div class="field"><label>Jenis keanggotaan <i>*</i></label><select name="membershipType" required><option value="regular">Anggota Biasa</option><option value="honorary">Anggota Terbatas</option><option value="honorary">Anggota  Kehormatan</option></select><small class="field-help">Anggota kehormatan bersifat terbatas dan perlu persetujuan pengurus.</small></div>
             <div class="field"><label>Foto anggota</label><input name="photo" type="file" accept="image/jpeg,image/png,image/webp"><small class="field-help">Opsional · JPG/PNG/WEBP, maksimal 5 MB.</small></div>
             <div class="field"><label>No. KTP / NIK <i>*</i></label><input name="ktp" inputmode="numeric" maxlength="16" minlength="16" required placeholder="16 digit NIK"><small class="field-help">Data identitas ditampilkan secara tersamarkan pada daftar anggota.</small></div>
             <div class="field"><label>Tempat lahir <i>*</i></label><input name="birthPlace" required placeholder="Kota kelahiran"></div>
@@ -671,7 +671,7 @@
     const isEdit=!!member;
     const content=`<form id="adminMemberForm"><div class="modal-form-grid">
       <div class="field"><label>No. ID anggota</label><input name="memberId" readonly value="${escapeHTML(member?.memberId||getNextId())}"><small class="field-help">Nomor ID unik anggota SEV.</small></div>
-      <div class="field"><label>Jenis keanggotaan *</label><select name="membershipType"><option value="regular" ${(!member||member.membershipType!=='honorary')?'selected':''}>Anggota Biasa</option><option value="honorary" ${member?.membershipType==='honorary'?'selected':''}>Anggota Kehormatan (Terbatas)</option></select></div>
+      <div class="field"><label>Jenis keanggotaan *</label><select name="membershipType"><option value="regular" ${(!member||member.membershipType!=='honorary')?'selected':''}>Anggota Biasa</option><option value="honorary" ${member?.membershipType==='honorary'?'selected':''}>Anggota Terbatas</option><option value="honorary" ${member?.membershipType==='honorary'?'selected':''}>Anggota Kehormatan </option></select></div>
       <div class="field"><label>Foto anggota</label><input name="photo" type="file" accept="image/jpeg,image/png,image/webp"><small class="field-help">Opsional · foto digunakan pada KTA.</small></div>
       <div class="field"><label>Nama lengkap *</label><input name="name" required value="${escapeHTML(member?.name||'')}"></div>
       <div class="field"><label>Email *</label><input name="email" type="email" required value="${escapeHTML(member?.email||'')}"></div>
