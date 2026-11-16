@@ -1,805 +1,923 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<!doctype html>
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DaNz Dev ID — Buat Support Sistemu | PT. Pratama Sistem Indonesia</title>
-  <meta name="description" content="DaNz Dev menyediakan jasa pembuatan website dan sistem informasi (Software House) profesional di Tasikmalaya. Spesialis pengembangan aplikasi web, sistem instansi, sekolah, UMKM, dan solusi IT modern yang aman, responsif, dan terpercaya.">
-  <meta name="keywords" content="danz dev, danz dev id, danz id dev,jasa pembuatan website Tasikmalaya, jasa pembuatan aplikasi web, jasa sistem informasi, developer website Tasikmalaya, jasa IT Tasikmalaya, pembuatan sistem instansi, pembuatan website sekolah, aplikasi web custom, software house Tasikmalaya, jasa web developer profesional">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DaNz Dev ID — Solusi Website, Sistem Informasi & IT Support</title>
+  <meta name="description" content="DaNz Dev membantu instansi, sekolah, dan bisnis membangun website, aplikasi web kustom, serta solusi IT yang sesuai kebutuhan operasional. Berbasis di Tasikmalaya, Jawa Barat.">
+  <meta name="keywords" content="DaNz Dev, jasa pembuatan website Tasikmalaya, aplikasi web, sistem informasi, IT support, software house Tasikmalaya">
   <meta name="author" content="DaNz Dev ID">
+  <meta name="theme-color" content="#ffffff">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon-32x32.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  <!-- Fonts: Plus Jakarta Sans for Headings, Inter for Body -->
+  <link rel="icon" href="assets/img/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Tailwind Config -->
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            heading: ['Plus Jakarta Sans', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              900: '#1e3a8a',
-              950: '#172554',
-            },
-            surface: {
-              light: 'rgba(255, 255, 255, 0.7)',
-              dark: 'rgba(15, 23, 42, 0.6)',
-            }
-          },
-          animation: {
-            'blob': 'blob 7s infinite',
-            'marquee': 'marquee 25s linear infinite',
-            'shine': 'shine 2s infinite',
-          },
-          keyframes: {
-            blob: {
-              '0%': { transform: 'translate(0px, 0px) scale(1)' },
-              '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-              '100%': { transform: 'translate(0px, 0px) scale(1)' },
-            },
-            marquee: {
-              '0%': { transform: 'translateX(0%)' },
-              '100%': { transform: 'translateX(-50%)' },
-            },
-            shine: {
-              '100%': { left: '125%' }
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
 
   <style>
-    /* Custom Utilities */
+    :root {
+      --ink: #172b4d;
+      --ink-soft: #42536b;
+      --muted: #6b778c;
+      --blue: #1769aa;
+      --blue-dark: #0d4779;
+      --blue-pale: #edf5fb;
+      --line: #e4eaf0;
+      --surface: #f6f8fb;
+      --white: #fff;
+      --radius: 14px;
+      --shadow: 0 16px 42px rgba(25, 50, 82, .09);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
     body {
-      background-color: #f8fafc;
-      color: #0f172a;
+      margin: 0;
+      color: var(--ink-soft);
+      background: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
     }
-    
-    .dark body {
-      background-color: #020617; /* Very dark slate */
-      color: #f8fafc;
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--ink);
+      font-family: 'Manrope', sans-serif;
+      font-weight: 800;
+      letter-spacing: -.035em;
+      line-height: 1.2;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: var(--blue-dark); }
+    img { max-width: 100%; }
+    .container { max-width: 1160px; }
+    .section-space { padding: 104px 0; }
+    .section-soft { background: var(--surface); }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 16px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before {
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: currentColor;
+      content: '';
+    }
+    .section-title {
+      max-width: 700px;
+      margin: 0 auto 14px;
+      font-size: clamp(30px, 4vw, 43px);
+    }
+    .section-lead {
+      max-width: 650px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 17px;
     }
 
-    /* Scroll Reveal Classes */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    /* Navigation */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,.96);
+      border-bottom: 1px solid rgba(228,234,240,.85);
+      transition: box-shadow .2s ease;
     }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
+    .site-header.is-scrolled { box-shadow: 0 8px 28px rgba(20,45,75,.07); }
+    .navbar { min-height: 78px; padding: 13px 0; }
+    .brand-lockup { display: inline-flex; align-items: center; gap: 11px; }
+    .brand-mark {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--ink);
+      color: #fff;
+      font-family: 'Manrope', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
     }
-    
-    /* Staggered delays */
-    .delay-100 { transition-delay: 100ms; }
-    .delay-200 { transition-delay: 200ms; }
-    .delay-300 { transition-delay: 300ms; }
+    .brand-name {
+      color: var(--ink);
+      font-family: 'Manrope', sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -.05em;
+    }
+    .brand-name span { color: var(--blue); }
+    .navbar-nav { gap: 8px; }
+    .navbar-nav .nav-link {
+      padding: 10px 13px !important;
+      color: #526176;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active { color: var(--blue); }
+    .btn-main {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 21px;
+      border: 1px solid var(--blue);
+      border-radius: 7px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      transition: background .2s ease, border-color .2s ease, transform .2s ease;
+    }
+    .btn-main:hover {
+      border-color: var(--blue-dark);
+      background: var(--blue-dark);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .btn-outline-main {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 21px;
+      border: 1px solid #cbd6e2;
+      border-radius: 7px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+      transition: all .2s ease;
+    }
+    .btn-outline-main:hover { border-color: var(--blue); color: var(--blue); }
+    .navbar-toggler { border: 0; box-shadow: none !important; font-size: 25px; color: var(--ink); }
 
-    /* Glass Cards */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Hero */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 88px 0 76px;
+      background: #f5f8fb;
     }
-    
-    .dark .glass-card {
-      background: rgba(15, 23, 42, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    .hero::after {
+      position: absolute;
+      right: -130px;
+      bottom: -220px;
+      width: 520px;
+      height: 520px;
+      border: 1px solid rgba(23,105,170,.09);
+      border-radius: 50%;
+      content: '';
+      pointer-events: none;
     }
+    .hero-copy { position: relative; z-index: 1; padding: 18px 22px 18px 0; }
+    .hero h1 {
+      max-width: 640px;
+      margin: 0 0 22px;
+      font-size: clamp(39px, 5.4vw, 60px);
+      letter-spacing: -.055em;
+    }
+    .hero h1 span { color: var(--blue); }
+    .hero-description {
+      max-width: 560px;
+      margin-bottom: 29px;
+      color: #65758b;
+      font-size: 18px;
+      line-height: 1.75;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 31px;
+      color: #6d7b8e;
+      font-size: 13px;
+    }
+    .hero-note i { color: #28966b; font-size: 16px; }
+    .hero-visual { position: relative; padding: 12px 0 22px 18px; }
+    .hero-image-wrap {
+      position: relative;
+      min-height: 430px;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #dce6ef;
+      box-shadow: var(--shadow);
+    }
+    .hero-image-wrap img { width: 100%; height: 430px; object-fit: cover; }
+    .hero-image-wrap::after {
+      position: absolute;
+      inset: 45% 0 0;
+      background: linear-gradient(180deg, transparent, rgba(10,29,52,.55));
+      content: '';
+    }
+    .hero-caption {
+      position: absolute;
+      z-index: 1;
+      right: 24px;
+      bottom: 22px;
+      left: 24px;
+      color: #fff;
+    }
+    .hero-caption small { display: block; margin-bottom: 5px; opacity: .8; }
+    .hero-caption strong { font-family: 'Manrope', sans-serif; font-size: 20px; }
+    .hero-index {
+      position: absolute;
+      top: 35px;
+      left: -4px;
+      z-index: 2;
+      padding: 13px 17px;
+      border-left: 3px solid var(--blue);
+      background: #fff;
+      box-shadow: 0 8px 25px rgba(20,45,75,.1);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .audience-strip {
+      padding: 25px 0;
+      border-top: 1px solid #e5ebf1;
+      background: #fff;
+    }
+    .audience-label { color: #8290a2; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .audience-item { display: flex; align-items: center; gap: 11px; color: #42536b; font-size: 14px; font-weight: 700; }
+    .audience-item i { color: var(--blue); font-size: 18px; }
 
-    /* Gradient Text */
-    .text-gradient {
-      background: linear-gradient(to right, #3b82f6, #8b5cf6, #3b82f6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-size: 200% auto;
-      animation: textGradient 3s linear infinite;
+    /* About */
+    .about-photo { position: relative; padding: 0 22px 22px 0; }
+    .about-photo img { width: 100%; height: 440px; border-radius: 10px; object-fit: cover; }
+    .about-photo::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      width: 68%;
+      height: 58%;
+      border: 2px solid #cbddeb;
+      border-radius: 10px;
+      content: '';
     }
-    
-    @keyframes textGradient {
-      to { background-position: 200% center; }
+    .about-copy h2 { margin-bottom: 19px; font-size: clamp(30px, 4vw, 42px); }
+    .about-copy > p { margin-bottom: 27px; color: var(--muted); font-size: 16px; }
+    .feature-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px 25px; }
+    .feature-item { display: flex; align-items: flex-start; gap: 12px; }
+    .feature-icon {
+      display: grid;
+      width: 37px;
+      height: 37px;
+      flex: 0 0 37px;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--blue-pale);
+      color: var(--blue);
+      font-size: 17px;
     }
+    .feature-item strong { display: block; margin: 1px 0 3px; color: var(--ink); font-size: 14px; }
+    .feature-item span { display: block; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .about-meta { display: flex; flex-wrap: wrap; gap: 33px; margin-top: 31px; padding-top: 25px; border-top: 1px solid var(--line); }
+    .about-meta strong { display: block; color: var(--ink); font-family: 'Manrope', sans-serif; font-size: 19px; }
+    .about-meta span { color: var(--muted); font-size: 12px; }
 
-    /* Marquee Fading Edges */
-    .marquee-mask {
-      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    /* Services */
+    .service-card {
+      height: 100%;
+      padding: 30px 27px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
     }
-    
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    .dark ::-webkit-scrollbar-thumb { background: #334155; }
+    .service-card:hover { border-color: #c5d9e9; box-shadow: 0 14px 34px rgba(25,50,82,.07); transform: translateY(-4px); }
+    .service-icon { margin-bottom: 22px; color: var(--blue); font-size: 28px; }
+    .service-card h3 { margin-bottom: 12px; font-size: 18px; letter-spacing: -.025em; }
+    .service-card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.75; }
+
+    /* Why us */
+    .why-panel { height: 100%; padding: 32px; border-radius: 10px; background: var(--ink); color: rgba(255,255,255,.72); }
+    .why-panel h2 { margin-bottom: 16px; color: #fff; font-size: clamp(29px,3.5vw,39px); }
+    .why-panel p { margin-bottom: 24px; }
+    .why-link { display: inline-flex; align-items: center; gap: 9px; color: #9ed0f4; font-size: 14px; font-weight: 700; }
+    .why-link:hover { color: #fff; }
+    .why-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+    .why-item { min-height: 170px; padding: 24px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .why-item i { display: inline-block; margin-bottom: 15px; color: var(--blue); font-size: 24px; }
+    .why-item h3 { margin-bottom: 8px; font-size: 16px; }
+    .why-item p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    /* CTA */
+    .cta-band { padding: 66px 0; background: var(--blue-dark); color: rgba(255,255,255,.76); }
+    .cta-band h2 { max-width: 650px; margin: 0 0 13px; color: #fff; font-size: clamp(29px,4vw,40px); }
+    .cta-band p { max-width: 630px; margin: 0; }
+    .btn-light-custom { display: inline-flex; min-height: 49px; align-items: center; gap: 10px; padding: 12px 22px; border: 1px solid #fff; border-radius: 7px; background: #fff; color: var(--blue-dark); font-size: 14px; font-weight: 700; white-space: nowrap; }
+    .btn-light-custom:hover { background: #eaf3fa; color: var(--blue-dark); }
+
+    /* Portfolio */
+    .project-card { height: 100%; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #fff; transition: box-shadow .2s ease, transform .2s ease; }
+    .project-card:hover { box-shadow: var(--shadow); transform: translateY(-4px); }
+    .project-image { overflow: hidden; aspect-ratio: 4 / 3; background: #eaf0f5; }
+    .project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s ease; }
+    .project-card:hover .project-image img { transform: scale(1.035); }
+    .project-body { padding: 22px 23px 24px; }
+    .project-type { display: block; margin-bottom: 8px; color: var(--blue); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .project-body h3 { margin-bottom: 8px; font-size: 19px; }
+    .project-body p { margin: 0; color: var(--muted); font-size: 14px; }
+    .project-list { margin-top: 42px; padding: 32px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .project-list h3 { margin-bottom: 24px; font-size: 21px; }
+    .project-list-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid #edf1f5; }
+    .project-list-item:last-child { border-bottom: 0; }
+    .project-list-item i { margin-top: 3px; color: var(--blue); }
+    .project-list-item strong { display: block; color: var(--ink); font-size: 14px; }
+    .project-list-item span { display: block; color: var(--muted); font-size: 12px; }
+    .support-title { margin: 54px 0 23px; font-size: 23px; }
+    .support-card { display: flex; height: 100%; gap: 14px; padding: 22px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .support-card > i { color: var(--blue); font-size: 22px; }
+    .support-card h4 { margin-bottom: 7px; font-size: 15px; letter-spacing: -.02em; }
+    .support-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
+
+    /* Reviews */
+    .review-card { height: 100%; padding: 27px; border: 1px solid var(--line); border-radius: 10px; background: #fff; }
+    .review-stars { margin-bottom: 14px; color: #e4a72d; font-size: 13px; letter-spacing: 2px; }
+    .review-card blockquote { min-height: 85px; margin: 0 0 22px; color: #53647a; font-size: 14px; line-height: 1.75; }
+    .review-person { display: flex; align-items: center; gap: 11px; }
+    .review-avatar { display: grid; width: 39px; height: 39px; place-items: center; border-radius: 50%; background: var(--blue-pale); color: var(--blue); font-family: 'Manrope',sans-serif; font-weight: 800; }
+    .review-person strong { display: block; color: var(--ink); font-size: 13px; }
+    .review-person span { display: block; color: var(--muted); font-size: 11px; }
+
+    /* Contact and footer */
+    .contact-intro h2 { margin-bottom: 15px; font-size: clamp(30px,4vw,42px); }
+    .contact-intro p { max-width: 560px; color: var(--muted); }
+    .contact-card { display: flex; align-items: flex-start; gap: 15px; padding: 20px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+    .contact-card i { color: var(--blue); font-size: 21px; }
+    .contact-card small { display: block; margin-bottom: 3px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .contact-card strong { display: block; color: var(--ink); font-size: 14px; font-weight: 700; }
+    .contact-card a { color: var(--ink); }
+    .contact-card a:hover { color: var(--blue); }
+    .contact-cta { height: 100%; padding: 32px; border-radius: 10px; background: var(--blue-pale); }
+    .contact-cta h3 { margin-bottom: 12px; font-size: 23px; }
+    .contact-cta p { margin-bottom: 22px; color: var(--muted); font-size: 14px; }
+    footer { padding: 64px 0 24px; background: #12233d; color: rgba(255,255,255,.68); }
+    footer h5 { margin-bottom: 19px; color: #fff; font-size: 15px; letter-spacing: -.01em; }
+    .footer-brand { color: #fff; font-family: 'Manrope',sans-serif; font-size: 21px; font-weight: 800; }
+    .footer-brand span { color: #72b6e7; }
+    .footer-copy { max-width: 390px; margin-top: 15px; font-size: 13px; line-height: 1.8; }
+    .footer-links { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; font-size: 13px; }
+    .footer-links a { color: rgba(255,255,255,.68); }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 45px; padding-top: 21px; border-top: 1px solid rgba(255,255,255,.14); font-size: 12px; }
+    .floating-wa {
+      position: fixed;
+      right: 23px;
+      bottom: 23px;
+      z-index: 900;
+      display: grid;
+      width: 54px;
+      height: 54px;
+      place-items: center;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      background: #1da96b;
+      box-shadow: 0 7px 22px rgba(14,50,40,.22);
+      color: #fff;
+      font-size: 25px;
+      transition: transform .2s ease;
+    }
+    .floating-wa:hover { color: #fff; transform: translateY(-3px); }
+    .fade-up { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 991.98px) {
+      .section-space { padding: 80px 0; }
+      .navbar-collapse { padding: 15px 0 8px; }
+      .navbar-nav { gap: 0; }
+      .navbar-nav .nav-link { padding: 9px 0 !important; }
+      .nav-cta { margin-top: 10px; }
+      .hero { padding: 65px 0 55px; }
+      .hero-copy { padding-right: 0; }
+      .hero-visual { padding: 22px 0 0 15px; }
+      .hero-image-wrap, .hero-image-wrap img { height: 360px; min-height: 360px; }
+      .about-photo img { height: 390px; }
+    }
+    @media (max-width: 575.98px) {
+      body { font-size: 15px; }
+      .section-space { padding: 66px 0; }
+      .hero { padding: 49px 0 42px; }
+      .hero h1 { font-size: 39px; }
+      .hero-description { font-size: 16px; }
+      .hero-actions .btn-main, .hero-actions .btn-outline-main { width: 100%; }
+      .hero-image-wrap, .hero-image-wrap img { height: 285px; min-height: 285px; }
+      .hero-index { top: 31px; left: 0; }
+      .audience-strip { padding: 20px 0; }
+      .audience-item { font-size: 12px; }
+      .about-photo { padding: 0 12px 12px 0; }
+      .about-photo img { height: 300px; }
+      .feature-list { gap: 17px 12px; }
+      .feature-item { gap: 9px; }
+      .feature-icon { width: 32px; height: 32px; flex-basis: 32px; font-size: 15px; }
+      .feature-item strong { font-size: 12px; }
+      .feature-item span { font-size: 11px; }
+      .why-grid { gap: 10px; }
+      .why-item { min-height: 165px; padding: 17px; }
+      .project-list { padding: 22px; }
+      .cta-band { padding: 50px 0; }
+      .btn-light-custom { width: 100%; justify-content: center; margin-top: 23px; }
+      .review-card blockquote { min-height: auto; }
+      .contact-cta { padding: 25px; }
+      .floating-wa { right: 16px; bottom: 16px; width: 50px; height: 50px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .fade-up { opacity: 1; transform: none; }
+    }
   </style>
 </head>
+<body>
 
-<body class="antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white transition-colors duration-300">
-
-  <!-- ================= HEADER ================= -->
-  <header class="fixed top-4 left-0 w-full z-50 px-4 flex justify-center transition-transform duration-300" id="navbar">
-    <div class="w-full max-w-5xl flex items-center justify-between px-6 py-3 rounded-full glass-card shadow-lg shadow-slate-200/50 dark:shadow-black/50">
-      
-      <a href="#" class="group flex items-center gap-2">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-indigo-600 flex items-center justify-center text-white font-bold shadow-lg group-hover:scale-110 transition-transform">
-          D
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="brand-lockup" href="#home" aria-label="DaNz Dev, beranda">
+          <span class="brand-mark">D</span>
+          <span class="brand-name">DaNz<span>Dev</span></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation" aria-controls="mainNavigation" aria-expanded="false" aria-label="Buka navigasi">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavigation">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item"><a class="nav-link active" href="#home">Beranda</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
+            <li class="nav-item"><a class="nav-link" href="#services">Layanan</a></li>
+            <li class="nav-item"><a class="nav-link" href="#portfolio">Portofolio</a></li>
+            <li class="nav-item"><a class="nav-link" href="#reviews">Ulasan</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contact">Kontak</a></li>
+          </ul>
+          <a class="btn-main nav-cta ms-lg-3" href="https://wa.me/6282214641824" target="_blank" rel="noopener noreferrer">
+            Diskusi Proyek <i class="bi bi-arrow-up-right"></i>
+          </a>
         </div>
-        <h1 class="font-heading font-extrabold text-lg tracking-tight text-slate-900 dark:text-white">
-          DaNz<span class="text-brand-500">Dev</span>
-        </h1>
-      </a>
-
-      <nav class="hidden md:flex gap-6 font-medium text-sm text-slate-600 dark:text-slate-300">
-        <a href="#about" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">About</a>
-        <a href="#services" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Services</a>
-        <a href="#portfolio" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Portfolio</a>
-        <a href="#reviews" class="hover:text-brand-500 dark:hover:text-brand-400 transition-colors">Reviews</a>
-      </nav>
-
-      <button id="themeToggle" aria-label="Toggle Dark Mode"
-        class="w-10 h-10 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:scale-110 transition-all">
-        <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-      </button>
-    </div>
+      </div>
+    </nav>
   </header>
 
-  <!-- ================= HERO ================= -->
-  <section class="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden">
-    
-    <!-- Animated Background Blobs -->
-    <div class="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-      <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-brand-400/30 dark:bg-brand-600/20 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-[80px] animate-blob"></div>
-      <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-400/30 dark:bg-purple-600/20 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-[100px] animate-blob animation-delay-2000"></div>
-      <div class="absolute -bottom-32 left-1/3 w-80 h-80 bg-indigo-400/30 dark:bg-indigo-600/20 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-[80px] animate-blob animation-delay-4000"></div>
-      
-      <!-- Grid Pattern -->
-      <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiIGZpbGw9Im5vbmUiLz4KPHBhdGggZD0iTTAgMTBoNDBNMTAgMHY0ME0wIDIwaDQwTTIwIDB2NDBNMCAzMGg0ME0zMCAwdjQwIiBzdHJva2U9InJnYmEoMTI4LCAxMjgsIDEyOCwgMC4wNykiIHN0cm9rZS13aWR0aD0iMSIvPgo8L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)]"></div>
-    </div>
-
-    <!-- Hero Content -->
-    <div class="relative z-10 max-w-4xl w-full text-center mt-10">
-      
-      <!-- Badge -->
-      <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-sm font-medium mb-8 text-slate-700 dark:text-slate-300">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-        </span>
-        Open for new projects
-      </div>
-
-      <h1 class="reveal delay-100 text-5xl md:text-7xl font-heading font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-6">
-        Bangun Sistem Digital <br>
-        <span class="text-gradient">Profesional & Modern</span>
-      </h1>
-
-      <p class="reveal delay-200 text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-        Solusi IT cerdas untuk instansi, pendidikan, dan bisnis. Tingkatkan efisiensi kerja dengan perangkat lunak yang aman, responsif, dan mudah digunakan.
-      </p>
-
-      <div class="reveal delay-300 flex flex-wrap items-center justify-center gap-4">
-        <a href="#portfolio" class="relative overflow-hidden group px-8 py-4 rounded-full font-semibold text-white bg-slate-900 dark:bg-brand-600 hover:bg-slate-800 dark:hover:bg-brand-500 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.2)] dark:shadow-[0_10px_30px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95">
-          <span class="relative z-10">Lihat Karya Kami</span>
-          <!-- Shine Effect -->
-          <div class="absolute inset-0 -top-[20px] -left-[20px] w-8 h-[150%] bg-white/20 rotate-45 transform -translate-x-full group-hover:animate-shine"></div>
-        </a>
-        <a href="https://wa.me/6282214641824" target="_blank" class="px-8 py-4 rounded-full font-semibold text-slate-900 dark:text-white glass-card hover:bg-white/80 dark:hover:bg-slate-800 transition-all hover:scale-105 active:scale-95">
-          Konsultasi Gratis &rarr;
-        </a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================= ABOUT ================= -->
-  <section id="about" class="px-6 py-32 relative">
-    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-      
-      <!-- Image with floating card -->
-      <div class="relative reveal">
-        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative">
-          <!-- Image placeholder for aesthetics, change source if needed -->
-          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
-               class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" alt="Coding">
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
-        </div>
-
-        <!-- Floating Badge -->
-        <div class="absolute -bottom-8 -right-8 px-8 py-6 rounded-3xl glass-card shadow-2xl animate-[translateY_3s_ease-in-out_infinite]">
-          <h4 class="text-4xl font-heading font-extrabold text-brand-500">4+</h4>
-          <p class="text-sm font-medium text-slate-600 dark:text-slate-300 mt-1">Tahun<br>Pengalaman</p>
-        </div>
-      </div>
-
-      <!-- Text Content -->
-      <div class="reveal delay-200">
-        <div class="inline-flex items-center gap-2 text-brand-500 font-semibold text-sm tracking-wider uppercase mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
-          Tentang Kami
-        </div>
-        <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6 leading-tight">
-          Seni Menulis Kode, <br>Solusi Nyata.
-        </h2>
-        <p class="text-slate-600 dark:text-slate-400 mb-8 text-lg leading-relaxed">
-          Sejak 2020, kami fokus mengubah kompleksitas proses bisnis menjadi sistem digital yang efisien. Dari instansi pemerintahan hingga UMKM, kami membangun dengan standar profesional, performa tinggi, dan keamanan terjamin.
-        </p>
-
-        <div class="grid grid-cols-2 gap-6">
-          <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-brand-500 shrink-0">✔</div>
-            <div>
-              <h5 class="font-heading font-bold text-slate-900 dark:text-white">Fokus Performa</h5>
-              <p class="text-sm text-slate-500 mt-1">Cepat & responsif</p>
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container position-relative">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-lg-6">
+            <div class="hero-copy fade-up">
+              <div class="eyebrow">Software & IT Solutions · Tasikmalaya</div>
+              <h1>Teknologi yang bekerja untuk <span>kebutuhan nyata.</span></h1>
+              <p class="hero-description">
+                Kami membantu instansi, sekolah, dan bisnis membangun website serta sistem digital yang sesuai dengan cara kerja mereka — dari perencanaan sampai implementasi.
+              </p>
+              <div class="hero-actions">
+                <a class="btn-main" href="#portfolio">Lihat portofolio <i class="bi bi-arrow-right"></i></a>
+                <a class="btn-outline-main" href="https://wa.me/6282214641824" target="_blank" rel="noopener noreferrer">Konsultasi kebutuhan <i class="bi bi-chat-dots"></i></a>
+              </div>
+              <div class="hero-note"><i class="bi bi-check-circle-fill"></i> Terbuka untuk proyek website, sistem informasi, dan dukungan IT.</div>
             </div>
           </div>
-          <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 shrink-0">✔</div>
-            <div>
-              <h5 class="font-heading font-bold text-slate-900 dark:text-white">Skalabilitas</h5>
-              <p class="text-sm text-slate-500 mt-1">Siap berkembang</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 shrink-0">✔</div>
-            <div>
-              <h5 class="font-heading font-bold text-slate-900 dark:text-white">Keamanan</h5>
-              <p class="text-sm text-slate-500 mt-1">Perlindungan data</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 shrink-0">✔</div>
-            <div>
-              <h5 class="font-heading font-bold text-slate-900 dark:text-white">Maintenance</h5>
-              <p class="text-sm text-slate-500 mt-1">Dukungan teknis</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= SERVICES ================= -->
-  <section id="services" class="px-6 py-32 bg-white/50 dark:bg-slate-900/50 border-y border-slate-200 dark:border-white/5 relative">
-    <div class="max-w-7xl mx-auto relative z-10">
-      
-      <!-- Section Header -->
-      <div class="text-center max-w-2xl mx-auto mb-20 reveal">
-        <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6">Layanan Kami</h2>
-        <p class="text-slate-600 dark:text-slate-400 text-lg">
-          Layanan menyeluruh dari perancangan hingga pemeliharaan sistem, dioptimalkan untuk kebutuhan bisnis Anda.
-        </p>
-      </div>
-
-      <!-- Bento Grid Services -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        
-        <!-- Card 1 -->
-        <div class="reveal glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
-          <div class="w-14 h-14 rounded-2xl bg-brand-500 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-brand-500/30 group-hover:scale-110 transition-transform">💻</div>
-          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">Web Development</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-            Pembuatan website profile, portal berita, dan landing page yang modern, responsif, dan teroptimasi.
-          </p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="reveal delay-100 glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
-          <div class="w-14 h-14 rounded-2xl bg-purple-500 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">🧩</div>
-          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">Aplikasi Web Kustom</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-            Sistem informasi akademik, manajemen instansi, kasir (POS), dan software khusus sesuai alur kerja Anda.
-          </p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="reveal delay-200 glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
-          <div class="w-14 h-14 rounded-2xl bg-emerald-500 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">🔐</div>
-          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">Keamanan Sistem</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-            Implementasi autentikasi, manajemen role, enkripsi data, dan perlindungan dari celah kerentanan web.
-          </p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="reveal glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
-          <div class="w-14 h-14 rounded-2xl bg-orange-500 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">⚙️</div>
-          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">Maintenance & Support</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-            Perawatan server, update fitur, perbaikan bug, dan jaminan sistem berjalan lancar 24/7.
-          </p>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="reveal delay-100 glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
-          <div class="w-14 h-14 rounded-2xl bg-pink-500 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-pink-500/30 group-hover:scale-110 transition-transform">📈</div>
-          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">SEO & Optimasi</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-            Tingkatkan kecepatan loading web dan pastikan sistem Anda mudah ditemukan di mesin pencari Google.
-          </p>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="reveal delay-200 glass-card p-8 rounded-3xl hover:-translate-y-2 transition-transform duration-300 group">
-          <div class="w-14 h-14 rounded-2xl bg-slate-700 flex items-center justify-center text-2xl text-white mb-6 shadow-lg shadow-slate-700/30 group-hover:scale-110 transition-transform">🛠️</div>
-          <h3 class="text-xl font-heading font-bold mb-3 text-slate-900 dark:text-white">IT Support & Jaringan</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
-            Instalasi LAN/WLAN, peremajaan hardware (PC/Laptop), dan troubleshooting jaringan kantor.
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= REVIEWS (MARQUEE) ================= -->
-  <section id="reviews" class="py-32 overflow-hidden relative">
-    <div class="max-w-7xl mx-auto px-6 mb-16 text-center reveal">
-      <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6">Apa Kata Klien</h2>
-      <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-        Kepercayaan mereka adalah bukti dedikasi kami dalam memberikan kualitas terbaik.
-      </p>
-    </div>
-
-    <!-- Marquee Container -->
-    <div class="w-full flex overflow-hidden marquee-mask reveal delay-100 py-4">
-      
-      <!-- Track (Duplicate this div to make the infinite effect smooth) -->
-      <div class="flex gap-6 animate-marquee w-max pl-6">
-        
-        <!-- Review Cards... -->
-        <!-- Card 1 -->
-        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
-          <div class="flex gap-4 items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-xl">A</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white">AI Linda Nurahmah</h4>
-              <div class="flex text-yellow-400 text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-slate-600 dark:text-slate-300 italic">"Oh, it’s really good, I know it’s recommended. Sangat membantu sistem kerja kami."</p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
-          <div class="flex gap-4 items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl">A</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Ari Pebriana</h4>
-              <div class="flex text-yellow-400 text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-slate-600 dark:text-slate-300 italic">"Awesome, I’m really satisfied with it, it’s exactly what I expected 👍👍👍"</p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
-          <div class="flex gap-4 items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">D</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Dean Ramadhan</h4>
-              <div class="flex text-yellow-400 text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-slate-600 dark:text-slate-300 italic">"Recommended for those of you who are confused about doing programming assignments 😍"</p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
-          <div class="flex gap-4 items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xl">N</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Novalsyah</h4>
-              <div class="flex text-yellow-400 text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-slate-600 dark:text-slate-300 italic">"It’s really great 👍. Pekerjaan cepat dan hasilnya maksimal."</p>
-        </div>
-        
-        <!-- Card 5 -->
-        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
-          <div class="flex gap-4 items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-xl">M</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Muh Taufik Akmal</h4>
-              <div class="flex text-yellow-400 text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-slate-600 dark:text-slate-300 italic">"Excellent support and very responsive. Sangat diandalkan."</p>
-        </div>
-
-        <!-- ================= DUPLICATE FOR SEAMLESS LOOP ================= -->
-         <!-- Card 1 -->
-         <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
-          <div class="flex gap-4 items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-xl">A</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white">AI Linda Nurahmah</h4>
-              <div class="flex text-yellow-400 text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-slate-600 dark:text-slate-300 italic">"Oh, it’s really good, I know it’s recommended. Sangat membantu sistem kerja kami."</p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
-          <div class="flex gap-4 items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl">A</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Ari Pebriana</h4>
-              <div class="flex text-yellow-400 text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-slate-600 dark:text-slate-300 italic">"Awesome, I’m really satisfied with it, it’s exactly what I expected 👍👍👍"</p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
-          <div class="flex gap-4 items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xl">D</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Dean Ramadhan</h4>
-              <div class="flex text-yellow-400 text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-slate-600 dark:text-slate-300 italic">"Recommended for those of you who are confused about doing programming assignments 😍"</p>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
-          <div class="flex gap-4 items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xl">N</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Novalsyah</h4>
-              <div class="flex text-yellow-400 text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-slate-600 dark:text-slate-300 italic">"It’s really great 👍. Pekerjaan cepat dan hasilnya maksimal."</p>
-        </div>
-        
-        <!-- Card 5 -->
-        <div class="w-[320px] md:w-[400px] shrink-0 glass-card p-8 rounded-3xl">
-          <div class="flex gap-4 items-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-orange-500 text-white flex items-center justify-center font-bold text-xl">M</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white">Muh Taufik Akmal</h4>
-              <div class="flex text-yellow-400 text-sm">★★★★★</div>
-            </div>
-          </div>
-          <p class="text-slate-600 dark:text-slate-300 italic">"Excellent support and very responsive. Sangat diandalkan."</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= PORTFOLIO ================= -->
-  <section id="portfolio" class="px-6 py-32 bg-slate-50 dark:bg-slate-950/50">
-    <div class="max-w-7xl mx-auto">
-      
-      <div class="text-center mb-16 reveal">
-        <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6">Karya & Proyek</h2>
-        <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
-          Berbagai sistem informasi, aplikasi android, dan website yang telah kami rilis untuk klien-klien kami.
-        </p>
-      </div>
-
-      <!-- Apps Grid -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-        
-        <!-- Port Card 1 -->
-        <div class="reveal glass-card rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-brand-500/20 transition-all duration-500">
-          <div class="overflow-hidden aspect-[4/3] relative p-4 pb-0 bg-gradient-to-br from-brand-100 to-indigo-50 dark:from-slate-800 dark:to-slate-900">
-            <img src="https://danzdev.web.id/ss/simatren.png" alt="SiMatren" 
-                 class="w-full h-full object-cover rounded-t-xl shadow-lg transform group-hover:-translate-y-2 group-hover:scale-105 transition-all duration-500 origin-bottom" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=SiMatren'">
-          </div>
-          <div class="p-6">
-            <h4 class="font-heading font-bold text-xl mb-2 text-slate-900 dark:text-white">SiMatren</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">Sistem Manajemen Pesantren Digital – Ponpes Miftahul Huda 06</p>
-          </div>
-        </div>
-
-        <!-- Port Card 2 -->
-        <div class="reveal delay-100 glass-card rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-brand-500/20 transition-all duration-500">
-          <div class="overflow-hidden aspect-[4/3] relative p-4 pb-0 bg-gradient-to-br from-purple-100 to-pink-50 dark:from-slate-800 dark:to-slate-900">
-            <img src="https://danzdev.web.id/ss/sipedis.png" alt="SiPedis" 
-                 class="w-full h-full object-cover rounded-t-xl shadow-lg transform group-hover:-translate-y-2 group-hover:scale-105 transition-all duration-500 origin-bottom" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=SiPedis'">
-          </div>
-          <div class="p-6">
-            <h4 class="font-heading font-bold text-xl mb-2 text-slate-900 dark:text-white">SiPedis</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">Sistem Presensi Digital QR Code – SMKN Rajapolah</p>
-          </div>
-        </div>
-
-        <!-- Port Card 3 -->
-        <div class="reveal delay-200 glass-card rounded-[2rem] overflow-hidden group hover:shadow-2xl hover:shadow-brand-500/20 transition-all duration-500">
-          <div class="overflow-hidden aspect-[4/3] relative p-4 pb-0 bg-gradient-to-br from-orange-100 to-yellow-50 dark:from-slate-800 dark:to-slate-900">
-            <img src="https://danzdev.web.id/ss/aspri.png" alt="ASPRI" 
-                 class="w-full h-full object-cover rounded-t-xl shadow-lg transform group-hover:-translate-y-2 group-hover:scale-105 transition-all duration-500 origin-bottom" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=ASPRI'">
-          </div>
-          <div class="p-6">
-            <h4 class="font-heading font-bold text-xl mb-2 text-slate-900 dark:text-white">ASPRI</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400">Sistem Pencatatan Retribusi Parkir – Dishub Kota Tasikmalaya</p>
-          </div>
-        </div>
-        
-        <!-- Text Only Portfolios as minimal list -->
-        <div class="reveal col-span-1 sm:col-span-2 lg:col-span-3 glass-card rounded-[2rem] p-8 md:p-10">
-          <h3 class="text-2xl font-heading font-bold mb-8 text-center text-slate-900 dark:text-white">Proyek Lainnya</h3>
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-10">
-            
-            <div class="group flex items-start gap-4">
-              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
-              <div>
-                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">Media Rumah Adat</h5>
-                <p class="text-sm text-slate-500">Media interaktif Android – Unper</p>
+          <div class="col-lg-6">
+            <div class="hero-visual fade-up">
+              <div class="hero-index">01 <span class="text-secondary ms-2">/ Digital solutions</span></div>
+              <div class="hero-image-wrap">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=85" alt="Meja kerja pengembangan website dan perangkat lunak" fetchpriority="high">
+                <div class="hero-caption">
+                  <small>DaNz Dev ID</small>
+                  <strong>From ideas to useful digital products.</strong>
+                </div>
               </div>
             </div>
-            
-            <div class="group flex items-start gap-4">
-              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
-              <div>
-                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">CBT Online</h5>
-                <p class="text-sm text-slate-500">Sistem ujian web – SMPN 1 Ciawi</p>
-              </div>
-            </div>
-
-            <div class="group flex items-start gap-4">
-              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
-              <div>
-                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">Sistem Asuransi Laravel</h5>
-                <p class="text-sm text-slate-500">Manajemen asuransi – UNNES</p>
-              </div>
-            </div>
-
-            <div class="group flex items-start gap-4">
-              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
-              <div>
-                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">KELOM (Kelurahan On Mobile)</h5>
-                <p class="text-sm text-slate-500">Layanan kelurahan – Pemkot Tasikmalaya</p>
-              </div>
-            </div>
-
-            <div class="group flex items-start gap-4">
-              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
-              <div>
-                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">Sibageur</h5>
-                <p class="text-sm text-slate-500">Basis data bantuan – Diskominfo Tasik</p>
-              </div>
-            </div>
-
-            <div class="group flex items-start gap-4">
-              <div class="w-2 h-2 rounded-full bg-brand-500 mt-2"></div>
-              <div>
-                <h5 class="font-bold text-slate-900 dark:text-slate-200 group-hover:text-brand-500 transition-colors">Sistem Antrian RS</h5>
-                <p class="text-sm text-slate-500">Sistem digital – RS JHC Tasikmalaya</p>
-              </div>
-            </div>
-
           </div>
-        </div>
-
-      </div>
-
-      <div class="mt-8 reveal delay-100">
-        <h3 class="text-2xl font-heading font-bold mb-8 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3">
-          <span class="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-xl">🛠️</span>
-          Proyek IT Support & Jaringan
-        </h3>
-        
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          <!-- IT Card 1 -->
-          <div class="glass-card p-6 rounded-[2rem] group hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300 flex items-start gap-4">
-            <div class="w-12 h-12 shrink-0 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🔌</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">Maintenance Jaringan LAN</h4>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Perawatan rutin & troubleshooting jaringan terintegrasi – <span class="font-medium text-slate-700 dark:text-slate-300">Dishub Kota Tasikmalaya</span>.</p>
-            </div>
-          </div>
-
-          <!-- IT Card 2 -->
-          <div class="glass-card p-6 rounded-[2rem] group hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300 flex items-start gap-4">
-            <div class="w-12 h-12 shrink-0 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🖥️</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">Instalasi & Peremajaan PC</h4>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Setup hardware, instalasi OS, dan peremajaan sistem komputer – <span class="font-medium text-slate-700 dark:text-slate-300">Bank Syariah Indonesia Tasikmalaya</span>.</p>
-            </div>
-          </div>
-
-          <!-- IT Card 3 -->
-          <div class="glass-card p-6 rounded-[2rem] group hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-500/10 transition-all duration-300 flex items-start gap-4">
-            <div class="w-12 h-12 shrink-0 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">💻</div>
-            <div>
-              <h4 class="font-heading font-bold text-slate-900 dark:text-white mb-2 group-hover:text-brand-500 transition-colors">Maintenance Laptop & PC</h4>
-              <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Perawatan berkala, optimasi software, pergantian thermal paste, dan perbaikan hardware untuk klien individu/kantor.</p>
-            </div>
-          </div>
-
         </div>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <section class="audience-strip" aria-label="Bidang yang dilayani">
+      <div class="container">
+        <div class="row align-items-center gy-3">
+          <div class="col-lg-3"><div class="audience-label">Mendukung berbagai kebutuhan</div></div>
+          <div class="col-4 col-lg-3"><div class="audience-item"><i class="bi bi-bank"></i> Instansi</div></div>
+          <div class="col-4 col-lg-3"><div class="audience-item"><i class="bi bi-mortarboard"></i> Pendidikan</div></div>
+          <div class="col-4 col-lg-3"><div class="audience-item"><i class="bi bi-building"></i> Bisnis</div></div>
+        </div>
+      </div>
+    </section>
 
-  <!-- ================= FLOATING WHATSAPP ================= -->
-  <a href="https://wa.me/6282214641824" target="_blank" aria-label="Chat WhatsApp"
-     class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-full bg-green-500 hover:bg-green-600 text-white font-semibold shadow-[0_10px_30px_rgba(34,197,94,0.4)] hover:shadow-[0_15px_45px_rgba(34,197,94,0.6)] transition-all duration-300 hover:scale-105 active:scale-95 group">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16" class="group-hover:animate-bounce">
-      <path d="M13.601 2.326A7.92 7.92 0 0 0 8.003 0C3.582 0 0 3.582 0 8.003c0 1.41.368 2.782 1.07 3.996L0 16l4.12-1.056a7.95 7.95 0 0 0 3.883 1.004h.001c4.42 0 8.002-3.582 8.002-8.003a7.92 7.92 0 0 0-2.405-5.619zM8.004 14.63a6.63 6.63 0 0 1-3.385-.93l-.242-.144-2.445.627.652-2.382-.158-.246a6.6 6.6 0 0 1-.998-3.552c0-3.657 2.976-6.633 6.633-6.633a6.58 6.58 0 0 1 4.692 1.94 6.58 6.58 0 0 1 1.94 4.693c0 3.657-2.976 6.633-6.633 6.633zm3.63-4.968c-.198-.099-1.173-.579-1.354-.646-.18-.066-.312-.099-.445.099-.132.198-.51.646-.626.778-.115.132-.23.148-.428.05-.198-.099-.836-.308-1.592-.983-.588-.524-.985-1.172-1.1-1.37-.115-.198-.012-.305.087-.404.089-.088.198-.23.297-.346.099-.115.132-.198.198-.33.066-.132.033-.248-.017-.347-.05-.099-.445-1.074-.61-1.471-.162-.389-.327-.336-.445-.342l-.379-.007c-.132 0-.347.05-.528.248-.18.198-.693.677-.693 1.652s.71 1.918.81 2.051c.099.132 1.397 2.135 3.385 2.994.473.204.842.326 1.13.417.475.151.908.13 1.25.079.382-.057 1.173-.479 1.338-.942.165-.463.165-.86.116-.942-.05-.083-.181-.132-.38-.231z"/>
-    </svg>
-    <span class="hidden sm:block">Chat Kami</span>
-  </a>
-
-  <!-- ================= FOOTER ================= -->
-  <footer class="px-6 pb-12 pt-12 mt-auto">
-    <div class="max-w-7xl mx-auto">
-      <div class="glass-card rounded-[2.5rem] p-10 md:p-16">
-        
-        <div class="grid md:grid-cols-12 gap-12 lg:gap-16">
-          
-          <!-- BRAND -->
-          <div class="md:col-span-5">
-            <h3 class="font-heading font-extrabold text-2xl mb-4 text-slate-900 dark:text-white flex items-center gap-2">
-              <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white text-sm">D</div>
-              DaNz ID Dev
-            </h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-              Penyedia layanan pengembangan aplikasi dan sistem digital untuk instansi pemerintahan, pendidikan, dan bisnis modern. Mengutamakan performa, UI/UX, dan skalabilitas tinggi.
-            </p>
-            <div class="inline-block px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-sm font-semibold">
-              PT. Pratama Sistem Indonesia
+    <!-- About -->
+    <section class="section-space" id="about">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <div class="about-photo fade-up">
+              <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=85" alt="Tim bekerja bersama dalam pengembangan solusi digital" loading="lazy">
             </div>
           </div>
-
-          <!-- INFO -->
-          <div class="md:col-span-3">
-            <h4 class="font-heading font-bold text-lg mb-6 text-slate-900 dark:text-white">Legal & Info</h4>
-            <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
-              <li class="flex items-start gap-3">
-                <span class="text-brand-500 mt-1">📍</span>
-                <span>Tasikmalaya, Jawa Barat<br>Indonesia</span>
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="text-brand-500">📄</span> NPWP: 28.120.399.2-425.000
-              </li>
-              <li class="flex items-center gap-3">
-                <span class="text-brand-500">🔖</span> NIB: 2309240030134
-              </li>
-            </ul>
+          <div class="col-lg-6">
+            <div class="about-copy fade-up">
+              <div class="eyebrow">Tentang DaNz Dev</div>
+              <h2>Mengubah proses kerja menjadi solusi digital.</h2>
+              <p>
+                Sejak 2020, DaNz Dev berfokus mengembangkan website dan sistem informasi untuk membantu pekerjaan menjadi lebih tertata. Kami mengerjakan kebutuhan mulai dari portal web, aplikasi operasional, hingga dukungan infrastruktur teknologi informasi.
+              </p>
+              <div class="feature-list">
+                <div class="feature-item">
+                  <div class="feature-icon"><i class="bi bi-speedometer2"></i></div>
+                  <div><strong>Fokus performa</strong><span>Sistem responsif dan efisien.</span></div>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon"><i class="bi bi-diagram-3"></i></div>
+                  <div><strong>Mudah dikembangkan</strong><span>Dirancang mengikuti kebutuhan.</span></div>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+                  <div><strong>Perhatian pada keamanan</strong><span>Pengelolaan akses dan data.</span></div>
+                </div>
+                <div class="feature-item">
+                  <div class="feature-icon"><i class="bi bi-headset"></i></div>
+                  <div><strong>Dukungan teknis</strong><span>Pemeliharaan dan troubleshooting.</span></div>
+                </div>
+              </div>
+              <div class="about-meta">
+                <div><strong>Sejak 2020</strong><span>Mulai berkarya</span></div>
+                <div><strong>Tasikmalaya</strong><span>Jawa Barat, Indonesia</span></div>
+                <div><strong>End-to-end</strong><span>Dari rencana sampai dukungan</span></div>
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <!-- CONTACT -->
-          <div class="md:col-span-4">
-            <h4 class="font-heading font-bold text-lg mb-6 text-slate-900 dark:text-white">Hubungi Kami</h4>
-            <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400 mb-8">
-              <li class="flex items-center gap-3 hover:text-brand-500 transition-colors">
-                <span class="text-brand-500">📞</span> 
-                <a href="tel:+6282214641824">+62 822-1464-1824</a>
-              </li>
-              <li class="flex items-center gap-3 hover:text-brand-500 transition-colors">
-                <span class="text-brand-500">📧</span> 
-                <a href="mailto:contact@danzdev.web.id">contact@danzdev.web.id</a>
-              </li>
-            </ul>
+    <!-- Why us -->
+    <section class="section-space section-soft" id="why-us">
+      <div class="container">
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-5">
+            <div class="why-panel fade-up d-flex flex-column justify-content-center">
+              <div class="eyebrow" style="color:#9ed0f4">Cara kami bekerja</div>
+              <h2>Solusi yang dimulai dari memahami kebutuhan.</h2>
+              <p>Kami tidak memaksakan satu bentuk sistem untuk semua. Alur kerja, pengguna, dan tujuan proyek menjadi dasar dalam menentukan fitur serta pendekatan teknis.</p>
+              <a class="why-link mt-1" href="#contact">Ceritakan kebutuhan Anda <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="why-grid fade-up">
+              <article class="why-item">
+                <i class="bi bi-chat-square-text"></i>
+                <h3>Diskusi sebelum mulai</h3>
+                <p>Memetakan kebutuhan, pengguna, dan proses kerja sebelum menentukan solusi.</p>
+              </article>
+              <article class="why-item">
+                <i class="bi bi-window-stack"></i>
+                <h3>Antarmuka yang jelas</h3>
+                <p>Tampilan dibuat agar fungsi mudah ditemukan dan nyaman digunakan.</p>
+              </article>
+              <article class="why-item">
+                <i class="bi bi-phone"></i>
+                <h3>Responsif di berbagai layar</h3>
+                <p>Website dan aplikasi dirancang untuk desktop, tablet, maupun perangkat seluler.</p>
+              </article>
+              <article class="why-item">
+                <i class="bi bi-tools"></i>
+                <h3>Dukungan setelah rilis</h3>
+                <p>Tersedia layanan pemeliharaan, pembaruan, dan bantuan teknis sesuai kesepakatan.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <!-- SOCIAL LINKS -->
-            <div class="flex gap-4">
-              <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition-all transform hover:-translate-y-1">
-                <!-- IG Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.036 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
-              </a>
-              <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white transition-all transform hover:-translate-y-1">
-                <!-- LinkedIn Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
-              </a>
+    <!-- Services -->
+    <section class="section-space" id="services">
+      <div class="container">
+        <div class="text-center mb-5 fade-up">
+          <div class="eyebrow">Layanan</div>
+          <h2 class="section-title">Teknologi untuk mendukung pekerjaan sehari-hari.</h2>
+          <p class="section-lead">Layanan pengembangan dan dukungan IT, disesuaikan dengan kebutuhan operasional organisasi maupun bisnis.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="service-card">
+              <i class="bi bi-code-slash service-icon"></i>
+              <h3>Web Development</h3>
+              <p>Pembuatan website profil, portal informasi, landing page, dan website responsif untuk berbagai kebutuhan.</p>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="service-card">
+              <i class="bi bi-window-sidebar service-icon"></i>
+              <h3>Aplikasi Web Kustom</h3>
+              <p>Sistem informasi akademik, manajemen instansi, kasir (POS), dan aplikasi yang mengikuti alur kerja khusus.</p>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="service-card">
+              <i class="bi bi-shield-lock service-icon"></i>
+              <h3>Keamanan Sistem</h3>
+              <p>Pengaturan autentikasi, hak akses pengguna, pengelolaan data, dan penguatan keamanan aplikasi web.</p>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="service-card">
+              <i class="bi bi-gear service-icon"></i>
+              <h3>Maintenance & Support</h3>
+              <p>Pemeliharaan server dan aplikasi, pembaruan fitur, perbaikan bug, serta dukungan teknis.</p>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="service-card">
+              <i class="bi bi-graph-up-arrow service-icon"></i>
+              <h3>SEO & Optimasi</h3>
+              <p>Optimasi performa dan struktur website agar lebih cepat diakses serta mudah dipahami mesin pencari.</p>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="service-card">
+              <i class="bi bi-hdd-network service-icon"></i>
+              <h3>IT Support & Jaringan</h3>
+              <p>Instalasi LAN/WLAN, perawatan PC dan laptop, konfigurasi perangkat, serta troubleshooting jaringan kantor.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-band">
+      <div class="container">
+        <div class="row align-items-center gy-4">
+          <div class="col-lg-8">
+            <h2>Punya proses kerja yang ingin dibuat lebih sederhana?</h2>
+            <p>Ceritakan tantangan dan kebutuhan sistem Anda. Kita mulai dari diskusi, lalu tentukan solusi yang paling masuk akal.</p>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <a class="btn-light-custom" href="https://wa.me/6282214641824" target="_blank" rel="noopener noreferrer">Jadwalkan konsultasi <i class="bi bi-arrow-up-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section class="section-space section-soft" id="portfolio">
+      <div class="container">
+        <div class="text-center mb-5 fade-up">
+          <div class="eyebrow">Portofolio</div>
+          <h2 class="section-title">Pekerjaan yang sudah kami bangun.</h2>
+          <p class="section-lead">Beberapa proyek website, aplikasi, dan sistem informasi yang pernah dikerjakan untuk berbagai kebutuhan.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="project-card">
+              <div class="project-image"><img src="https://danzdev.web.id/ss/simatren.png" alt="Tampilan aplikasi SiMatren" loading="lazy" onerror="this.style.opacity='.2'"></div>
+              <div class="project-body">
+                <span class="project-type">Sistem informasi pesantren</span>
+                <h3>SiMatren</h3>
+                <p>Sistem Manajemen Pesantren Digital — Ponpes Miftahul Huda 06.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="project-card">
+              <div class="project-image"><img src="https://danzdev.web.id/ss/sipedis.png" alt="Tampilan aplikasi SiPedis" loading="lazy" onerror="this.style.opacity='.2'"></div>
+              <div class="project-body">
+                <span class="project-type">Presensi digital</span>
+                <h3>SiPedis</h3>
+                <p>Sistem Presensi Digital QR Code — SMKN Rajapolah.</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="project-card">
+              <div class="project-image"><img src="https://danzdev.web.id/ss/aspri.png" alt="Tampilan aplikasi ASPRI" loading="lazy" onerror="this.style.opacity='.2'"></div>
+              <div class="project-body">
+                <span class="project-type">Sistem retribusi</span>
+                <h3>ASPRI</h3>
+                <p>Sistem Pencatatan Retribusi Parkir — Dishub Kota Tasikmalaya.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="project-list fade-up">
+          <div class="row">
+            <div class="col-lg-3"><h3>Proyek lainnya</h3></div>
+            <div class="col-lg-9">
+              <div class="row g-3">
+                <div class="col-md-6 col-lg-4"><div class="project-list-item"><i class="bi bi-arrow-up-right-circle"></i><div><strong>Media Rumah Adat</strong><span>Media interaktif Android — UNPER</span></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="project-list-item"><i class="bi bi-arrow-up-right-circle"></i><div><strong>CBT Online</strong><span>Sistem ujian web — SMPN 1 Ciawi</span></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="project-list-item"><i class="bi bi-arrow-up-right-circle"></i><div><strong>Sistem Asuransi Laravel</strong><span>Manajemen asuransi — UNNES</span></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="project-list-item"><i class="bi bi-arrow-up-right-circle"></i><div><strong>KELOM</strong><span>Kelurahan On Mobile — Pemkot Tasikmalaya</span></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="project-list-item"><i class="bi bi-arrow-up-right-circle"></i><div><strong>Sibageur</strong><span>Basis data bantuan — Diskominfo Tasik</span></div></div></div>
+                <div class="col-md-6 col-lg-4"><div class="project-list-item"><i class="bi bi-arrow-up-right-circle"></i><div><strong>Sistem Antrian RS</strong><span>Sistem digital — RS JHC Tasikmalaya</span></div></div></div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="border-t border-slate-200 dark:border-slate-800 mt-12 pt-8 text-center text-sm text-slate-500 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div>© <span id="year"></span> DaNz ID Dev. All rights reserved.</div>
-          <div class="flex gap-4">
-            <a href="#" class="hover:text-brand-500">Privacy Policy</a>
-            <a href="#" class="hover:text-brand-500">Terms of Service</a>
+        <h3 class="support-title fade-up">IT Support & jaringan</h3>
+        <div class="row g-3">
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="support-card">
+              <i class="bi bi-router"></i>
+              <div><h4>Maintenance Jaringan LAN</h4><p>Perawatan rutin dan troubleshooting jaringan terintegrasi — Dishub Kota Tasikmalaya.</p></div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="support-card">
+              <i class="bi bi-pc-display"></i>
+              <div><h4>Instalasi & Peremajaan PC</h4><p>Setup hardware, instalasi OS, dan peremajaan sistem komputer — Bank Syariah Indonesia Tasikmalaya.</p></div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="support-card">
+              <i class="bi bi-laptop"></i>
+              <div><h4>Maintenance Laptop & PC</h4><p>Perawatan berkala, optimasi software, penggantian thermal paste, dan perbaikan hardware.</p></div>
+            </article>
           </div>
         </div>
+      </div>
+    </section>
 
+    <!-- Reviews -->
+    <section class="section-space" id="reviews">
+      <div class="container">
+        <div class="text-center mb-5 fade-up">
+          <div class="eyebrow">Ulasan klien</div>
+          <h2 class="section-title">Cerita dari mereka yang pernah bekerja bersama kami.</h2>
+          <p class="section-lead">Masukan klien menjadi bagian penting dalam menjaga kualitas pekerjaan.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 dari 5 bintang">★★★★★</div>
+              <blockquote>“Oh, it’s really good, I know it’s recommended. Sangat membantu sistem kerja kami.”</blockquote>
+              <div class="review-person"><div class="review-avatar">L</div><div><strong>AI Linda Nurahmah</strong><span>Klien</span></div></div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 dari 5 bintang">★★★★★</div>
+              <blockquote>“Awesome, I’m really satisfied with it, it’s exactly what I expected 👍👍👍”</blockquote>
+              <div class="review-person"><div class="review-avatar">A</div><div><strong>Ari Pebriana</strong><span>Klien</span></div></div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 dari 5 bintang">★★★★★</div>
+              <blockquote>“Recommended for those of you who are confused about doing programming assignments 😍”</blockquote>
+              <div class="review-person"><div class="review-avatar">D</div><div><strong>Dean Ramadhan</strong><span>Klien</span></div></div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 dari 5 bintang">★★★★★</div>
+              <blockquote>“It’s really great 👍. Pekerjaan cepat dan hasilnya maksimal.”</blockquote>
+              <div class="review-person"><div class="review-avatar">N</div><div><strong>Novalsyah</strong><span>Klien</span></div></div>
+            </article>
+          </div>
+          <div class="col-md-6 col-lg-4 fade-up">
+            <article class="review-card">
+              <div class="review-stars" aria-label="5 dari 5 bintang">★★★★★</div>
+              <blockquote>“Excellent support and very responsive. Sangat diandalkan.”</blockquote>
+              <div class="review-person"><div class="review-avatar">M</div><div><strong>Muh Taufik Akmal</strong><span>Klien</span></div></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section-space section-soft" id="contact">
+      <div class="container">
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-7">
+            <div class="contact-intro fade-up mb-4">
+              <div class="eyebrow">Hubungi kami</div>
+              <h2>Mari bicarakan kebutuhan digital Anda.</h2>
+              <p>Mulai percakapan tentang website, aplikasi, atau kebutuhan IT di tempat Anda. Hubungi kami melalui kanal berikut.</p>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6 fade-up">
+                <div class="contact-card h-100"><i class="bi bi-telephone"></i><div><small>Telepon / WhatsApp</small><strong><a href="tel:+6282214641824">+62 822-1464-1824</a></strong></div></div>
+              </div>
+              <div class="col-md-6 fade-up">
+                <div class="contact-card h-100"><i class="bi bi-envelope"></i><div><small>Email</small><strong><a href="mailto:contact@danzdev.web.id">contact@danzdev.web.id</a></strong></div></div>
+              </div>
+              <div class="col-md-6 fade-up">
+                <div class="contact-card h-100"><i class="bi bi-geo-alt"></i><div><small>Lokasi</small><strong>Tasikmalaya, Jawa Barat</strong></div></div>
+              </div>
+              <div class="col-md-6 fade-up">
+                <div class="contact-card h-100"><i class="bi bi-building"></i><div><small>Badan usaha</small><strong>PT. Pratama Sistem Indonesia</strong></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 fade-up">
+            <div class="contact-cta d-flex flex-column justify-content-center">
+              <div class="eyebrow">Mulai diskusi</div>
+              <h3>Ada ide yang ingin diwujudkan?</h3>
+              <p>Kirim pesan singkat melalui WhatsApp. Sampaikan gambaran kebutuhan dan kami akan menindaklanjutinya untuk diskusi awal.</p>
+              <a class="btn-main align-self-start" href="https://wa.me/6282214641824" target="_blank" rel="noopener noreferrer">Hubungi DaNz Dev <i class="bi bi-arrow-up-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-5">
+          <a class="footer-brand" href="#home">DaNz<span> Dev ID</span></a>
+          <p class="footer-copy">Penyedia layanan pengembangan website, aplikasi, dan sistem digital untuk instansi pemerintahan, pendidikan, serta bisnis. Mengutamakan solusi yang relevan dengan kebutuhan pengguna.</p>
+          <p class="mt-3 mb-0 small">PT. Pratama Sistem Indonesia</p>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h5>Informasi</h5>
+          <ul class="footer-links">
+            <li><a href="#about">Tentang kami</a></li>
+            <li><a href="#services">Layanan</a></li>
+            <li><a href="#portfolio">Portofolio</a></li>
+            <li><a href="#reviews">Ulasan klien</a></li>
+            <li><a href="#contact">Kontak</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-4">
+          <h5>Legal & kontak</h5>
+          <ul class="footer-links">
+            <li><i class="bi bi-geo-alt me-2"></i>Tasikmalaya, Jawa Barat, Indonesia</li>
+            <li><i class="bi bi-file-earmark-text me-2"></i>NPWP: 28.120.399.2-425.000</li>
+            <li><i class="bi bi-card-checklist me-2"></i>NIB: 2309240030134</li>
+            <li><a href="tel:+6282214641824"><i class="bi bi-telephone me-2"></i>+62 822-1464-1824</a></li>
+            <li><a href="mailto:contact@danzdev.web.id"><i class="bi bi-envelope me-2"></i>contact@danzdev.web.id</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="currentYear"></span> DaNz Dev ID. All rights reserved.</span>
+        <span>Designed &amp; Developed by Danz Dev</span>
       </div>
     </div>
   </footer>
 
+  <a class="floating-wa" href="https://wa.me/6282214641824" target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp dengan DaNz Dev">
+    <i class="bi bi-whatsapp"></i>
+  </a>
 
-  <!-- ================= SCRIPTS ================= -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // --- Dynamic Year ---
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Tahun footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-    // --- Theme Toggle Logic ---
-    const toggleBtn = document.getElementById('themeToggle');
-    const html = document.documentElement;
-    const themeIcon = document.getElementById('themeIcon');
+    // Header shadow saat halaman digulir
+    const header = document.getElementById('siteHeader');
+    const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
 
-    const updateIcon = (isDark) => {
-      if(isDark) {
-        themeIcon.innerHTML = `<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>`;
-      } else {
-        themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>`;
-      }
-    }
-
-    // Init Theme
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      html.classList.add('dark');
-      updateIcon(true);
-    } else {
-      updateIcon(false);
-    }
-
-    // Toggle Click
-    toggleBtn.addEventListener('click', () => {
-      html.classList.toggle('dark');
-      const isDark = html.classList.contains('dark');
-      localStorage.theme = isDark ? 'dark' : 'light';
-      updateIcon(isDark);
-    });
-
-    // --- Scroll Reveal Animation ---
-    const revealElements = document.querySelectorAll('.reveal');
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px 0px -100px 0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target); // Stop observing once revealed
+    // Tutup menu mobile setelah tautan navigasi dipilih
+    document.querySelectorAll('#mainNavigation .nav-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        const menu = document.getElementById('mainNavigation');
+        if (menu.classList.contains('show')) {
+          bootstrap.Collapse.getOrCreateInstance(menu).hide();
         }
       });
-    }, observerOptions);
-
-    revealElements.forEach(el => observer.observe(el));
-
-    // --- Header Background on Scroll ---
-    const header = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('backdrop-blur-md');
-      } else {
-        header.classList.remove('backdrop-blur-md');
-      }
     });
-  </script>
 
+    // Animasi masuk yang ringan; konten tetap terlihat saat JavaScript tidak tersedia.
+    const revealItems = document.querySelectorAll('.fade-up');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('visible'));
+    }
+  </script>
 </body>
 </html>
