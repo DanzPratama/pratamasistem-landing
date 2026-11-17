@@ -7,18 +7,18 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script>
-    tailwind.config = { theme: { extend: { colors: { ink:'#111b16', brand:'#167346', mist:'#f3f7f4' } } } };
+    tailwind.config = { theme: { extend: { colors: { ink:'#082B45', brand:'#0B5F9E', mist:'#F1F8FB' } } } };
   </script>
   <style>
-    *{box-sizing:border-box} body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:#f3f7f4;color:#142019}
+    *{box-sizing:border-box} body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:#F1F8FB;color:#163447}
     .nav-btn{display:flex;align-items:center;gap:.75rem;width:100%;padding:.75rem .9rem;border-radius:12px;color:#cbd5e1;font-size:.9rem;text-align:left;transition:.2s}
-    .nav-btn:hover,.nav-btn.active{background:#263b67;color:white}.nav-btn.active{box-shadow:inset 3px 0 #7ea5ff}
+    .nav-btn:hover,.nav-btn.active{background:#0B5F9E;color:white}.nav-btn.active{box-shadow:inset 3px 0 #67C9E2}
     .panel{background:white;border:1px solid #e8edf5;border-radius:18px;box-shadow:0 5px 18px rgba(18,36,70,.035)}
     .field{width:100%;border:1px solid #dce3ee;border-radius:10px;padding:.65rem .8rem;outline:none;background:white;font-size:.9rem}
-    .field:focus{border-color:#329765;box-shadow:0 0 0 3px rgba(22,115,70,.1)}
+    .field:focus{border-color:#168AB5;box-shadow:0 0 0 3px rgba(11,95,158,.12)}
     .btn{border-radius:10px;padding:.65rem .95rem;font-size:.875rem;font-weight:600;transition:.2s}
-    .btn-primary{background:#167346;color:white}.btn-primary:hover{background:#105b36}
-    .btn-light{background:#e8f4ec;color:#176b40}.btn-danger{background:#fff0f0;color:#c73535}
+    .btn-primary{background:#0B5F9E;color:white;box-shadow:0 5px 13px rgba(11,95,158,.16)}.btn-primary:hover{background:#084875;transform:translateY(-1px)}
+    .btn-light{background:#E7F4FA;color:#0B5F9E}.btn-danger{background:#fff0f0;color:#c73535}
     .table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:#7b8799;background:#f8faff;text-align:left;padding:13px 15px}td{padding:13px 15px;border-top:1px solid #edf1f6;font-size:.86rem}
     .modal-backdrop{position:fixed;inset:0;background:rgba(12,22,42,.55);z-index:50;display:none;align-items:center;justify-content:center;padding:16px}
     .modal{width:min(760px,100%);max-height:92vh;overflow:auto;background:white;border-radius:18px;padding:22px}
@@ -34,14 +34,19 @@
       #sidebar{display:none!important}
       #menuToggle{display:none!important}
       #sidebarShade{display:none!important}
-      body.app-authenticated #mobileBottomNav{display:flex!important;position:fixed;z-index:9999;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom, 0px));padding:8px 7px;gap:3px;justify-content:space-around;align-items:center;border:1px solid rgba(255,255,255,.62);border-radius:22px;background:rgba(246,250,247,.92);backdrop-filter:blur(24px) saturate(185%);-webkit-backdrop-filter:blur(24px) saturate(185%);box-shadow:0 10px 35px rgba(15,35,24,.18),inset 0 1px 0 rgba(255,255,255,.9)}
-      .mobile-nav-btn{flex:1;min-width:0;border:0;background:transparent;color:#65756a;border-radius:16px;padding:7px 2px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:.2s}
+      body.app-authenticated #mobileBottomNav{display:flex!important;position:fixed;z-index:9999;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom, 0px));padding:8px 7px;gap:3px;justify-content:space-around;align-items:center;border:1px solid rgba(255,255,255,.62);border-radius:22px;background:rgba(244,250,253,.93);backdrop-filter:blur(24px) saturate(185%);-webkit-backdrop-filter:blur(24px) saturate(185%);box-shadow:0 10px 35px rgba(8,43,69,.16),inset 0 1px 0 rgba(255,255,255,.9)}
+      .mobile-nav-btn{flex:1;min-width:0;border:0;background:transparent;color:#607D90;border-radius:16px;padding:7px 2px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;transition:.2s}
       .mobile-nav-btn span{font-size:19px;line-height:1.1}
       .mobile-nav-btn small{font-size:9px;font-weight:700;letter-spacing:.1px}
-      .mobile-nav-btn.active{background:rgba(22,115,70,.13);color:#14683d}
+      .mobile-nav-btn.active{background:rgba(11,95,158,.13);color:#0B5F9E}
       main{padding-bottom:82px}
     }
     @media(min-width:1024px){#mobileBottomNav{display:none!important}}
+    .login-official-frame{width:112px;height:142px;border:1px solid rgba(255,255,255,.45);border-radius:18px;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.06));box-shadow:0 14px 32px rgba(2,25,45,.25);display:grid;place-items:center;flex-shrink:0}
+    .login-official-frame img{width:100%;height:100%;object-fit:cover}
+    .login-official-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:rgba(255,255,255,.8);font-size:10px;letter-spacing:1.5px;text-align:center;padding:8px}
+    .login-official-placeholder .portrait-icon{width:44px;height:44px;border:1px solid rgba(255,255,255,.5);border-radius:50%;display:grid;place-items:center;font-size:23px;background:rgba(255,255,255,.12)}
+    @media(min-width:768px){.login-official-frame{width:154px;height:190px;border-radius:20px}}
     .bulk-card-grid{display:grid;grid-template-columns:repeat(2,85.6mm);gap:7mm;justify-content:center;align-items:start}
     .bulk-stnk-page{page-break-after:always;break-after:page;display:flex;justify-content:center;align-items:flex-start;padding:0}
     .bulk-stnk-page:last-child{page-break-after:auto;break-after:auto}
@@ -53,36 +58,36 @@
     }
 
     /* Desain dokumen cetak CALIK */
-    .calik-id-card{width:85.6mm;height:54mm;border:0;position:relative;overflow:hidden;border-radius:3mm;background:#fff;color:#17251c;font-family:Arial,sans-serif;box-shadow:0 2mm 5mm rgba(0,0,0,.12);print-color-adjust:exact;-webkit-print-color-adjust:exact}
-    .id-head{height:15mm;background:#123b28;color:#fff;padding:3mm 4mm;display:flex;align-items:center;justify-content:space-between;position:relative}
+    .calik-id-card{width:85.6mm;height:54mm;border:0;position:relative;overflow:hidden;border-radius:3mm;background:#fff;color:#163447;font-family:Arial,sans-serif;box-shadow:0 2mm 5mm rgba(0,0,0,.12);print-color-adjust:exact;-webkit-print-color-adjust:exact}
+    .id-head{height:15mm;background:#08456D;color:#fff;padding:3mm 4mm;display:flex;align-items:center;justify-content:space-between;position:relative}
     .id-head:after{content:"";position:absolute;width:35mm;height:35mm;border:1mm solid rgba(255,255,255,.08);border-radius:50%;right:8mm;top:-20mm}
-    .id-brand{font-size:11pt;font-weight:900;letter-spacing:1.8px}.id-sub{font-size:5.5pt;letter-spacing:.8px;color:#c9e6d3;margin-top:1mm}
+    .id-brand{font-size:11pt;font-weight:900;letter-spacing:1.8px}.id-sub{font-size:5.5pt;letter-spacing:.8px;color:#BDE8F2;margin-top:1mm}
     .id-body{display:flex;gap:3mm;padding:3mm 4mm 1mm;position:relative;z-index:1}
-    .id-photo{width:18mm;height:23mm;border:1px solid #b9c9bf;border-radius:1.5mm;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#edf4ef;color:#819489;font-size:6pt;text-align:center;flex-shrink:0}
+    .id-photo{width:18mm;height:23mm;border:1px solid #B7D3DF;border-radius:1.5mm;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#EAF6FB;color:#7293A4;font-size:6pt;text-align:center;flex-shrink:0}
     .id-photo img{width:100%;height:100%;object-fit:cover}
-    .id-info{flex:1;min-width:0}.id-name{font-size:9pt;font-weight:800;line-height:1.15;color:#153d29;margin-bottom:1.5mm}
-    .id-line{font-size:6.2pt;line-height:1.55;color:#35463b}.id-line strong{color:#17251c}
-    .id-reg{display:inline-block;background:#e7f2ea;color:#14532d;padding:1mm 2mm;border-radius:1mm;font-size:7pt;font-weight:800;letter-spacing:.5px;margin-top:1mm}
-    .id-foot{position:absolute;left:4mm;right:4mm;bottom:2mm;border-top:.3mm solid #dce7df;padding-top:1mm;display:flex;justify-content:space-between;align-items:center;font-size:5pt;color:#66766b}
-    .id-seal{font-size:6pt;font-weight:900;letter-spacing:1px;color:#167346}
-    .stnk-sheet{width:190mm;min-height:125mm;border:1px solid #b7c9bc;padding:0;background:#fff;color:#17251c;font-family:Arial,sans-serif;position:relative;overflow:hidden;print-color-adjust:exact;-webkit-print-color-adjust:exact}
-    .stnk-head{background:#123b28;color:white;padding:9mm 12mm 7mm;display:flex;justify-content:space-between;align-items:center}
-    .stnk-kicker{font-size:8pt;letter-spacing:2px;color:#c9e6d3;font-weight:700}
+    .id-info{flex:1;min-width:0}.id-name{font-size:9pt;font-weight:800;line-height:1.15;color:#0B3F61;margin-bottom:1.5mm}
+    .id-line{font-size:6.2pt;line-height:1.55;color:#395669}.id-line strong{color:#163447}
+    .id-reg{display:inline-block;background:#E3F2F8;color:#0A527F;padding:1mm 2mm;border-radius:1mm;font-size:7pt;font-weight:800;letter-spacing:.5px;margin-top:1mm}
+    .id-foot{position:absolute;left:4mm;right:4mm;bottom:2mm;border-top:.3mm solid #D8EAF1;padding-top:1mm;display:flex;justify-content:space-between;align-items:center;font-size:5pt;color:#6A8291}
+    .id-seal{font-size:6pt;font-weight:900;letter-spacing:1px;color:#0B5F9E}
+    .stnk-sheet{width:190mm;min-height:125mm;border:1px solid #B7D3DF;padding:0;background:#fff;color:#163447;font-family:Arial,sans-serif;position:relative;overflow:hidden;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+    .stnk-head{background:#08456D;color:white;padding:9mm 12mm 7mm;display:flex;justify-content:space-between;align-items:center}
+    .stnk-kicker{font-size:8pt;letter-spacing:2px;color:#BDE8F2;font-weight:700}
     .stnk-title{font-size:19pt;line-height:1.15;font-weight:900;letter-spacing:.5px;margin-top:2mm}
     .stnk-subtitle{font-size:8pt;color:#dcebe1;margin-top:2mm}
     .stnk-mark{width:22mm;height:22mm;border:1px solid rgba(255,255,255,.55);border-radius:50%;display:grid;place-items:center;font-size:8pt;font-weight:900;letter-spacing:1px}
-    .stnk-regbar{background:#e9f2ec;padding:5mm 12mm;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #d5e3d9}
-    .stnk-reglabel{font-size:7pt;text-transform:uppercase;letter-spacing:1.4px;color:#607267}
-    .stnk-regvalue{font-size:19pt;font-weight:900;letter-spacing:2px;color:#14532d;margin-top:1mm}
+    .stnk-regbar{background:#E7F4F8;padding:5mm 12mm;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #D3E8F0}
+    .stnk-reglabel{font-size:7pt;text-transform:uppercase;letter-spacing:1.4px;color:#617C8E}
+    .stnk-regvalue{font-size:19pt;font-weight:900;letter-spacing:2px;color:#0A527F;margin-top:1mm}
     .stnk-content{padding:8mm 12mm 6mm}
-    .stnk-section-title{font-size:8pt;font-weight:900;letter-spacing:1.3px;color:#167346;border-bottom:1px solid #dce7df;padding-bottom:2mm;margin-bottom:4mm}
+    .stnk-section-title{font-size:8pt;font-weight:900;letter-spacing:1.3px;color:#0B5F9E;border-bottom:1px solid #D8EAF1;padding-bottom:2mm;margin-bottom:4mm}
     .stnk-grid{display:grid;grid-template-columns:1fr 1fr;column-gap:14mm;row-gap:5mm}
-    .stnk-field label{display:block;font-size:6.5pt;letter-spacing:1px;text-transform:uppercase;color:#718076;margin-bottom:1mm}
-    .stnk-field strong{font-size:9pt;color:#1b2d22;font-weight:700;overflow-wrap:anywhere}
+    .stnk-field label{display:block;font-size:6.5pt;letter-spacing:1px;text-transform:uppercase;color:#718899;margin-bottom:1mm}
+    .stnk-field strong{font-size:9pt;color:#213C50;font-weight:700;overflow-wrap:anywhere}
     .stnk-footer{display:flex;justify-content:space-between;align-items:flex-end;padding:0 12mm 7mm;gap:12mm}
-    .stnk-note{font-size:6.5pt;line-height:1.5;color:#758278;max-width:95mm}
-    .stnk-sign{width:55mm;text-align:center;font-size:7pt;color:#34463a}
-    .stnk-signline{border-top:1px solid #718076;margin-top:17mm;padding-top:2mm;font-weight:700}
+    .stnk-note{font-size:6.5pt;line-height:1.5;color:#718899;max-width:95mm}
+    .stnk-sign{width:55mm;text-align:center;font-size:7pt;color:#38566A}
+    .stnk-signline{border-top:1px solid #718899;margin-top:17mm;padding-top:2mm;font-weight:700}
     .prototype-stamp{display:inline-block;border:1px solid #c48b36;color:#9a681b;border-radius:2mm;padding:1.5mm 2.5mm;font-size:6pt;font-weight:800;letter-spacing:1px}
     @media print{
       @page{margin:10mm}
@@ -94,29 +99,59 @@
   </style>
 </head>
 <body>
-<div id="loginScreen" class="min-h-screen flex items-center justify-center p-5 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950">
-  <div class="w-full max-w-4xl grid md:grid-cols-2 bg-white rounded-3xl overflow-hidden shadow-2xl">
-    <div class="hidden md:flex flex-col justify-between p-10 text-white bg-gradient-to-br from-emerald-800 to-[#101a14]">
-      <div><div class="w-12 h-12 rounded-2xl bg-white/15 grid place-items-center text-2xl">⚡</div><p class="mt-8 text-sm uppercase tracking-[.25em] text-emerald-200">Sistem pendataan</p><h1 class="text-4xl font-black mt-3 leading-tight">CALIK</h1><p class="text-emerald-100 mt-3 leading-relaxed">Catatan Administrasi dan Identitas Becak Listrik.</p></div>
-      <p class="text-xs text-emerald-200">Prototype • Penyimpanan lokal perangkat</p>
-    </div>
-    <div class="p-8 md:p-12 flex flex-col justify-center">
-      <div class="md:hidden text-emerald-700 font-black text-2xl mb-7">⚡ CALIK</div>
-      <p class="text-sm font-semibold text-emerald-700">SELAMAT DATANG</p><h2 class="text-2xl font-bold mt-2">Masuk ke sistem</h2><p class="text-sm text-slate-500 mt-2">Gunakan akun demo untuk mengakses prototype.</p>
+<div id="loginScreen" class="min-h-screen flex items-center justify-center p-4 sm:p-6 bg-gradient-to-br from-[#061F35] via-[#083B60] to-[#0B5F9E]">
+  <div class="w-full max-w-5xl grid md:grid-cols-2 bg-white rounded-3xl overflow-hidden shadow-2xl shadow-slate-950/30">
+    <section class="relative flex flex-col justify-between min-h-[340px] md:min-h-[620px] p-6 sm:p-8 md:p-10 text-white bg-gradient-to-br from-[#0B5F9E] via-[#084A78] to-[#062B49] overflow-hidden">
+      <div class="absolute -right-20 -top-24 w-72 h-72 rounded-full border border-white/10"></div>
+      <div class="absolute -right-10 -top-14 w-52 h-52 rounded-full border border-white/10"></div>
+      <div class="relative z-10">
+        <div class="w-12 h-12 rounded-2xl bg-white/15 border border-white/15 grid place-items-center text-2xl shadow-lg">⚡</div>
+        <p class="mt-6 md:mt-8 text-[11px] sm:text-sm uppercase tracking-[.22em] text-[#B6E6F3]">Sistem pendataan resmi</p>
+        <h1 class="text-3xl sm:text-4xl font-black mt-2 leading-tight tracking-tight">CALIK</h1>
+        <p class="text-sm sm:text-base text-[#D9F2FA] mt-2 max-w-sm leading-relaxed">Catatan Administrasi dan Identitas Becak Listrik.</p>
+      </div>
+      <div class="relative z-10 flex items-end justify-between gap-4 mt-7 md:mt-10">
+        <div class="min-w-0 pb-1">
+          <p class="text-[10px] sm:text-xs uppercase tracking-[.18em] text-[#83D0E5] font-bold">Pimpinan Instansi</p>
+          <h2 id="loginOfficialName" class="text-base sm:text-lg font-bold mt-2 leading-snug">Nama Pejabat</h2>
+          <p id="loginOfficialRole" class="text-xs sm:text-sm text-[#D9F2FA] mt-1 leading-relaxed">Kepala Dinas Perhubungan</p>
+        </div>
+        <div class="login-official-frame" aria-label="Area foto pejabat">
+          <img id="loginOfficialImage" class="hidden" alt="Foto pejabat instansi">
+          <div id="loginOfficialPlaceholder" class="login-official-placeholder">
+            <span class="portrait-icon">♙</span><span>FOTO PEJABAT</span>
+          </div>
+        </div>
+      </div>
+      <div class="relative z-10 mt-6 pt-4 border-t border-white/15 flex items-center justify-between gap-3">
+        <p class="text-[10px] sm:text-xs text-[#B6E6F3]">Prototype • Penyimpanan lokal perangkat</p>
+        <span class="text-[10px] tracking-[.15em] text-white/60 font-semibold">CALIK DIGITAL</span>
+      </div>
+    </section>
+    <section class="p-7 sm:p-9 md:p-12 flex flex-col justify-center">
+      <div class="md:hidden text-[#0B5F9E] font-black text-xl mb-6">⚡ CALIK</div>
+      <div class="w-12 h-1 rounded-full bg-[#48B5D9] mb-5"></div>
+      <p class="text-sm font-semibold text-[#0B5F9E] tracking-wide">SELAMAT DATANG</p>
+      <h2 class="text-2xl font-bold mt-2 text-slate-800">Masuk ke sistem</h2>
+      <p class="text-sm text-slate-500 mt-2">Gunakan akun demo untuk mengakses prototype.</p>
       <form id="loginForm" class="mt-7 space-y-4">
-        <div><label class="text-sm font-medium">Username</label><input id="username" class="field mt-1" value="admin" autocomplete="username" required></div>
-        <div><label class="text-sm font-medium">Password</label><input id="password" type="password" class="field mt-1" value="admin123" autocomplete="current-password" required></div>
+        <div><label class="text-sm font-medium text-slate-700">Username</label><input id="username" class="field mt-1" value="admin" autocomplete="username" required></div>
+        <div><label class="text-sm font-medium text-slate-700">Password</label><input id="password" type="password" class="field mt-1" value="admin123" autocomplete="current-password" required></div>
         <p id="loginError" class="text-sm text-red-600 hidden">Username atau password tidak sesuai.</p>
         <button class="btn btn-primary w-full py-3">Masuk Dashboard <span class="ml-1">→</span></button>
       </form>
-      <p class="text-xs text-slate-400 mt-5">Demo login: <b>admin</b> / <b>admin123</b></p>
-    </div>
+      <div class="mt-6 p-3.5 rounded-xl bg-[#F1F8FB] border border-[#DCEEF5]">
+        <p class="text-[11px] text-slate-500">Akun demonstrasi</p>
+        <p class="text-sm text-slate-700 mt-1"><b>admin</b> <span class="text-slate-300 mx-1">/</span> <b>admin123</b></p>
+      </div>
+      <p class="text-[11px] text-slate-400 mt-5 text-center">Akses terbatas untuk administrator sistem.</p>
+    </section>
   </div>
 </div>
 
 <div id="app" class="hidden min-h-screen">
-  <aside id="sidebar" class="fixed z-30 inset-y-0 left-0 w-64 bg-[#111b16] text-white flex flex-col transition-transform -translate-x-full lg:translate-x-0 no-print">
-    <div class="px-6 py-6 border-b border-white/10"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-emerald-700 grid place-items-center text-xl">⚡</div><div><div class="font-black tracking-wide">CALIK</div><div class="text-[10px] text-slate-400 tracking-widest">BECak LISTRIK</div></div></div></div>
+  <aside id="sidebar" class="fixed z-30 inset-y-0 left-0 w-64 bg-[#082B45] text-white flex flex-col transition-transform -translate-x-full lg:translate-x-0 no-print">
+    <div class="px-6 py-6 border-b border-white/10"><div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-[#0B5F9E] grid place-items-center text-xl">⚡</div><div><div class="font-black tracking-wide">CALIK</div><div class="text-[10px] text-slate-400 tracking-widest">BECak LISTRIK</div></div></div></div>
     <div class="px-4 pt-6 pb-2 text-[10px] tracking-[.2em] text-slate-500 font-bold">MENU UTAMA</div>
     <nav class="px-3 space-y-1">
       <button class="nav-btn active" data-page="dashboard"><span>▦</span> Dashboard</button>
@@ -125,31 +160,31 @@
       <button class="nav-btn" data-page="setting"><span>⚙</span> Setting Web</button>
       <button class="nav-btn" data-page="kredit"><span>✦</span> Kredit Web</button>
     </nav>
-    <div class="mt-auto p-4 border-t border-white/10"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-emerald-500 grid place-items-center font-bold">A</div><div class="min-w-0"><p class="text-sm font-semibold">Administrator</p><p class="text-xs text-slate-400">Admin Sistem</p></div><button id="logoutBtn" class="ml-auto text-slate-400 hover:text-white" title="Keluar">↪</button></div></div>
+    <div class="mt-auto p-4 border-t border-white/10"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-[#168AB5] grid place-items-center font-bold">A</div><div class="min-w-0"><p class="text-sm font-semibold">Administrator</p><p class="text-xs text-slate-400">Admin Sistem</p></div><button id="logoutBtn" class="ml-auto text-slate-400 hover:text-white" title="Keluar">↪</button></div></div>
   </aside>
   <div id="sidebarShade" class="fixed inset-0 bg-black/40 z-20 hidden no-print"></div>
   <main class="lg:ml-64 min-h-screen">
     <header class="h-[76px] bg-white border-b border-slate-200 flex items-center justify-between px-5 md:px-8 sticky top-0 z-10 no-print">
       <div class="flex items-center gap-3"><button id="menuToggle" class="lg:hidden text-xl p-2">☰</button><div><p class="text-xs text-slate-400">CALIK / <span id="breadcrumb">Dashboard</span></p><h2 id="pageTitle" class="font-bold text-lg">Dashboard</h2></div></div>
-      <div class="flex items-center gap-3"><span class="hidden sm:block text-xs text-slate-500" id="todayLabel"></span><div class="w-9 h-9 rounded-full bg-emerald-50 text-emerald-700 grid place-items-center font-bold">A</div></div>
+      <div class="flex items-center gap-3"><span class="hidden sm:block text-xs text-slate-500" id="todayLabel"></span><div class="w-9 h-9 rounded-full bg-[#EAF6FB] text-[#0B5F9E] grid place-items-center font-bold">A</div></div>
     </header>
     <div class="p-5 md:p-8 max-w-[1500px] mx-auto no-print">
       <section id="page-dashboard" class="page space-y-6">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3"><div><p class="text-sm text-emerald-700 font-semibold">Ringkasan data</p><h1 class="text-2xl font-black mt-1">Dashboard</h1><p class="text-sm text-slate-500 mt-1">Pantau data pemilik dan identitas becak listrik.</p></div></div>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3"><div><p class="text-sm text-[#0B5F9E] font-semibold">Ringkasan data</p><h1 class="text-2xl font-black mt-1">Dashboard</h1><p class="text-sm text-slate-500 mt-1">Pantau data pemilik dan identitas becak listrik.</p></div></div>
         <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
-          <div class="panel p-5"><div class="flex justify-between"><span class="text-sm text-slate-500">Total Pemilik</span><div class="stat-icon bg-emerald-50 text-emerald-700">♙</div></div><div id="statPemilik" class="text-3xl font-black mt-3">0</div><p class="text-xs text-slate-400 mt-1">Data terdaftar</p></div>
+          <div class="panel p-5"><div class="flex justify-between"><span class="text-sm text-slate-500">Total Pemilik</span><div class="stat-icon bg-[#EAF6FB] text-[#0B5F9E]">♙</div></div><div id="statPemilik" class="text-3xl font-black mt-3">0</div><p class="text-xs text-slate-400 mt-1">Data terdaftar</p></div>
           <div class="panel p-5"><div class="flex justify-between"><span class="text-sm text-slate-500">Becak Terdata</span><div class="stat-icon bg-slate-100 text-slate-800">▣</div></div><div id="statBecak" class="text-3xl font-black mt-3">0</div><p class="text-xs text-slate-400 mt-1">Unit becak listrik</p></div>
-          <div class="panel p-5"><div class="flex justify-between"><span class="text-sm text-slate-500">Izin Aktif</span><div class="stat-icon bg-emerald-50 text-emerald-700">✓</div></div><div id="statAktif" class="text-3xl font-black mt-3">0</div><p class="text-xs text-slate-400 mt-1">Status izin aktif</p></div>
+          <div class="panel p-5"><div class="flex justify-between"><span class="text-sm text-slate-500">Izin Aktif</span><div class="stat-icon bg-[#EAF6FB] text-[#0B5F9E]">✓</div></div><div id="statAktif" class="text-3xl font-black mt-3">0</div><p class="text-xs text-slate-400 mt-1">Status izin aktif</p></div>
           <div class="panel p-5"><div class="flex justify-between"><span class="text-sm text-slate-500">Belum Lengkap</span><div class="stat-icon bg-amber-50 text-amber-700">!</div></div><div id="statBelum" class="text-3xl font-black mt-3">0</div><p class="text-xs text-slate-400 mt-1">Perlu verifikasi</p></div>
         </div>
         <div class="grid xl:grid-cols-3 gap-5">
-          <div class="panel xl:col-span-2 p-5"><div class="flex justify-between items-center mb-4"><div><h3 class="font-bold">Data Pemilik Terbaru</h3><p class="text-xs text-slate-400 mt-1">Lima data terakhir yang dimasukkan</p></div><button class="text-sm text-emerald-700 font-semibold" data-goto="pemilik">Lihat semua →</button></div><div class="table-wrap"><table><thead><tr><th>Nama Pemilik</th><th>NIK</th><th>No. Registrasi</th><th>Status</th></tr></thead><tbody id="recentTable"></tbody></table></div></div>
+          <div class="panel xl:col-span-2 p-5"><div class="flex justify-between items-center mb-4"><div><h3 class="font-bold">Data Pemilik Terbaru</h3><p class="text-xs text-slate-400 mt-1">Lima data terakhir yang dimasukkan</p></div><button class="text-sm text-[#0B5F9E] font-semibold" data-goto="pemilik">Lihat semua →</button></div><div class="table-wrap"><table><thead><tr><th>Nama Pemilik</th><th>NIK</th><th>No. Registrasi</th><th>Status</th></tr></thead><tbody id="recentTable"></tbody></table></div></div>
           <div class="panel p-5"><h3 class="font-bold">Akses Cepat</h3><p class="text-xs text-slate-400 mt-1 mb-4">Kelola administrasi becak listrik</p><div class="space-y-3"><button class="w-full text-left p-3 rounded-xl bg-slate-50 hover:bg-slate-100" data-goto="laporan"><b class="text-sm">▤ Rekapitulasi data</b><p class="text-xs text-slate-500 mt-1">Lihat dan cetak laporan</p></button></div><div class="mt-5 p-3 rounded-xl border border-amber-100 bg-amber-50 text-xs text-amber-800">Data prototype disimpan pada browser/perangkat ini melalui LocalStorage. Lakukan ekspor berkala.</div></div>
         </div>
       </section>
 
       <section id="page-pemilik" class="page hidden space-y-5">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3"><div><p class="text-sm text-emerald-700 font-semibold">Data master</p><h1 class="text-2xl font-black mt-1">Data Master Pemilik</h1><p class="text-sm text-slate-500 mt-1">Identitas pemilik dan spesifikasi becak listrik.</p></div><button class="btn btn-primary" id="addBtn">＋ Tambah Pemilik</button></div>
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3"><div><p class="text-sm text-[#0B5F9E] font-semibold">Data master</p><h1 class="text-2xl font-black mt-1">Data Master Pemilik</h1><p class="text-sm text-slate-500 mt-1">Identitas pemilik dan spesifikasi becak listrik.</p></div><button class="btn btn-primary" id="addBtn">＋ Tambah Pemilik</button></div>
         <div class="panel p-4 flex flex-col md:flex-row gap-3"><input id="searchInput" class="field md:max-w-sm" placeholder="Cari nama, NIK, nomor registrasi..."><select id="statusFilter" class="field md:w-48"><option value="">Semua status</option><option>Aktif</option><option>Proses</option><option>Nonaktif</option></select><div class="md:ml-auto flex gap-2"><button class="btn btn-light" id="exportBtn">↓ Ekspor JSON</button><button class="btn btn-light" id="importBtn">↑ Impor JSON</button><input type="file" id="importFile" accept=".json,application/json" class="hidden"></div></div>
         <div class="panel p-4 space-y-3">
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
@@ -164,39 +199,58 @@
           <div class="flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3">
             <span class="text-xs text-slate-500" id="selectedCount">0 data dipilih</span>
             <span class="text-slate-300">|</span>
-            <button class="text-xs font-semibold text-emerald-700" id="printAllCards">Cetak Semua Kartu</button>
-            <button class="text-xs font-semibold text-emerald-700" id="printAllStnk">Cetak Semua STNK</button>
+            <button class="text-xs font-semibold text-[#0B5F9E]" id="printAllCards">Cetak Semua Kartu</button>
+            <button class="text-xs font-semibold text-[#0B5F9E]" id="printAllStnk">Cetak Semua STNK</button>
           </div>
         </div>
         <div class="panel"><div class="table-wrap"><table><thead><tr><th><input type="checkbox" id="checkAllVisible" aria-label="Pilih semua data tampil"></th><th>No.</th><th>Nama Pemilik</th><th>NIK</th><th>No. Registrasi</th><th>No. Rangka</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="ownerTable"></tbody></table></div><div id="emptyState" class="hidden p-10 text-center text-slate-400 text-sm">Belum ada data. Klik “Tambah Pemilik” untuk memulai.</div><div class="px-5 py-3 border-t border-slate-100 text-xs text-slate-400" id="tableCount"></div></div>
       </section>
 
       <section id="page-laporan" class="page hidden space-y-5">
-        <div><p class="text-sm text-emerald-700 font-semibold">Rekapitulasi</p><h1 class="text-2xl font-black mt-1">Laporan Pendataan</h1><p class="text-sm text-slate-500 mt-1">Ringkasan data pemilik dan unit becak listrik.</p></div>
+        <div><p class="text-sm text-[#0B5F9E] font-semibold">Rekapitulasi</p><h1 class="text-2xl font-black mt-1">Laporan Pendataan</h1><p class="text-sm text-slate-500 mt-1">Ringkasan data pemilik dan unit becak listrik.</p></div>
         <div class="panel p-5"><div class="flex flex-col md:flex-row gap-3 md:items-end justify-between"><div class="grid sm:grid-cols-2 gap-3 flex-1"><div><label class="text-xs text-slate-500">Status</label><select id="reportStatus" class="field mt-1"><option value="">Semua status</option><option>Aktif</option><option>Proses</option><option>Nonaktif</option></select></div><div><label class="text-xs text-slate-500">Pencarian</label><input id="reportSearch" class="field mt-1" placeholder="Nama / NIK / registrasi"></div></div><button class="btn btn-primary" id="printReport">⎙ Cetak Laporan</button></div></div>
         <div class="grid sm:grid-cols-3 gap-4"><div class="panel p-5"><p class="text-xs text-slate-500">Total pemilik</p><p id="reportTotal" class="text-2xl font-black mt-2">0</p></div><div class="panel p-5"><p class="text-xs text-slate-500">Izin aktif</p><p id="reportActive" class="text-2xl font-black mt-2">0</p></div><div class="panel p-5"><p class="text-xs text-slate-500">Dalam proses / nonaktif</p><p id="reportOther" class="text-2xl font-black mt-2">0</p></div></div>
         <div class="panel"><div class="p-5 border-b border-slate-100"><h3 class="font-bold">Rincian Pendataan</h3></div><div class="table-wrap"><table><thead><tr><th>No.</th><th>Nama</th><th>NIK</th><th>Registrasi</th><th>Wilayah</th><th>Status</th><th>Dokumen</th></tr></thead><tbody id="reportTable"></tbody></table></div></div>
       </section>
 
       <section id="page-setting" class="page hidden space-y-5">
-        <div><p class="text-sm text-emerald-700 font-semibold">Konfigurasi aplikasi</p><h1 class="text-2xl font-black mt-1">Setting Web</h1><p class="text-sm text-slate-500 mt-1">Atur identitas tampilan CALIK untuk kebutuhan prototype presentasi.</p></div>
+        <div><p class="text-sm text-[#0B5F9E] font-semibold">Konfigurasi aplikasi</p><h1 class="text-2xl font-black mt-1">Setting Web</h1><p class="text-sm text-slate-500 mt-1">Atur identitas tampilan CALIK untuk kebutuhan prototype presentasi.</p></div>
         <div class="panel p-5 max-w-2xl">
           <form id="settingForm" class="space-y-4">
             <div><label class="text-sm font-semibold">Nama instansi</label><input id="settingAgency" class="field mt-1" placeholder="Contoh: Pemerintah Kota Tasikmalaya"></div>
             <div><label class="text-sm font-semibold">Nama aplikasi</label><input id="settingAppName" class="field mt-1" placeholder="CALIK"></div>
             <div><label class="text-sm font-semibold">Teks footer</label><input id="settingFooter" class="field mt-1" placeholder="© 2026 CALIK • Dinas Perhubungan"></div>
-            <div class="rounded-xl bg-emerald-50 p-3 text-xs text-emerald-800">Pengaturan disimpan pada browser ini dan akan digunakan pada tampilan footer serta dokumen cetak.</div>
+            <div class="border border-slate-200 rounded-2xl p-4 space-y-4">
+              <div><h3 class="font-bold text-sm">Foto Pejabat pada Halaman Login</h3><p class="text-xs text-slate-500 mt-1">Foto akan tampil pada panel kiri halaman login CALIK.</p></div>
+              <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+                <div class="w-24 h-28 rounded-xl border border-dashed border-[#B7D3DF] bg-[#F1F8FB] overflow-hidden flex items-center justify-center shrink-0">
+                  <img id="settingOfficialPreview" class="hidden w-full h-full object-cover" alt="Preview foto pejabat">
+                  <span id="settingOfficialPlaceholder" class="text-[10px] text-slate-400 text-center px-2">Preview foto pejabat</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <label class="text-xs font-semibold text-slate-600">Pilih file foto</label>
+                  <input id="settingOfficialPhoto" type="file" accept="image/*" class="field mt-1 text-xs">
+                  <p class="text-[11px] text-slate-400 mt-1">JPG/PNG, maksimal 700 KB. Gunakan foto resmi dengan orientasi potret.</p>
+                  <button type="button" id="removeOfficialPhoto" class="text-xs text-red-600 font-semibold mt-2">Hapus foto pejabat</button>
+                </div>
+              </div>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div><label class="text-xs font-semibold">Nama pejabat</label><input id="settingOfficialName" class="field mt-1" placeholder="Nama pejabat"></div>
+                <div><label class="text-xs font-semibold">Jabatan</label><input id="settingOfficialRole" class="field mt-1" placeholder="Kepala Dinas Perhubungan"></div>
+              </div>
+            </div>
+            <div class="rounded-xl bg-[#EAF6FB] p-3 text-xs text-[#07446F]">Pengaturan disimpan pada browser ini dan akan digunakan pada halaman login, footer, serta dokumen cetak.</div>
             <button class="btn btn-primary" type="submit">Simpan Pengaturan</button>
           </form>
         </div>
       </section>
 
       <section id="page-kredit" class="page hidden space-y-5">
-        <div><p class="text-sm text-emerald-700 font-semibold">Tentang aplikasi</p><h1 class="text-2xl font-black mt-1">Kredit Web</h1><p class="text-sm text-slate-500 mt-1">Informasi pengembang dan implementasi prototype.</p></div>
+        <div><p class="text-sm text-[#0B5F9E] font-semibold">Tentang aplikasi</p><h1 class="text-2xl font-black mt-1">Kredit Web</h1><p class="text-sm text-slate-500 mt-1">Informasi pengembang dan implementasi prototype.</p></div>
         <div class="panel max-w-2xl overflow-hidden">
-          <div class="bg-[#111b16] text-white p-7">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-700 grid place-items-center text-2xl">⚡</div>
-            <p class="text-xs tracking-[.25em] text-emerald-300 mt-5">DIGITAL ADMINISTRATION</p>
+          <div class="bg-[#082B45] text-white p-7">
+            <div class="w-12 h-12 rounded-2xl bg-[#0B5F9E] grid place-items-center text-2xl">⚡</div>
+            <p class="text-xs tracking-[.25em] text-[#83D0E5] mt-5">DIGITAL ADMINISTRATION</p>
             <h2 class="text-3xl font-black mt-1">CALIK</h2>
             <p class="text-sm text-slate-300 mt-2">Catatan Administrasi dan Identitas Becak Listrik</p>
           </div>
@@ -230,14 +284,14 @@
     <input type="hidden" id="editId">
     <div class="mb-5">
       <div class="flex items-center gap-2 mb-2">
-        <span class="wizard-dot w-7 h-7 rounded-full bg-emerald-700 text-white text-xs grid place-items-center font-bold">1</span>
+        <span class="wizard-dot w-7 h-7 rounded-full bg-[#0B5F9E] text-white text-xs grid place-items-center font-bold">1</span>
         <span class="wizard-dot w-7 h-7 rounded-full bg-slate-200 text-slate-500 text-xs grid place-items-center font-bold">2</span>
         <span class="wizard-dot w-7 h-7 rounded-full bg-slate-200 text-slate-500 text-xs grid place-items-center font-bold">3</span>
         <span id="stepCaption" class="text-xs text-slate-500 ml-2">Langkah 1 dari 3 • Identitas Pemilik</span>
       </div>
-      <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden"><div id="wizardProgress" class="h-full bg-emerald-700 rounded-full" style="width:33.33%"></div></div>
+      <div class="h-1.5 bg-slate-100 rounded-full overflow-hidden"><div id="wizardProgress" class="h-full bg-[#0B5F9E] rounded-full" style="width:33.33%"></div></div>
     </div>
-    <div class="wizard-step" data-step="1"><h4 class="font-bold text-sm text-emerald-800 mb-3">A. Identitas Pemilik</h4><div class="grid md:grid-cols-2 gap-3">
+    <div class="wizard-step" data-step="1"><h4 class="font-bold text-sm text-[#07446F] mb-3">A. Identitas Pemilik</h4><div class="grid md:grid-cols-2 gap-3">
       <div><label class="text-xs font-medium">Nama lengkap *</label><input id="fNama" class="field mt-1" required></div>
       <div><label class="text-xs font-medium">NIK *</label><input id="fNik" class="field mt-1" maxlength="16" inputmode="numeric" required></div>
       <div><label class="text-xs font-medium">Tempat lahir</label><input id="fTempat" class="field mt-1"></div>
@@ -258,7 +312,7 @@
       <div><label class="text-xs font-medium">Kelurahan / Desa</label><input id="fKelurahan" class="field mt-1"></div>
       <div><label class="text-xs font-medium">Kecamatan</label><input id="fKecamatan" class="field mt-1"></div>
     </div></div>
-    <div class="wizard-step hidden" data-step="2"><h4 class="font-bold text-sm text-emerald-800 mb-3">B. Identitas Becak Listrik</h4><div class="grid md:grid-cols-2 gap-3">
+    <div class="wizard-step hidden" data-step="2"><h4 class="font-bold text-sm text-[#07446F] mb-3">B. Identitas Becak Listrik</h4><div class="grid md:grid-cols-2 gap-3">
       <div><label class="text-xs font-medium">Nomor registrasi *</label><input id="fReg" class="field mt-1" placeholder="Contoh: BL-0001" required></div>
       <div><label class="text-xs font-medium">Nomor rangka / VIN</label><input id="fRangka" class="field mt-1"></div>
       <div><label class="text-xs font-medium">Nomor motor / mesin</label><input id="fMesin" class="field mt-1"></div>
@@ -269,8 +323,8 @@
       <div><label class="text-xs font-medium">Tanggal pendataan</label><input id="fTanggal" type="date" class="field mt-1"></div>
     </div></div>
     <div class="wizard-step hidden" data-step="3">
-      <h4 class="font-bold text-sm text-emerald-800 mb-3">C. Pemeriksaan & Konfirmasi</h4>
-      <div class="rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-sm text-emerald-900">
+      <h4 class="font-bold text-sm text-[#07446F] mb-3">C. Pemeriksaan & Konfirmasi</h4>
+      <div class="rounded-xl bg-[#EAF6FB] border border-[#CFEAF4] p-4 text-sm text-[#063653]">
         <b>Periksa kembali data sebelum disimpan.</b>
         <p class="text-xs mt-1">Pastikan NIK, nomor registrasi, identitas pemilik, dan data kendaraan sudah benar. Data dapat diperbarui melalui tombol Edit.</p>
       </div>
@@ -289,7 +343,7 @@
   const KEY='calik_becak_listrik_v1';
   let owners=[];
   let selectedIds=new Set();
-  let appSettings={agency:'Pemerintah Kota Tasikmalaya',appName:'CALIK',footer:'© 2026 CALIK • Catatan Administrasi dan Identitas Becak Listrik'};
+  let appSettings={agency:'Pemerintah Kota Tasikmalaya',appName:'CALIK',footer:'© 2026 CALIK • Catatan Administrasi dan Identitas Becak Listrik',officialPhoto:'',officialName:'Nama Pejabat',officialRole:'Kepala Dinas Perhubungan'};
   let currentStep=1;
   let photoData='';
   const today=new Date().toISOString().slice(0,10);
@@ -304,7 +358,7 @@
     {id:'BL-DEMO-005',nama:'Euis Komariah',nik:'3278055508950005',tempat:'Tasikmalaya',tgl:'1995-08-15',gender:'Perempuan',hp:'081234567805',alamat:'Kp. Cilembang',kelurahan:'Argasari',kecamatan:'Cihideung',reg:'BL-0005',rangka:'BLTSM202600005',mesin:'MTR-0005',warna:'Putih',tahun:'2026',wilayah:'Kecamatan Cihideung',status:'Aktif',tanggal:today,createdAt:'2026-11-01T12:00:00'}
   ];localStorage.setItem(KEY,JSON.stringify(owners))}else{owners=JSON.parse(raw);if(!Array.isArray(owners))owners=[]}}catch(e){owners=[]}}
   function save(){localStorage.setItem(KEY,JSON.stringify(owners));renderAll()}
-  function statusPill(s){let cls=s==='Aktif'?'bg-emerald-50 text-emerald-700':s==='Proses'?'bg-amber-50 text-amber-700':'bg-slate-100 text-slate-600';return `<span class="inline-flex px-2.5 py-1 rounded-full text-xs font-semibold ${cls}">${esc(s||'Proses')}</span>`}
+  function statusPill(s){let cls=s==='Aktif'?'bg-[#EAF6FB] text-[#0B5F9E]':s==='Proses'?'bg-amber-50 text-amber-700':'bg-slate-100 text-slate-600';return `<span class="inline-flex px-2.5 py-1 rounded-full text-xs font-semibold ${cls}">${esc(s||'Proses')}</span>`}
   function nav(page){$('.page').addClass('hidden');$('#page-'+page).removeClass('hidden');$('.nav-btn,.mobile-nav-btn').removeClass('active');$(`.nav-btn[data-page="${page}"],.mobile-nav-btn[data-page="${page}"]`).addClass('active');let title={dashboard:'Dashboard',pemilik:'Data Master Pemilik',laporan:'Laporan',setting:'Setting Web',kredit:'Kredit Web'}[page]||'Dashboard';$('#pageTitle,#breadcrumb').text(title);$('#sidebar').addClass('-translate-x-full');$('#sidebarShade').addClass('hidden');}
   function renderDashboard(){
     $('#statPemilik').text(owners.length);$('#statBecak').text(owners.length);$('#statAktif').text(owners.filter(x=>x.status==='Aktif').length);$('#statBelum').text(owners.filter(x=>x.status!=='Aktif').length);
@@ -312,7 +366,7 @@
     $('#recentTable').html(rows.length?rows.map(x=>`<tr><td class="font-semibold">${esc(x.nama)}</td><td>${esc(x.nik)}</td><td>${esc(x.reg)}</td><td>${statusPill(x.status)}</td></tr>`).join(''):`<tr><td colspan="4" class="text-center text-slate-400 py-8">Belum ada data pemilik.</td></tr>`);
   }
   function filtered(){let q=($('#searchInput').val()||'').toLowerCase(),s=$('#statusFilter').val();return owners.filter(x=>(!s||x.status===s)&&(!q||[x.nama,x.nik,x.reg,x.rangka,x.wilayah].join(' ').toLowerCase().includes(q)))}
-  function renderOwners(){let list=filtered();$('#ownerTable').html(list.map((x,i)=>`<tr><td><input type="checkbox" class="owner-check accent-emerald-700" value="${esc(x.id)}" ${selectedIds.has(x.id)?'checked':''}></td><td>${i+1}</td><td class="font-semibold">${esc(x.nama)}</td><td>${esc(x.nik)}</td><td class="font-semibold text-emerald-700">${esc(x.reg)}</td><td>${esc(x.rangka||'-')}</td><td>${statusPill(x.status)}</td><td><div class="flex gap-1"><button class="btn btn-light !px-2 !py-1" data-action="edit" data-id="${x.id}">Edit</button><button class="btn btn-light !px-2 !py-1" data-action="card" data-id="${x.id}">Kartu</button><button class="btn btn-light !px-2 !py-1" data-action="stnk" data-id="${x.id}">STNK</button><button class="btn btn-danger !px-2 !py-1" data-action="delete" data-id="${x.id}">Hapus</button></div></td></tr>`).join(''));$('#emptyState').toggleClass('hidden',list.length>0);$('#tableCount').text(`Menampilkan ${list.length} dari ${owners.length} data`);$('#selectedCount').text(`${selectedIds.size} data dipilih`);$('#checkAllVisible').prop('checked',list.length>0&&list.every(x=>selectedIds.has(x.id)))}
+  function renderOwners(){let list=filtered();$('#ownerTable').html(list.map((x,i)=>`<tr><td><input type="checkbox" class="owner-check accent-[#0B5F9E]" value="${esc(x.id)}" ${selectedIds.has(x.id)?'checked':''}></td><td>${i+1}</td><td class="font-semibold">${esc(x.nama)}</td><td>${esc(x.nik)}</td><td class="font-semibold text-[#0B5F9E]">${esc(x.reg)}</td><td>${esc(x.rangka||'-')}</td><td>${statusPill(x.status)}</td><td><div class="flex gap-1"><button class="btn btn-light !px-2 !py-1" data-action="edit" data-id="${x.id}">Edit</button><button class="btn btn-light !px-2 !py-1" data-action="card" data-id="${x.id}">Kartu</button><button class="btn btn-light !px-2 !py-1" data-action="stnk" data-id="${x.id}">STNK</button><button class="btn btn-danger !px-2 !py-1" data-action="delete" data-id="${x.id}">Hapus</button></div></td></tr>`).join(''));$('#emptyState').toggleClass('hidden',list.length>0);$('#tableCount').text(`Menampilkan ${list.length} dari ${owners.length} data`);$('#selectedCount').text(`${selectedIds.size} data dipilih`);$('#checkAllVisible').prop('checked',list.length>0&&list.every(x=>selectedIds.has(x.id)))}
   function renderReport(){let q=($('#reportSearch').val()||'').toLowerCase(),s=$('#reportStatus').val(),list=owners.filter(x=>(!s||x.status===s)&&(!q||[x.nama,x.nik,x.reg].join(' ').toLowerCase().includes(q)));$('#reportTotal').text(list.length);$('#reportActive').text(list.filter(x=>x.status==='Aktif').length);$('#reportOther').text(list.filter(x=>x.status!=='Aktif').length);$('#reportTable').html(list.map((x,i)=>`<tr><td>${i+1}</td><td class="font-semibold">${esc(x.nama)}</td><td>${esc(x.nik)}</td><td>${esc(x.reg)}</td><td>${esc(x.wilayah||'-')}</td><td>${statusPill(x.status)}</td><td><span class="text-xs text-slate-500">Kartu • STNK</span></td></tr>`).join('')||'<tr><td colspan="7" class="text-center text-slate-400 py-8">Tidak ada data sesuai filter.</td></tr>')}
   function renderAll(){renderDashboard();renderOwners();renderReport()}
   function openModal(item){$('#ownerForm')[0].reset();$('#editId').val(item?.id||'');photoData=item?.foto||'';showPhoto(photoData);currentStep=1;showWizardStep();$('#modalTitle').text(item?'Edit Data Pemilik':'Tambah Data Pemilik');$('#fTanggal').val(item?.tanggal||today);['Nama','Nik','Tempat','Tgl','Gender','Hp','Alamat','Kelurahan','Kecamatan','Reg','Rangka','Mesin','Warna','Tahun','Wilayah','Status'].forEach(k=>{let map={Nama:'nama',Nik:'nik',Tempat:'tempat',Tgl:'tgl',Gender:'gender',Hp:'hp',Alamat:'alamat',Kelurahan:'kelurahan',Kecamatan:'kecamatan',Reg:'reg',Rangka:'rangka',Mesin:'mesin',Warna:'warna',Tahun:'tahun',Wilayah:'wilayah',Status:'status'};if(item)set('f'+k,item[map[k]])});if(!item)$('#fStatus').val('Aktif');$('#ownerModal').css('display','flex')}
@@ -320,7 +374,7 @@
   function showPhoto(src){if(src){$('#photoPreview').attr('src',src).removeClass('hidden');$('#photoPlaceholder').addClass('hidden')}else{$('#photoPreview').attr('src','').addClass('hidden');$('#photoPlaceholder').removeClass('hidden')}}
   function showWizardStep(){
     $('.wizard-step').addClass('hidden');$(`.wizard-step[data-step="${currentStep}"]`).removeClass('hidden');
-    $('.wizard-dot').each(function(i){$(this).toggleClass('bg-emerald-700 text-white',i+1<=currentStep).toggleClass('bg-slate-200 text-slate-500',i+1>currentStep)});
+    $('.wizard-dot').each(function(i){$(this).toggleClass('bg-[#0B5F9E] text-white',i+1<=currentStep).toggleClass('bg-slate-200 text-slate-500',i+1>currentStep)});
     $('#wizardProgress').css('width',(currentStep/3*100)+'%');
     $('#stepCaption').text(['','Langkah 1 dari 3 • Identitas Pemilik','Langkah 2 dari 3 • Data Becak Listrik','Langkah 3 dari 3 • Konfirmasi'][currentStep]);
     $('#wizardBack').toggleClass('hidden',currentStep===1);$('#wizardNext').toggleClass('hidden',currentStep===3);$('#wizardSave').toggleClass('hidden',currentStep!==3);
@@ -334,7 +388,7 @@
   function collect(){return {foto:photoData,nama:get('fNama').trim(),nik:get('fNik').trim(),tempat:get('fTempat'),tgl:get('fTgl'),gender:get('fGender'),hp:get('fHp'),alamat:get('fAlamat'),kelurahan:get('fKelurahan'),kecamatan:get('fKecamatan'),reg:get('fReg').trim(),rangka:get('fRangka'),mesin:get('fMesin'),warna:get('fWarna'),tahun:get('fTahun'),wilayah:get('fWilayah'),status:get('fStatus'),tanggal:get('fTanggal')||today}}
   function find(id){return owners.find(x=>x.id===id)}
   function cardMarkup(x){return `<div class="calik-id-card">
-    <div class="id-head"><div><div class="id-brand">${esc(appSettings.appName)}</div><div class="id-sub">IDENTITAS PENGGUNA BECAK LISTRIK</div></div><div class="text-right"><div style="font-size:6pt;font-weight:800;letter-spacing:1px">KARTU IDENTITAS</div><div style="font-size:5pt;color:#c9e6d3">PROTOTYPE</div></div></div>
+    <div class="id-head"><div><div class="id-brand">${esc(appSettings.appName)}</div><div class="id-sub">IDENTITAS PENGGUNA BECAK LISTRIK</div></div><div class="text-right"><div style="font-size:6pt;font-weight:800;letter-spacing:1px">KARTU IDENTITAS</div><div style="font-size:5pt;color:#BDE8F2">PROTOTYPE</div></div></div>
     <div class="id-body"><div class="id-photo">${x.foto?`<img src="${x.foto}" alt="Foto pemilik">`:'FOTO<br>3 × 4'}</div><div class="id-info"><div class="id-name">${esc(x.nama)}</div><div class="id-line"><strong>NIK</strong> : ${esc(x.nik)}</div><div class="id-line"><strong>Wilayah</strong> : ${esc(x.wilayah||'-')}</div><div class="id-line"><strong>Status</strong> : ${esc(x.status||'Proses')}</div><div class="id-reg">${esc(x.reg)}</div></div></div>
     <div class="id-foot"><span>Dokumen konsep • Verifikasi pada instansi penerbit</span><span class="id-seal">CALIK / BECAK LISTRIK</span></div>
   </div>`}
@@ -370,8 +424,25 @@
     setTimeout(()=>{window.print();setTimeout(()=>{$('#printArea').addClass('hidden-page').empty();document.title='CALIK — Pendataan Becak Listrik'},700)},250);
   }
   function selectedOwners(){return owners.filter(x=>selectedIds.has(x.id))}
-  function loadSettings(){try{let v=JSON.parse(localStorage.getItem('calik_settings_v1')||'{}');appSettings={...appSettings,...v}}catch(e){};$('#settingAgency').val(appSettings.agency);$('#settingAppName').val(appSettings.appName);$('#settingFooter').val(appSettings.footer);$('#appFooterText').text(appSettings.footer);$('.id-head .id-brand').text(appSettings.appName)}
-  function saveSettings(){appSettings={agency:get('settingAgency').trim()||'Pemerintah Kota Tasikmalaya',appName:get('settingAppName').trim()||'CALIK',footer:get('settingFooter').trim()||'© 2026 CALIK'};localStorage.setItem('calik_settings_v1',JSON.stringify(appSettings));$('#appFooterText').text(appSettings.footer);alert('Pengaturan berhasil disimpan.')}
+  function showOfficialPhoto(src){
+    if(src){$('#settingOfficialPreview').attr('src',src).removeClass('hidden');$('#settingOfficialPlaceholder').addClass('hidden');$('#loginOfficialImage').attr('src',src).removeClass('hidden');$('#loginOfficialPlaceholder').addClass('hidden')}
+    else{$('#settingOfficialPreview').attr('src','').addClass('hidden');$('#settingOfficialPlaceholder').removeClass('hidden');$('#loginOfficialImage').attr('src','').addClass('hidden');$('#loginOfficialPlaceholder').removeClass('hidden')}
+  }
+  function applyOfficialIdentity(){
+    $('#loginOfficialName').text(appSettings.officialName||'Nama Pejabat');
+    $('#loginOfficialRole').text(appSettings.officialRole||'Kepala Dinas Perhubungan');
+    showOfficialPhoto(appSettings.officialPhoto||'');
+  }
+  function loadSettings(){
+    try{let v=JSON.parse(localStorage.getItem('calik_settings_v1')||'{}');appSettings={...appSettings,...v}}catch(e){}
+    $('#settingAgency').val(appSettings.agency);$('#settingAppName').val(appSettings.appName);$('#settingFooter').val(appSettings.footer);
+    $('#settingOfficialName').val(appSettings.officialName||'');$('#settingOfficialRole').val(appSettings.officialRole||'');
+    $('#appFooterText').text(appSettings.footer);$('.id-head .id-brand').text(appSettings.appName);applyOfficialIdentity();
+  }
+  function saveSettings(){
+    appSettings={...appSettings,agency:get('settingAgency').trim()||'Pemerintah Kota Tasikmalaya',appName:get('settingAppName').trim()||'CALIK',footer:get('settingFooter').trim()||'© 2026 CALIK',officialName:get('settingOfficialName').trim()||'Nama Pejabat',officialRole:get('settingOfficialRole').trim()||'Kepala Dinas Perhubungan'};
+    localStorage.setItem('calik_settings_v1',JSON.stringify(appSettings));$('#appFooterText').text(appSettings.footer);$('.id-head .id-brand').text(appSettings.appName);applyOfficialIdentity();alert('Pengaturan berhasil disimpan. Foto dan identitas pejabat sudah diterapkan pada halaman login.');
+  }
   function download(name,content,type){let blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
   $(function(){
     load();loadSettings();$('#todayLabel').text(new Intl.DateTimeFormat('id-ID',{dateStyle:'full'}).format(new Date()));
@@ -379,6 +450,13 @@
     $('#logoutBtn').on('click',()=>{if(confirm('Keluar dari aplikasi?')){$('#app').addClass('hidden');$('#loginScreen').removeClass('hidden');document.body.classList.remove('app-authenticated')}});
     $('.nav-btn,.mobile-nav-btn').on('click',function(){nav($(this).data('page'))});$('[data-goto]').on('click',function(){nav($(this).data('goto'))});
     $('#settingForm').on('submit',function(e){e.preventDefault();saveSettings()});
+    $('#settingOfficialPhoto').on('change',function(){
+      let file=this.files[0];if(!file)return;
+      if(!file.type.startsWith('image/')){alert('Pilih file gambar JPG atau PNG.');this.value='';return}
+      if(file.size>700*1024){alert('Ukuran foto maksimal 700 KB agar LocalStorage tidak cepat penuh.');this.value='';return}
+      let reader=new FileReader();reader.onload=e=>{appSettings.officialPhoto=e.target.result;showOfficialPhoto(appSettings.officialPhoto)};reader.readAsDataURL(file);
+    });
+    $('#removeOfficialPhoto').on('click',function(){appSettings.officialPhoto='';$('#settingOfficialPhoto').val('');showOfficialPhoto('')});
     $('#ownerTable').on('change','.owner-check',function(){let id=String(this.value);if(this.checked)selectedIds.add(id);else selectedIds.delete(id);$('#selectedCount').text(`${selectedIds.size} data dipilih`);let visible=filtered();$('#checkAllVisible').prop('checked',visible.length>0&&visible.every(x=>selectedIds.has(x.id)))});
     $('#checkAllVisible').on('change',function(){filtered().forEach(x=>this.checked?selectedIds.add(x.id):selectedIds.delete(x.id));renderOwners()});
     $('#selectAllBtn').on('click',()=>{filtered().forEach(x=>selectedIds.add(x.id));renderOwners()});
