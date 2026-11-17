@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pemilik Becak</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6f4;
+            color: #25352b;
+            padding: 25px 15px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .header {
+            background: #176b42;
+            color: white;
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 22px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 7px;
+        }
+
+        .header p {
+            font-size: 13px;
+            opacity: .85;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+        }
+
+        .profile-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 22px;
+            padding-bottom: 17px;
+            border-bottom: 1px solid #e8eee9;
+        }
+
+        .number {
+            background: #e5f5eb;
+            color: #176b42;
+            padding: 9px 16px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .status {
+            color: #16834b;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .name {
+            font-size: 23px;
+            font-weight: bold;
+            color: #176b42;
+            margin-bottom: 20px;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field {
+            padding: 13px;
+            background: #f7faf8;
+            border-radius: 9px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 11px;
+            color: #78877d;
+            margin-bottom: 7px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .field p {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .photos {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 22px;
+        }
+
+        .photo-box {
+            border: 1px solid #e5eae6;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .photo-box h3 {
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .photo-box img {
+            display: block;
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #f2f2f2;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: #89958c;
+            margin-top: 20px;
+        }
+
+        .not-found {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 14px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 19px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+
+            .data-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .name {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>DATA PEMILIK BECAK</h1>
+        <p>Informasi Identitas dan Pendataan Becak</p>
+    </div>
+
+    <div id="content"></div>
+
+    <div class="footer">
+        Sistem Informasi Pendataan Pemilik Becak
+    </div>
+
+</div>
+
+<script>
+    // DATA PEMILIK BECAK
+    const dataPemilik = {
+
+        1: {
+            no: 1,
+            nama: "ATUY SRYAMAN",
+            nik: "3278020807630004",
+            alamat: "Kp Sukagalih",
+            kelurahan: "Sukamanah",
+            kecamatan: "Cipedes",
+            mangkal: "TAWANG SARI",
+            usia: "63 Tahun",
+            hp: "082219893577",
+            foto: "becak-no-1.jpg"
+        },
+
+        2: {
+            no: 2,
+            nama: "ADUN KARNAEN",
+            nik: "3278021508530005",
+            alamat: "Jalan Buninagara 1",
+            kelurahan: "Nagarasari",
+            kecamatan: "Cipedes",
+            mangkal: "Jalan Mayor Utarya depan BJB",
+            usia: "70 Tahun",
+            hp: "087817740811",
+            foto: "becak-no-2.jpg"
+        }
+
+    };
+
+    // AMBIL NOMOR DARI URL
+    const params = new URLSearchParams(window.location.search);
+
+    // Jika parameter no tidak diisi, tampilkan nomor 1
+    const nomor = params.get("no") || "1";
+
+    // AMBIL DATA SESUAI NOMOR
+    const data = dataPemilik[nomor];
+
+    const content = document.getElementById("content");
+
+    if (data) {
+
+        content.innerHTML = `
+            <div class="card">
+
+                <div class="profile-top">
+                    <span class="number">DATA NO. ${data.no}</span>
+                    <span class="status">● DATA TERDAFTAR</span>
+                </div>
+
+                <div class="name">${data.nama}</div>
+
+                <div class="data-grid">
+
+                    <div class="field">
+                        <label>Nama Sesuai KTP</label>
+                        <p>${data.nama}</p>
+                    </div>
+
+                    <div class="field">
+                        <label>NIK</label>
+                        <p>${data.nik}</p>
+                    </div>
+
+                    <div class="field">
+                        <label>Alamat</label>
+                        <p>${data.alamat}</p>
+                    </div>
+
+                    <div class="field">
+                        <label>Kelurahan</label>
+                        <p>${data.kelurahan}</p>
+                    </div>
+
+                    <div class="field">
+                        <label>Kecamatan</label>
+                        <p>${data.kecamatan}</p>
+                    </div>
+
+                    <div class="field">
+                        <label>Tempat Mangkal</label>
+                        <p>${data.mangkal}</p>
+                    </div>
+
+                    <div class="field">
+                        <label>Usia</label>
+                        <p>${data.usia}</p>
+                    </div>
+
+                    <div class="field">
+                        <label>No. HP</label>
+                        <p>${data.hp}</p>
+                    </div>
+
+                </div>
+
+                <div class="photos">
+                    <div class="photo-box">
+                        <h3>Foto Pemilik Bersama Becak</h3>
+                        <img src="${data.foto}"
+                             alt="Foto ${data.nama}"
+                             onerror="this.alt='Foto belum tersedia'; this.style.minHeight='150px';">
+                    </div>
+                </div>
+
+            </div>
+        `;
+
+    } else {
+
+        content.innerHTML = `
+            <div class="not-found">
+                <h2>Data Tidak Ditemukan</h2>
+                <p>Data dengan nomor ${nomor} belum tersedia.</p>
+            </div>
+        `;
+
+    }
+</script>
+
+</body>
+</html>
