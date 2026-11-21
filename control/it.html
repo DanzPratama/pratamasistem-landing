@@ -28,12 +28,302 @@
 @media(max-width:1250px){.topbar{flex-wrap:wrap}.main-nav{order:3;flex:1 0 100%;overflow-x:auto;padding:2px 0}.top-actions{margin-left:auto}.nav-link{flex:none}}
 @media(max-width:900px){.stats-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.main-card-head{align-items:flex-start;flex-direction:column}.tools{width:100%}.search{flex:1;width:auto}}
 @media(max-width:640px){.topbar{gap:8px;padding:10px 12px}.brand-mark{width:35px;height:35px}.brand-name{font-size:12px}.brand-sub{font-size:9px}.top-date{display:none}.top-actions{gap:5px}.top-actions .btn{padding:7px 8px;font-size:10px}.cloud-badge{font-size:9px;padding:5px 7px}.main-nav{gap:3px}.nav-link{font-size:10px;padding:8px 9px}.app-shell{padding:18px 12px 32px}.page-heading{align-items:flex-start;flex-direction:column}.heading-actions{justify-content:flex-start}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat-card{padding:12px}.stat-value{font-size:22px}.form-grid,.detail-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.map{height:320px}.map-head{align-items:flex-start;flex-direction:column}.bottom-row{align-items:flex-start;flex-direction:column}.overlay{padding:8px}.modal{max-height:96vh}.modal-body{padding:14px}.modal-foot{padding:10px 14px}}
+
+/* =========================================================
+   DANZ DEV ID — IT SUPPORT INFO
+   MOBILE-ONLY LAYOUT OVERRIDES
+   Desktop layout and all HTML/JavaScript remain unchanged.
+   ========================================================= */
+@media (max-width: 640px) {
+    /* Header stays compact; navigation moves to the bottom. */
+    .topbar {
+        min-height: 60px;
+        height: 60px;
+        padding: 0 12px;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .brand {
+        flex: 1 1 auto;
+        min-width: 0;
+        gap: 8px;
+    }
+
+    .brand-mark {
+        width: 35px;
+        height: 35px;
+        border-radius: 9px;
+        font-size: 13px;
+    }
+
+    .brand-name { font-size: 11px; }
+    .brand-sub { font-size: 8px; }
+
+    .top-date,
+    .cloud-badge { display: none !important; }
+
+    .top-actions {
+        flex: 0 0 auto;
+        margin-left: auto;
+        gap: 5px;
+    }
+
+    .top-actions .btn {
+        width: 35px;
+        height: 35px;
+        padding: 0;
+        border-radius: 9px;
+        font-size: 0;
+    }
+
+    #syncBtn::before {
+        content: "↻";
+        font-size: 18px;
+    }
+
+    #exportBtn::before {
+        content: "↓";
+        font-size: 18px;
+    }
+
+    /* App-like bottom navigation. */
+    .main-nav {
+        position: fixed;
+        z-index: 1500;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        order: initial;
+        flex: none;
+        width: 100%;
+        min-width: 0;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: stretch;
+        gap: 0;
+        padding: 7px 5px calc(7px + env(safe-area-inset-bottom));
+        overflow: visible;
+        background: rgba(255,255,255,.97);
+        border-top: 1px solid #e5ebf1;
+        box-shadow: 0 -5px 24px rgba(16,42,67,.09);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-link {
+        position: relative;
+        min-width: 0;
+        min-height: 49px;
+        display: flex;
+        flex: initial;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 5px 1px;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+        color: #8291a0;
+        font-family: "Poppins", Arial, sans-serif;
+        font-size: 8px;
+        font-weight: 600;
+        line-height: 1.15;
+        text-align: center;
+        white-space: normal;
+    }
+
+    .nav-link::before {
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .nav-link[data-page="home"]::before { content: "⌂"; }
+    .nav-link[data-page="web-info"]::before { content: "▤"; }
+    .nav-link[href="./it.html"]::before { content: "⌘"; }
+    .nav-link[href="/invoices"]::before { content: "▧"; }
+    .nav-link[href="/finance"]::before { content: "▥"; }
+
+    .nav-link.active {
+        color: var(--blue);
+        background: #edf5ff;
+        border: 0;
+    }
+
+    .nav-link.active::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 35%;
+        right: 35%;
+        height: 3px;
+        border-radius: 0 0 5px 5px;
+        background: var(--blue);
+    }
+
+    .nav-link:hover {
+        color: var(--blue);
+        background: #f1f6fc;
+    }
+
+    /* Content spacing and heading actions. */
+    .app-shell {
+        padding: 18px 12px calc(100px + env(safe-area-inset-bottom));
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .page-heading p { font-size: 11px; }
+
+    .heading-actions {
+        width: 100%;
+        justify-content: stretch;
+        gap: 7px;
+    }
+
+    .heading-actions .btn {
+        flex: 1 1 0;
+        min-width: 0;
+        white-space: normal;
+        text-align: center;
+        padding: 9px 8px;
+        font-size: 10px;
+    }
+
+    /* Statistics: two balanced columns. */
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+        margin-bottom: 13px;
+    }
+
+    .stat-card {
+        min-width: 0;
+        padding: 12px;
+        border-radius: 11px;
+    }
+
+    .stat-top { align-items: flex-start; font-size: 9px; }
+    .stat-icon { width: 29px; height: 29px; flex: 0 0 29px; font-size: 12px; }
+    .stat-value { margin-top: 8px; font-size: clamp(17px, 5vw, 22px); }
+    .stat-foot { font-size: 9px; line-height: 1.4; }
+
+    /* Map remains full-width and touch-friendly. */
+    .map-card { margin-bottom: 13px; }
+    .map-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+    }
+    .map-legend { gap: 8px; font-size: 9px; }
+    .map { height: 300px; min-height: 260px; }
+
+    /* Search and filters stack neatly on narrow screens. */
+    .main-card { border-radius: 12px; }
+    .main-card-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 11px;
+        padding: 13px;
+    }
+    .tools {
+        width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 7px;
+    }
+    .search {
+        grid-column: 1 / -1;
+        width: 100%;
+        min-width: 0;
+    }
+    .filter { width: 100%; min-width: 0; }
+
+    /* Keep the original table and allow horizontal swipe. */
+    .table-scroll {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    .support-table { min-width: 900px; }
+    .support-table th,
+    .support-table td { padding: 10px 11px; }
+
+    .bottom-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+        padding: 11px 13px;
+    }
+    .footer-note { text-align: left; }
+
+    /* Modal form becomes a single-column mobile sheet. */
+    .overlay {
+        align-items: center;
+        padding: 8px;
+    }
+    .modal {
+        width: 100%;
+        max-width: 100%;
+        max-height: calc(100dvh - 16px);
+        border-radius: 14px;
+    }
+    .modal.narrow { width: 100%; }
+    .modal-head { padding: 13px 14px; }
+    .modal-head h2 { font-size: 14px; }
+    .modal-body { padding: 13px 14px; }
+    .modal-foot {
+        padding: 10px 14px;
+        gap: 7px;
+    }
+    .modal-foot .btn { flex: 1; }
+    .form-grid,
+    .detail-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+    .field.full,
+    .section-label.full { grid-column: auto; }
+    .section-label { grid-column: 1 / -1; }
+    .coord-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .picker-map { height: 230px; }
+    .picker-actions { align-items: stretch; }
+    .picker-actions .btn { flex: 1 1 auto; }
+
+    /* Toasts stay above the bottom navigation. */
+    .toast-region {
+        left: 12px;
+        right: 12px;
+        bottom: calc(82px + env(safe-area-inset-bottom));
+        max-width: none;
+    }
+    .toast { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+    .brand-name { font-size: 10px; }
+    .brand-sub { font-size: 7px; }
+    .top-actions .btn { width: 31px; height: 33px; }
+    .nav-link { font-size: 7px; }
+    .nav-link::before { font-size: 16px; }
+    .stat-card { padding: 10px; }
+    .stat-top { font-size: 8px; }
+}
+
 </style>
 </head>
 <body>
 <header class="topbar">
   <a class="brand" href="danzdev-website-dashboard-v5.html" aria-label="DANZ DEV ID Control Center"><span class="brand-mark">DD</span><span><span class="brand-name">DANZ DEV ID</span><span class="brand-sub" style="display:block">CONTROL CENTER</span></span></a>
-  <nav class="main-nav" aria-label="Menu utama">
+<nav class="main-nav" aria-label="Menu utama">
     <button class="nav-link active" type="button" data-page="home" aria-current="page">Home</button>
     <button class="nav-link" type="button" data-page="web-info">Web Info</button>
     <a class="nav-link" href="./it.html">IT Support Info</a>
