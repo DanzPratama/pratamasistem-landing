@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102a43">
+<title>DANZ DEV ID — Control Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#102a43;--navy2:#183b56;--blue:#2b6fbb;--blue-light:#edf5ff;--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--bg:#f3f6fa;--white:#fff;--green:#147d4d;--green-bg:#eaf7ef;--amber:#a86508;--amber-bg:#fff5e5;--red:#b42318;--red-bg:#fff0ee;--purple:#6941a5;--purple-bg:#f3edff;--shadow:0 2px 8px rgba(15,23,42,.035)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Poppins",Arial,sans-serif;font-size:13px;line-height:1.5}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.topbar{height:72px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,3vw,42px);gap:18px;position:sticky;top:0;z-index:30;box-shadow:0 4px 20px rgba(16,42,67,.14)}.brand{display:flex;align-items:center;gap:12px;min-width:0}.brand-mark{width:40px;height:40px;border-radius:11px;background:#fff;color:var(--navy);display:grid;place-items:center;font-size:15px;font-weight:800;letter-spacing:-1px;flex:none}.brand-name{font-size:14px;font-weight:800;letter-spacing:.1em;white-space:nowrap}.brand-sub{font-size:10px;color:#bfd0dc;margin-top:2px;letter-spacing:.08em}.top-actions{display:flex;align-items:center;gap:9px}.cloud-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:99px;background:rgba(255,255,255,.1);color:#dbeafe;font-size:10px;font-weight:700;white-space:nowrap}.cloud-badge:before{content:"";width:6px;height:6px;border-radius:50%;background:#fbbf24}.cloud-badge.ready:before{background:#4ade80}.cloud-badge.error:before{background:#fb7185}.cloud-badge.syncing:before{background:#60a5fa}.field[hidden]{display:none}.top-date{font-size:11px;color:#d4e0e8;padding:0 10px;white-space:nowrap}.app-shell{max-width:1600px;margin:0 auto;padding:26px clamp(14px,2.7vw,38px) 42px}.page-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:21px}.eyebrow{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:800;margin-bottom:5px}.page-heading h1{font-size:clamp(22px,2.6vw,30px);letter-spacing:-.045em;line-height:1.2;margin:0;color:var(--navy)}.page-heading p{font-size:12px;color:var(--muted);margin:7px 0 0}.heading-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 13px;border-radius:9px;border:1px solid transparent;font-size:12px;font-weight:700;transition:.16s ease;white-space:nowrap}.btn-ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff}.btn-ghost:hover{background:rgba(255,255,255,.16)}.btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:#205c9e}.btn-light{background:#fff;color:var(--navy);border-color:#dbe4ed}.btn-light:hover{background:#f8fafc}.btn-dark{background:var(--navy);color:#fff}.btn-dark:hover{background:var(--navy2)}.btn-danger{background:#fff5f4;color:var(--red);border-color:#f3cfcb}.btn-small{padding:6px 9px;font-size:11px}.btn:disabled{opacity:.55;cursor:not-allowed}.stats-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:13px;margin-bottom:18px}.stat-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 17px;box-shadow:var(--shadow);min-width:0}.stat-top{display:flex;align-items:center;justify-content:space-between;gap:8px;color:var(--muted);font-size:11px;font-weight:600}.stat-icon{width:32px;height:32px;border-radius:9px;background:var(--blue-light);color:var(--blue);display:grid;place-items:center;font-weight:800;font-size:14px}.stat-value{font-size:27px;font-weight:800;letter-spacing:-.05em;color:var(--navy);margin-top:9px;line-height:1.1}.stat-foot{font-size:10px;color:#8291a0;margin-top:5px}.stat-card.warn .stat-icon{background:var(--amber-bg);color:var(--amber)}.stat-card.green .stat-icon{background:var(--green-bg);color:var(--green)}.stat-card.purple .stat-icon{background:var(--purple-bg);color:var(--purple)}.notice{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;margin:0 0 17px;border:1px solid #dce8f4;background:#f8fbff;color:#52677b;border-radius:9px;font-size:11px}.notice b{color:var(--navy)}.main-card{background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);overflow:hidden}.main-card-head{padding:15px 17px;border-bottom:1px solid #edf1f5;display:flex;align-items:center;justify-content:space-between;gap:12px}.main-card-title{font-size:13px;font-weight:800;color:var(--navy)}.main-card-sub{font-size:10px;color:#8795a5;margin-top:3px}.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.search{height:36px;border:1px solid #dbe3eb;border-radius:8px;padding:0 11px;width:min(260px,45vw);font-size:11px;outline:none}.search:focus,.field input:focus,.field textarea:focus,.field select:focus{border-color:#6ba4dc;box-shadow:0 0 0 3px rgba(43,111,187,.09);outline:none}.filter{height:36px;border:1px solid #dbe3eb;border-radius:8px;padding:0 10px;background:#fff;color:#34475a;font-size:11px}.table-scroll{overflow:auto;width:100%}.site-table{border-collapse:collapse;width:100%;min-width:1040px}.site-table th{background:#f8fafc;text-align:left;color:#69798b;padding:11px 14px;font-size:10px;font-weight:800;letter-spacing:.04em;white-space:nowrap;border-bottom:1px solid var(--line)}.site-table td{padding:13px 14px;border-bottom:1px solid #edf1f5;vertical-align:middle;font-size:11px}.site-table tbody tr:last-child td{border-bottom:0}.site-table tbody tr:hover{background:#fbfdff}.site-name-cell{display:flex;align-items:center;gap:10px;min-width:185px}.site-monogram{width:34px;height:34px;border-radius:9px;background:#edf3f8;color:var(--navy);font-size:11px;font-weight:800;display:grid;place-items:center;flex:none}.site-name{font-weight:750;color:var(--navy);font-size:11px}.site-type{font-size:10px;color:#8a98a7;margin-top:2px}.domain-link{color:var(--blue);font-weight:600;overflow-wrap:anywhere}.muted{color:#8a98a7}.stack{color:#596b7e;max-width:170px}.date-cell{white-space:nowrap;font-variant-numeric:tabular-nums}.pill{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:5px 8px;font-size:10px;font-weight:750;white-space:nowrap}.pill:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}.pill.live{color:var(--green);background:var(--green-bg)}.pill.dev{color:var(--blue);background:var(--blue-light)}.pill.maintenance{color:var(--amber);background:var(--amber-bg)}.pill.planning{color:var(--purple);background:var(--purple-bg)}.pill.offline{color:var(--red);background:var(--red-bg)}.expiry{font-variant-numeric:tabular-nums;white-space:nowrap}.expiry.soon{color:var(--amber);font-weight:750}.expiry.expired{color:var(--red);font-weight:750}.row-actions{display:flex;align-items:center;gap:6px}.icon-btn{width:30px;height:30px;border:1px solid var(--line);border-radius:8px;background:#fff;color:#637487;display:grid;place-items:center;font-size:12px}.icon-btn:hover{border-color:#b7c8d8;color:var(--blue);background:#f8fbff}.empty{padding:45px 15px;text-align:center;color:#8291a0}.empty b{display:block;color:var(--navy);margin-bottom:4px}.bottom-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 17px;border-top:1px solid #edf1f5;color:#8492a1;font-size:10px}.footer-note{margin-top:13px;text-align:right;color:#93a0ad;font-size:10px}.overlay{position:fixed;inset:0;background:rgba(10,25,40,.48);z-index:60;display:none;align-items:center;justify-content:center;padding:18px}.overlay.show{display:flex}.modal{width:min(720px,100%);max-height:min(92vh,850px);background:#fff;border-radius:14px;box-shadow:0 22px 70px rgba(5,20,35,.25);display:flex;flex-direction:column;overflow:hidden}.modal.narrow{width:min(520px,100%)}.modal-head{flex:none;padding:15px 18px;border-bottom:1px solid #edf1f5;display:flex;align-items:center;justify-content:space-between;gap:10px}.modal-head h2{font-size:15px;color:var(--navy);margin:0}.modal-head p{font-size:10px;color:#8291a0;margin:4px 0 0}.close{width:30px;height:30px;border:1px solid var(--line);border-radius:8px;background:#fff;color:#66788a;font-size:15px}.modal-body{flex:1;min-height:0;padding:17px 18px;overflow:auto;overscroll-behavior:contain}.modal-foot{flex:none;position:sticky;bottom:0;z-index:3;background:#fff;padding:12px 18px;border-top:1px solid #edf1f5;display:flex;justify-content:flex-end;gap:8px;box-shadow:0 -5px 12px rgba(15,23,42,.045)}.modal form{display:flex;flex:1;flex-direction:column;min-height:0;overflow:hidden}.stat-filter-card{display:block;width:100%;text-align:left;color:inherit;cursor:pointer;transition:border-color .16s,box-shadow .16s,transform .16s}.stat-filter-card:hover{transform:translateY(-2px);border-color:#b8cce0}.stat-filter-card.active{border-color:var(--blue);box-shadow:0 0 0 3px rgba(43,111,187,.12)}.stat-filter-card:focus-visible{outline:3px solid rgba(43,111,187,.25);outline-offset:2px}.mode-pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:99px;font-size:10px;font-weight:750;white-space:nowrap}.mode-pill.online{background:#eaf7ef;color:#147d4d}.mode-pill.offline{background:#f3edff;color:#6941a5}.mode-pill.unknown{background:#f1f5f9;color:#64748b}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{min-width:0}.field.full{grid-column:1/-1}.field label{display:block;color:#52667a;font-size:10px;font-weight:800;margin-bottom:5px}.field input,.field textarea,.field select{width:100%;border:1px solid #dbe3eb;border-radius:8px;padding:9px 10px;font-size:11px;color:#1d344a;background:#fff}.field textarea{min-height:68px;resize:vertical}.field .hint{font-size:9px;color:#96a2ae;margin-top:4px}.section-label{grid-column:1/-1;padding-top:8px;border-top:1px solid #edf1f5;color:#8090a0;font-size:9px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}.section-label:first-child{border-top:0;padding-top:0}.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.detail-item{padding:11px;background:#f8fafc;border:1px solid #edf1f5;border-radius:9px;min-width:0}.detail-label{font-size:9px;color:#8291a0;font-weight:750;text-transform:uppercase;letter-spacing:.06em}.detail-value{font-size:11px;color:var(--navy);font-weight:650;margin-top:4px;overflow-wrap:anywhere}.detail-note{grid-column:1/-1;white-space:pre-wrap;line-height:1.65}.toast-region{position:fixed;right:18px;bottom:18px;z-index:100;display:grid;gap:8px}.toast{background:#173b57;color:#fff;padding:10px 13px;border-radius:9px;box-shadow:0 8px 24px rgba(15,23,42,.2);font-size:11px;max-width:min(360px,calc(100vw - 36px));animation:toastIn .2s ease}.toast.error{background:#8f261e}.toast.success{background:#176442}@keyframes toastIn{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}input[type=file]{display:none}
+@media(max-width:1150px){.stats-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.main-card-head{align-items:flex-start;flex-direction:column}.tools{width:100%}.search{flex:1;width:auto}.heading-actions{max-width:48%}}
+@media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar{height:62px;padding:0 13px}.brand-mark{width:35px;height:35px}.brand-name{font-size:12px}.brand-sub{font-size:9px}.top-date{display:none}.top-actions .btn{padding:7px 8px;font-size:9px}.cloud-badge{display:none}.app-shell{padding:20px 12px 30px}.page-heading{align-items:flex-start;flex-direction:column}.heading-actions{max-width:none;width:100%;justify-content:flex-start}.heading-actions .btn{flex:1}.stats-grid{gap:9px}.stat-card{padding:12px}.stat-value{font-size:23px}.stat-top{font-size:10px}.stat-foot{font-size:9px}.tools{display:grid;grid-template-columns:1fr 1fr}.search{grid-column:1/-1;width:100%}.filter{width:100%}.form-grid,.detail-grid{grid-template-columns:1fr}.field.full,.section-label,.detail-note{grid-column:1}.modal{max-height:94vh}.modal-body{padding:14px}.modal-head,.modal-foot{padding:12px 14px}.bottom-row{padding:11px 13px;align-items:flex-start;flex-direction:column}.footer-note{text-align:left}}
+
+/* Primary application navigation */
+.topbar{height:auto;min-height:72px;flex-wrap:nowrap;gap:18px}
+.brand{flex:0 0 auto}
+.brand-copy{display:flex;flex-direction:column}
+.main-nav{display:flex;align-items:center;justify-content:center;gap:4px;min-width:0;flex:1;white-space:nowrap}
+.nav-link{appearance:none;border:1px solid transparent;background:transparent;color:#d8e4ed;border-radius:9px;padding:9px 11px;font:600 11px "Poppins",Arial,sans-serif;transition:background .16s,color .16s,border-color .16s;cursor:pointer}
+.nav-link:hover{background:rgba(255,255,255,.09);color:#fff}
+.nav-link.active{color:#fff;background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.1)}
+.top-actions{flex:0 0 auto}
+.page-view[hidden]{display:none!important}
+.home-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:16px}
+.shortcut-card{display:flex;align-items:center;gap:12px;min-width:0;text-align:left;padding:15px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);color:var(--ink);font:inherit;transition:transform .16s,border-color .16s;text-decoration:none}
+.shortcut-card:hover{transform:translateY(-2px);border-color:#b8cce0}
+.shortcut-card>span:nth-child(2){display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.shortcut-card strong{font-size:12px;color:var(--navy)}
+.shortcut-card small{font-size:10px;color:var(--muted);line-height:1.5}
+.shortcut-icon{width:36px;height:36px;flex:none;display:grid;place-items:center;border-radius:10px;font-size:16px;font-weight:800}
+.shortcut-icon.blue{background:var(--blue-light);color:var(--blue)}
+.shortcut-icon.purple{background:var(--purple-bg);color:var(--purple)}
+.shortcut-icon.green{background:var(--green-bg);color:var(--green)}
+.shortcut-arrow{color:#91a0ae;font-size:16px}
+.module-placeholder{min-height:300px;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:38px 22px}
+.placeholder-mark{width:54px;height:54px;display:grid;place-items:center;border-radius:15px;background:var(--purple-bg);color:var(--purple);font-size:21px;font-weight:800;margin-bottom:14px}
+.placeholder-mark.green{background:var(--green-bg);color:var(--green)}
+.module-placeholder h2{margin:0;color:var(--navy);font-size:17px}
+.module-placeholder p{max-width:520px;margin:8px auto 14px;color:var(--muted);font-size:11px}
+.placeholder-status{padding:5px 9px;border-radius:99px;background:#f1f5f9;color:#64748b;font-size:10px;font-weight:700}
+@media(max-width:1180px){.topbar{flex-wrap:wrap;padding-top:11px;padding-bottom:11px}.main-nav{order:3;flex:1 0 100%;justify-content:flex-start;overflow-x:auto;padding:2px 0 3px}.top-actions{margin-left:auto}.nav-link{flex:none}}
+@media(max-width:640px){.topbar{gap:8px;padding:10px 12px}.brand-mark{width:35px;height:35px}.brand-name{font-size:12px}.brand-sub{font-size:9px}.top-actions{gap:5px}.top-date{display:none}.top-actions .btn{padding:7px 8px;font-size:10px}.cloud-badge{font-size:9px;padding:5px 7px}.main-nav{gap:3px}.nav-link{font-size:10px;padding:8px 9px}.home-shortcuts{grid-template-columns:1fr}.app-shell{padding-top:18px}}
+
+/* ==========================================
+   MOBILE APP NAVIGATION — DANZ DEV ID
+   ========================================== */
+
+@media (max-width: 640px) {
+
+    /* Header: satu baris saja */
+    .topbar {
+        height: 60px;
+        min-height: 60px;
+        padding: 0 12px;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .brand {
+        gap: 8px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+    }
+
+    .brand-name {
+        font-size: 11px;
+    }
+
+    .brand-sub {
+        font-size: 8px;
+    }
+
+    /* Tombol utilitas lebih ringkas */
+    .top-actions {
+        display: flex;
+        flex: none;
+        gap: 4px;
+        margin: 0;
+    }
+
+    .top-date,
+    .cloud-badge {
+        display: none !important;
+    }
+
+    .top-actions .btn {
+        width: 34px;
+        height: 34px;
+        padding: 0;
+        font-size: 0;
+        border-radius: 9px;
+    }
+
+    #syncCloudBtn::before {
+        content: "↻";
+        font-size: 17px;
+    }
+
+    #importBtn::before {
+        content: "⇧";
+        font-size: 17px;
+    }
+
+    #exportBtn::before {
+        content: "↓";
+        font-size: 17px;
+    }
+
+    /* BOTTOM NAVIGATION */
+    .main-nav {
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        width: 100%;
+        height: auto;
+        min-height: 65px;
+
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        align-items: stretch;
+        justify-content: initial;
+
+        gap: 0;
+        padding: 7px 5px calc(7px + env(safe-area-inset-bottom));
+
+        background: rgba(255,255,255,.97);
+        border-top: 1px solid #e6edf4;
+        box-shadow: 0 -5px 25px rgba(16,42,67,.09);
+
+        overflow: visible;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-link {
+        position: relative;
+        min-width: 0;
+        min-height: 50px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        gap: 3px;
+        padding: 5px 1px;
+
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+
+        color: #8291a0;
+        font-family: "Poppins", Arial, sans-serif;
+        font-size: 8px;
+        font-weight: 600;
+        line-height: 1.2;
+        text-align: center;
+        white-space: normal;
+    }
+
+    /* Ikon setiap menu */
+    .nav-link::before {
+        display: block;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1;
+        transition: transform .2s ease;
+    }
+
+    .nav-link[data-page="home"]::before {
+        content: "⌂";
+    }
+
+    .nav-link[data-page="web-info"]::before {
+        content: "▤";
+    }
+
+    .nav-link[href="./it.html"]::before {
+        content: "⌘";
+    }
+
+    .nav-link[href*="invoice"]::before {
+        content: "▧";
+    }
+
+    .nav-link[data-page="laporan-keuangan"]::before {
+        content: "▥";
+    }
+
+    /* Menu aktif */
+    .nav-link.active {
+        color: var(--blue);
+        background: #edf5ff;
+        border: 0;
+    }
+
+    .nav-link.active::before {
+        transform: translateY(-1px);
+    }
+
+    .nav-link.active::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 35%;
+        right: 35%;
+        height: 3px;
+        border-radius: 0 0 5px 5px;
+        background: var(--blue);
+    }
+
+    .nav-link:hover {
+        background: #f1f6fc;
+        color: var(--blue);
+    }
+
+    /* Konten tidak tertutup bottom navigation */
+    .app-shell {
+        padding: 18px 12px calc(100px + env(safe-area-inset-bottom));
+    }
+
+    .page-heading {
+        gap: 12px;
+    }
+
+    .heading-actions {
+        width: 100%;
+        max-width: none;
+    }
+
+    .heading-actions .btn {
+        flex: 1;
+    }
+
+    /* Modal tetap nyaman di HP */
+    .modal {
+        max-height: calc(100dvh - 24px);
+        border-radius: 14px;
+    }
+
+    /* Toast naik agar tidak tertutup navbar */
+    .toast-region {
+        bottom: calc(85px + env(safe-area-inset-bottom));
+        right: 12px;
+    }
+}
+
+/* HP sangat kecil */
+@media (max-width: 360px) {
+    .brand-name {
+        font-size: 10px;
+    }
+
+    .top-actions .btn {
+        width: 30px;
+        height: 32px;
+    }
+
+    .nav-link {
+        font-size: 7px;
+    }
+
+    .nav-link::before {
+        font-size: 16px;
+    }
+}
+
+
+
+/* HOME ANALYTICS — line chart & metric summary */
+.home-analytics{margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.home-analytics-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:17px 19px;border-bottom:1px solid #edf1f5}
+.home-analytics-title{margin:0;color:var(--navy);font-size:15px;font-weight:800;letter-spacing:-.02em}
+.home-analytics-description{margin:4px 0 0;color:var(--muted);font-size:10px}
+.analytics-live{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:99px;background:var(--green-bg);color:var(--green);font-size:9px;font-weight:800;white-space:nowrap}
+.analytics-live:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.home-analytics-body{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(220px,.8fr);gap:20px;padding:18px 19px}
+.home-chart-panel{min-width:0}
+.home-chart-label{font-size:11px;font-weight:800;color:var(--navy);margin-bottom:9px}
+.home-chart-canvas{position:relative;width:100%;height:275px}
+.home-chart-canvas canvas{display:block;width:100%;height:100%}
+.home-chart-fallback{padding:20px;border:1px dashed var(--line);border-radius:10px;color:var(--muted);font-size:11px;text-align:center}
+.home-metric-list{display:grid;grid-template-columns:1fr;align-content:start;gap:7px}
+.home-metric-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border:1px solid #edf1f5;border-radius:9px;background:#fbfcfe;min-width:0}
+.home-metric-name{display:flex;align-items:center;gap:8px;min-width:0;color:#52667a;font-size:10px;font-weight:600}
+.home-metric-dot{width:8px;height:8px;flex:none;border-radius:50%;background:#2b6fbb}
+.home-metric-row:nth-child(2) .home-metric-dot{background:#147d4d}
+.home-metric-row:nth-child(3) .home-metric-dot{background:#6941a5}
+.home-metric-row:nth-child(4) .home-metric-dot{background:#279b80}
+.home-metric-row:nth-child(5) .home-metric-dot{background:#8b6cc5}
+.home-metric-row:nth-child(6) .home-metric-dot{background:#d18a27}
+.home-metric-row:nth-child(7) .home-metric-dot{background:#b9781d}
+.home-metric-value{color:var(--navy);font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+.home-analytics-footer{display:flex;justify-content:space-between;gap:10px;padding:10px 19px;border-top:1px solid #edf1f5;color:#8a98a7;font-size:9px}
+@media(max-width:760px){
+  .home-analytics-body{grid-template-columns:1fr;gap:13px;padding:14px}
+  .home-chart-canvas{height:245px}
+  .home-metric-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .home-metric-row{padding:8px}
+  .home-metric-name{font-size:9px;gap:6px}
+  .home-metric-value{font-size:12px}
+  .home-analytics-header{padding:14px}
+  .home-analytics-footer{padding:10px 14px;flex-direction:column;gap:3px}
+}
+@media(max-width:380px){
+  .home-metric-list{grid-template-columns:1fr 1fr}
+  .home-metric-name{font-size:8px}
+  .home-chart-canvas{height:220px}
+}
+
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#home" aria-label="DANZ DEV ID Home">
+    <span class="brand-mark">DD</span>
+    <span class="brand-copy"><span class="brand-name">DANZ DEV ID</span><span class="brand-sub">CONTROL CENTER</span></span>
+  </a>
+  <nav class="main-nav" aria-label="Menu utama">
+    <button class="nav-link active" type="button" data-page="home" aria-current="page">Home</button>
+    <button class="nav-link" type="button" data-page="web-info">Web Info</button>
+    <a class="nav-link" href="./it.html">IT Support Info</a>
+    <a class="nav-link" href="/invoices" target="_blank" rel="noopener noreferrer">Invoice</a>
+    <a class="nav-link" href="/finance" data-page="laporan-keuangan">Laporan Keuangan</a>
+  </nav>
+  <div class="top-actions">
+    <div class="top-date" id="todayLabel"></div>
+    <span class="cloud-badge" id="cloudStatus" title="Status sinkronisasi">Lokal</span>
+    <button class="btn btn-ghost" id="syncCloudBtn" type="button" title="Ambil data terbaru dari JSONBin">↻ Sync</button>
+    <button class="btn btn-ghost" id="importBtn" type="button">Import</button>
+    <button class="btn btn-ghost" id="exportBtn" type="button" title="Unduh backup data JSON">Backup</button>
+  </div>
+</header>
+<main class="app-shell">
+  <section class="page-view" id="homePage" data-page-view="home">
+    <section class="page-heading">
+      <div><div class="eyebrow">Control center</div><h1>Home</h1><p>Ringkasan website dan akses cepat ke modul DANZ DEV ID.</p></div>
+      <div class="heading-actions"><button class="btn btn-light" id="homeAddSiteBtn" type="button">＋ Tambah Website</button><button class="btn btn-primary" type="button" data-goto-page="web-info">Kelola Website →</button></div>
+    </section>
+  
+    <section class="home-shortcuts" aria-label="Akses cepat">
+      <button class="shortcut-card" type="button" data-goto-page="web-info"><span class="shortcut-icon blue">▤</span><span><strong>Web Info</strong><small>Kelola daftar website, domain, hosting, dan status pengelolaan.</small></span><span class="shortcut-arrow">→</span></button>
+      <button class="shortcut-card" type="button" data-goto-page="it-support-info"><span class="shortcut-icon purple">⌘</span><span><strong>IT Support Info</strong><small>Ruang informasi inventaris dan aktivitas dukungan IT.</small></span><span class="shortcut-arrow">→</span></button>
+      <a class="shortcut-card" href="invoice-generator-danzdev.html" target="_blank" rel="noopener noreferrer"><span class="shortcut-icon green">▧</span><span><strong>Invoice</strong><small>Buka invoice generator dan kwitansi DANZ DEV ID.</small></span><span class="shortcut-arrow">↗</span></a>
+    </section>
+
+    <section class="home-analytics" aria-labelledby="homeAnalyticsTitle">
+      <div class="home-analytics-header">
+        <div>
+          <div class="eyebrow">Portfolio overview</div>
+          <h2 class="home-analytics-title" id="homeAnalyticsTitle">Ringkasan Website</h2>
+          <p class="home-analytics-description">Perbandingan tujuh indikator pengelolaan website.</p>
+        </div>
+        <span class="analytics-live">Data aktual</span>
+      </div>
+      <div class="home-analytics-body">
+        <div class="home-chart-panel">
+          <div class="home-chart-label">Jumlah berdasarkan indikator</div>
+          <div class="home-chart-canvas">
+            <canvas id="homeMetricsChart" role="img" aria-label="Grafik garis total website, live, pengembangan, aplikasi online, aplikasi offline, perlu perhatian, dan dialihkan"></canvas>
+          </div>
+          <p class="home-chart-fallback" id="homeChartFallback" hidden>Grafik memerlukan koneksi internet untuk memuat Chart.js. Ringkasan angka tetap tersedia di samping.</p>
+        </div>
+        <div class="home-metric-list" id="homeMetricList" aria-label="Rincian indikator website"></div>
+      </div>
+      <div class="home-analytics-footer">
+        <span>Catatan: grafik membandingkan jumlah saat ini, bukan riwayat per bulan.</span>
+        <span id="homeChartUpdated">Menunggu data…</span>
+      </div>
+    </section>
+  </section>
+
+  <section class="page-view" id="webInfoPage" data-page-view="web-info" hidden>
+    <section class="page-heading">
+      <div><div class="eyebrow">Website portfolio & operations</div><h1>Web Info</h1><p>Kelola website, domain, hosting, dan masa berlaku dari satu tempat.</p></div>
+      <div class="heading-actions"><button class="btn btn-light" id="resetDemoBtn" type="button">Reset data contoh</button><button class="btn btn-primary" id="addSiteBtn" type="button">＋ Tambah Website</button></div>
+    </section>
+    <section class="stats-grid" aria-label="Ringkasan website">
+    <button class="stat-card stat-filter-card active" type="button" data-card-filter="all" aria-pressed="true"><div class="stat-top"><span>Total Website</span><span class="stat-icon">▤</span></div><div class="stat-value" id="totalCount">0</div><div class="stat-foot">Tampilkan semua website</div></button>
+    <button class="stat-card stat-filter-card green" type="button" data-card-filter="live" aria-pressed="false"><div class="stat-top"><span>Live / Aktif</span><span class="stat-icon">●</span></div><div class="stat-value" id="liveCount">0</div><div class="stat-foot">Status operasional aktif</div></button>
+    <button class="stat-card stat-filter-card purple" type="button" data-card-filter="dev" aria-pressed="false"><div class="stat-top"><span>Pengembangan</span><span class="stat-icon">⌘</span></div><div class="stat-value" id="devCount">0</div><div class="stat-foot">Development dan planning</div></button>
+    <button class="stat-card stat-filter-card green" type="button" data-card-filter="online" aria-pressed="false"><div class="stat-top"><span>Aplikasi Online</span><span class="stat-icon">↗</span></div><div class="stat-value" id="onlineCount">0</div><div class="stat-foot">Dapat diakses melalui internet</div></button>
+    <button class="stat-card stat-filter-card purple" type="button" data-card-filter="offline" aria-pressed="false"><div class="stat-top"><span>Aplikasi Offline</span><span class="stat-icon">⌁</span></div><div class="stat-value" id="offlineCount">0</div><div class="stat-foot">Berjalan di jaringan lokal</div></button>
+    <button class="stat-card stat-filter-card warn" type="button" data-card-filter="attention" aria-pressed="false"><div class="stat-top"><span>Perlu Perhatian</span><span class="stat-icon">!</span></div><div class="stat-value" id="renewCount">0</div><div class="stat-foot">Domain / hosting jatuh tempo ≤ 30 hari</div></button>
+    <button class="stat-card stat-filter-card warn" type="button" data-card-filter="transferred" aria-pressed="false"><div class="stat-top"><span>Dialihkan</span><span class="stat-icon">⇢</span></div><div class="stat-value" id="transferredCount">0</div><div class="stat-foot">Dikelola developer lain</div></button>
+  </section>
+    <div class="notice"><span>ⓘ</span><div><b>Setup JSONBin:</b> isi <code>accessKey</code> dan <code>binId</code> pada konstanta <code>JSONBIN_CONFIG</code> di awal script. Gunakan Access Key khusus dengan izin Read &amp; Update untuk satu Bin privat. Data akan dimuat dari cloud saat halaman dibuka.</div></div>
+    <section class="main-card">
+      <div class="main-card-head"><div><div class="main-card-title">Daftar Website</div><div class="main-card-sub" id="listSummary">0 website terdaftar</div></div><div class="tools"><input class="search" id="searchInput" type="search" placeholder="Cari nama, domain, hosting..."><select class="filter" id="statusFilter" aria-label="Filter status"><option value="all">Semua status</option><option value="live">Live / Aktif</option><option value="development">Development</option><option value="maintenance">Maintenance</option><option value="planning">Planning</option><option value="offline">Offline</option></select><select class="filter" id="institutionFilter" aria-label="Filter kategori instansi"><option value="all">Semua instansi</option><option value="Diskominfo">Diskominfo</option><option value="Dishub">Dishub</option><option value="Personal">Personal</option><option value="Perusahaan">Perusahaan</option><option value="Swasta">Swasta</option><option value="Pendidikan">Pendidikan</option><option value="Lainnya">Lainnya</option></select><select class="filter" id="modeFilter" aria-label="Filter model aplikasi"><option value="all">Online &amp; Offline</option><option value="online">Aplikasi Online</option><option value="offline">Aplikasi Offline</option><option value="">Belum ditentukan</option></select><select class="filter" id="sortFilter" aria-label="Urutkan"><option value="name">Urutkan: Nama</option><option value="expiry">Masa berlaku terdekat</option><option value="updated">Terakhir diubah</option></select></div></div>
+      <div class="table-scroll"><table class="site-table"><thead><tr><th>WEBSITE</th><th>DOMAIN / URL</th><th>STATUS</th><th>MODEL APLIKASI</th><th>TAHUN BUILD</th><th>PENGELOLAAN</th><th>STACK</th><th>HOSTING</th><th>DOMAIN EXPIRED</th><th>AKSI</th></tr></thead><tbody id="siteRows"></tbody></table><div class="empty" id="emptyState" hidden><b>Website belum ditemukan</b>Coba ubah kata kunci atau tambahkan website baru.</div></div>
+      <div class="bottom-row"><span id="tableCount">Menampilkan 0 website</span><span id="storageNote">Data tersimpan di browser ini sampai JSONBin dikonfigurasi.</span></div>
+    </section>
+    <div class="footer-note">DANZ DEV ID · Web Info</div>
+  </section>
+
+  <section class="page-view" id="itSupportPage" data-page-view="it-support-info" hidden>
+    <section class="page-heading"><div><div class="eyebrow">Operations</div><h1>IT Support Info</h1><p>Informasi layanan dukungan dan operasional IT.</p></div></section>
+    <section class="module-placeholder">
+      <div class="placeholder-mark">⌘</div>
+      <h2>IT Support Info</h2>
+      <p>Area ini disiapkan untuk inventaris perangkat, permintaan bantuan, riwayat troubleshooting, dan jadwal maintenance.</p>
+      <span class="placeholder-status">Modul belum diisi</span>
+    </section>
+  </section>
+
+  <section class="page-view" id="financePage" data-page-view="laporan-keuangan" hidden>
+    <section class="page-heading"><div><div class="eyebrow">Finance</div><h1>Laporan Keuangan</h1><p>Ringkasan pemasukan, pengeluaran, dan piutang DANZ DEV ID.</p></div></section>
+    <section class="module-placeholder">
+      <div class="placeholder-mark green">Rp</div>
+      <h2>Laporan Keuangan</h2>
+      <p>Modul laporan keuangan belum terhubung dengan data transaksi. Invoice dan kwitansi tetap dapat dikelola melalui Invoice.</p>
+      <a class="btn btn-primary" href="/invoices" target="_blank" rel="noopener noreferrer">Buka Invoice ↗</a>
+    </section>
+  </section>
+</main>
+
+<div class="overlay" id="siteModal" role="dialog" aria-modal="true" aria-labelledby="siteModalTitle">
+  <div class="modal">
+    <div class="modal-head"><div><h2 id="siteModalTitle">Tambah Website</h2><p>Isi informasi utama website yang dikelola.</p></div><button class="close" type="button" data-close="siteModal" aria-label="Tutup">×</button></div>
+    <form id="siteForm">
+      <div class="modal-body"><input type="hidden" id="siteId">
+        <div class="form-grid">
+          <div class="section-label">Informasi website</div>
+          <div class="field"><label for="siteName">Nama Website *</label><input id="siteName" required maxlength="90" placeholder="Contoh: Website Perusahaan"></div>
+          <div class="field"><label for="siteStatus">Status *</label><select id="siteStatus"><option value="live">Live / Online</option><option value="development">Development</option><option value="maintenance">Maintenance</option><option value="planning">Planning</option><option value="offline">Offline</option></select></div>
+          <div class="field full"><label for="siteUrl">Domain / URL</label><input id="siteUrl" type="text" placeholder="https://contoh.com"><div class="hint">Boleh kosong jika domain belum ditentukan.</div></div>
+          <div class="field"><label for="siteInstitution">Kategori Instansi</label><select id="siteInstitution"><option value="">Pilih kategori instansi</option><option value="Diskominfo">Diskominfo</option><option value="Dishub">Dishub</option><option value="Personal">Personal</option><option value="Perusahaan">Perusahaan</option><option value="Swasta">Swasta</option><option value="Pendidikan">Pendidikan</option><option value="Lainnya">Lainnya</option></select></div>
+          <div class="field"><label for="siteMode">Model Aplikasi</label><select id="siteMode"><option value="">Belum ditentukan</option><option value="online">Online</option><option value="offline">Offline</option></select></div>
+          <div class="field"><label for="siteCategory">Kategori / Proyek</label><input id="siteCategory" placeholder="Company profile, aplikasi, portal..."></div>
+          <div class="field"><label for="siteYearBuild">Tahun Build</label><input id="siteYearBuild" type="number" min="1990" max="2099" step="1" placeholder="Contoh: 2024"></div>
+          <div class="section-label">Pengelolaan website</div>
+          <div class="field"><label for="siteManagement">Status Pengelolaan</label><select id="siteManagement"><option value="internal">Dikelola DANZ DEV ID</option><option value="transferred">Dialihkan ke developer lain</option></select></div>
+          <div class="field" id="newDeveloperField" hidden><label for="siteNewDeveloper">Developer Penerima</label><input id="siteNewDeveloper" placeholder="Nama developer / vendor penerima"><div class="hint">Isi nama developer yang mengambil alih pengelolaan website.</div></div>
+          <div class="field"><label for="siteClient">Klien / Instansi</label><input id="siteClient" placeholder="Nama klien atau instansi"></div>
+          <div class="field full"><label for="siteStack">Teknologi / Stack</label><input id="siteStack" placeholder="PHP, CodeIgniter 3, MySQL..."></div>
+          <div class="section-label">Domain dan infrastruktur</div>
+          <div class="field"><label for="siteRegistrar">Registrar Domain</label><input id="siteRegistrar" placeholder="Contoh: Niagahoster"></div>
+          <div class="field"><label for="siteDomainExpiry">Domain Expired</label><input id="siteDomainExpiry" type="date"></div>
+          <div class="field"><label for="siteHosting">Provider Hosting</label><input id="siteHosting" placeholder="Contoh: Rumahweb / cPanel"></div>
+          <div class="field"><label for="siteHostingExpiry">Hosting Expired</label><input id="siteHostingExpiry" type="date"></div>
+          <div class="field"><label for="siteSslExpiry">SSL Expired</label><input id="siteSslExpiry" type="date"></div>
+          <div class="field"><label for="siteCost">Biaya Tahunan (Rp)</label><input id="siteCost" type="number" min="0" step="1000" placeholder="0"></div>
+          <div class="section-label">Catatan</div>
+          <div class="field"><label for="siteContact">PIC / Kontak</label><input id="siteContact" placeholder="Nama PIC atau kontak teknis"></div>
+          <div class="field"><label for="siteUpdated">Terakhir diperbarui</label><input id="siteUpdated" type="date"></div>
+          <div class="field full"><label for="siteNotes">Catatan</label><textarea id="siteNotes" placeholder="Catatan akses, kebutuhan maintenance, detail pekerjaan..."></textarea></div>
+        </div>
+      </div>
+      <div class="modal-foot"><button class="btn btn-light" type="button" data-close="siteModal">Batal</button><button class="btn btn-primary" id="saveSiteBtn" type="submit">✓ Simpan Website</button></div>
+    </form>
+  </div>
+</div>
+
+<div class="overlay" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+  <div class="modal narrow"><div class="modal-head"><div><h2 id="detailTitle">Detail Website</h2><p>Informasi website dan infrastrukturnya.</p></div><button class="close" type="button" data-close="detailModal" aria-label="Tutup">×</button></div><div class="modal-body" id="detailBody"></div><div class="modal-foot"><button class="btn btn-light" type="button" data-close="detailModal">Tutup</button><button class="btn btn-primary" id="detailEditBtn" type="button">Edit Website</button></div></div>
+</div>
+<input type="file" id="importFile" accept="application/json,.json">
+<div class="toast-region" id="toastRegion" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script>
+(() => {
+  'use strict';
+  const STORAGE_KEY = 'danzdev_website_manager_v1'; // Pertahankan key lama agar data V2 di browser tidak hilang.
+
+  // Isi dua nilai ini satu kali di file HTML yang akan dipakai lintas browser/perangkat.
+  // Buat Bin PRIVATE di JSONBin dengan record: {"app":"DANZ DEV ID Website Management","version":2,"websites":[]}
+  // Gunakan Access Key terbatas (Bins: Read + Update), BUKAN Master Key.
+  const JSONBIN_CONFIG = {
+    accessKey: '$2a$10$mWF4o5TesoQULlgRv8Trv.9QqIKjOChhMw5aDHbgS0o8G/FAbebdS',
+    binId: '6b002d6effd5d16053d0e925'
+  };
+  const JSONBIN_URL = 'https://api.jsonbin.io/v3/b';
+  const cloudConfigured = () => Boolean(
+    JSONBIN_CONFIG.accessKey && JSONBIN_CONFIG.binId &&
+    !JSONBIN_CONFIG.accessKey.includes('PASTE_') &&
+    !JSONBIN_CONFIG.binId.includes('PASTE_')
+  );
+
+  const $ = id => document.getElementById(id);
+  const today = new Date();
+  const isoToday = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  let localDataExists = false;
+  try { localDataExists = localStorage.getItem(STORAGE_KEY) !== null; } catch (err) { console.warn('LocalStorage tidak tersedia:', err); }
+  const seed = [
+    {id:'seed-danzdev',name:'DANZ DEV ID',url:'https://danzdev.web.id',status:'live',institution:'Personal',mode:'online',category:'Company Profile / Portfolio',yearBuild:'',management:'internal',newDeveloper:'',client:'DANZ DEV ID',stack:'HTML, CSS, JavaScript, PHP',registrar:'Belum diisi',domainExpiry:'',hosting:'Belum diisi',hostingExpiry:'',sslExpiry:'',cost:'',contact:'Dandi Mohamad Pratama',updated:isoToday,notes:'Website utama dan identitas digital DANZ DEV ID. Lengkapi informasi registrar dan hosting sesuai data aktual.'},
+    {id:'seed-aspri',name:'ASPRI',url:'',status:'development',institution:'Dishub',mode:'',category:'Sistem Administrasi Retribusi Parkir',yearBuild:'',management:'internal',newDeveloper:'',client:'Dishub Kota Tasikmalaya',stack:'CodeIgniter 3, PHP, MySQL, Bootstrap / Tailwind',registrar:'',domainExpiry:'',hosting:'Shared Hosting / cPanel',hostingExpiry:'',sslExpiry:'',cost:'',contact:'',updated:'',notes:'Proyek sistem administrasi retribusi parkir. Domain dan status deployment perlu diperbarui.'},
+    {id:'seed-kir',name:'Sistem Informasi KIR',url:'',status:'development',institution:'Dishub',mode:'',category:'Sistem Informasi Pengujian Kendaraan',yearBuild:'',management:'internal',newDeveloper:'',client:'Dishub Kota Tasikmalaya',stack:'CodeIgniter 3, PHP, MySQL, JavaScript',registrar:'',domainExpiry:'',hosting:'Shared Hosting / cPanel',hostingExpiry:'',sslExpiry:'',cost:'',contact:'',updated:'',notes:'Dashboard dan pengelolaan data pengujian kendaraan. Lengkapi domain dan detail hosting.'},
+    {id:'seed-calik',name:'CALIK',url:'',status:'planning',institution:'Dishub',mode:'',category:'Pendataan Becak Listrik',yearBuild:'',management:'internal',newDeveloper:'',client:'',stack:'Prototype / Web Application',registrar:'',domainExpiry:'',hosting:'',hostingExpiry:'',sslExpiry:'',cost:'',contact:'',updated:'',notes:'Konsep Catatan Administrasi dan Identitas Becak Listrik. Status dan detail teknis dapat disesuaikan.'},
+    {id:'seed-garuda',name:'Garuda CBT',url:'',status:'development',institution:'Pendidikan',mode:'',category:'Computer Based Test',yearBuild:'',management:'internal',newDeveloper:'',client:'SMPN 1 Ciawi',stack:'CodeIgniter 3, PHP, MySQL, AJAX',registrar:'',domainExpiry:'',hosting:'Shared Hosting / cPanel',hostingExpiry:'',sslExpiry:'',cost:'',contact:'',updated:'',notes:'Sistem CBT dan pengelolaan ujian. Lengkapi informasi domain dan kondisi deployment.'},
+    {id:'seed-sev',name:'SEV Indonesia',url:'',status:'development',institution:'Swasta',mode:'',category:'Website Komunitas',yearBuild:'',management:'internal',newDeveloper:'',client:'Sidekick Escudo Vitara',stack:'WordPress, PHP, JavaScript',registrar:'',domainExpiry:'',hosting:'',hostingExpiry:'',sslExpiry:'',cost:'',contact:'',updated:'',notes:'Website komunitas SEV Indonesia. Domain dan status aktual perlu diverifikasi.'}
+  ];
+  function normalizeSite(site, index=0) {
+    const item = site && typeof site === 'object' ? site : {};
+    return {
+      ...item,
+      id: String(item.id || `site_${Date.now()}_${index}`),
+      name: String(item.name || 'Website tanpa nama'),
+      institution: String(item.institution || ''),
+      mode: String(item.mode || ''),
+      yearBuild: String(item.yearBuild || ''),
+      management: item.management === 'transferred' ? 'transferred' : 'internal',
+      newDeveloper: String(item.newDeveloper || '')
+    };
+  }
+  function loadSites(){
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) return parsed.map(normalizeSite);
+      }
+    } catch(err) { console.warn('Gagal membaca data lokal:', err); }
+    return seed.map(normalizeSite);
+  }
+  let sites = loadSites();
+  let activeDetailId = null;
+  let activeCardFilter = 'all';
+  let cloudSyncBusy = false;
+  let homeMetricsChart = null;
+  $('todayLabel').textContent = new Intl.DateTimeFormat('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(today);
+
+  function setCloudStatus(state, label){
+    const badge = $('cloudStatus');
+    badge.className = `cloud-badge ${state || ''}`.trim();
+    badge.textContent = label;
+    $('storageNote').textContent = cloudConfigured()
+      ? (state === 'ready' ? 'Data utama tersimpan di JSONBin dan dicadangkan di browser.' : 'JSONBin belum tersinkron. Periksa koneksi dan konfigurasi.')
+      : 'Mode lokal: isi JSONBIN_CONFIG untuk sinkronisasi lintas browser.';
+  }
+  function cloudHeaders(){
+    return {'Content-Type':'application/json','X-Access-Key':JSONBIN_CONFIG.accessKey};
+  }
+  async function cloudRead(){
+    const response = await fetch(`${JSONBIN_URL}/${encodeURIComponent(JSONBIN_CONFIG.binId)}/latest`, {
+      method:'GET', headers:{'X-Access-Key':JSONBIN_CONFIG.accessKey}
+    });
+    const text = await response.text();
+    let payload;
+    try { payload = text ? JSON.parse(text) : {}; } catch { payload = {message:text}; }
+    if (!response.ok) throw new Error(payload.message || `JSONBin Read gagal (${response.status}).`);
+    const record = payload.record ?? payload;
+    const list = Array.isArray(record) ? record : record.websites;
+    if (!Array.isArray(list)) throw new Error('Struktur Bin tidak sesuai. Record harus memiliki properti websites berupa array.');
+    return list.map(normalizeSite);
+  }
+  async function cloudWrite(nextSites){
+    const body = {app:'DANZ DEV ID Website Management',version:2,updatedAt:new Date().toISOString(),websites:nextSites};
+    const response = await fetch(`${JSONBIN_URL}/${encodeURIComponent(JSONBIN_CONFIG.binId)}`, {
+      method:'PUT', headers:cloudHeaders(), body:JSON.stringify(body)
+    });
+    const text = await response.text();
+    let payload;
+    try { payload = text ? JSON.parse(text) : {}; } catch { payload = {message:text}; }
+    if (!response.ok) throw new Error(payload.message || `JSONBin Update gagal (${response.status}).`);
+    return payload;
+  }
+  async function persist(nextSites=sites){
+    if (cloudConfigured()) {
+      try {
+        await cloudWrite(nextSites);
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(nextSites)); } catch(err) { console.warn('Cadangan lokal gagal:',err); }
+        setCloudStatus('ready','JSONBin tersambung');
+        return true;
+      } catch(err) {
+        console.error('Gagal menyimpan ke JSONBin:',err);
+        setCloudStatus('error','JSONBin gagal');
+        toast(`Gagal menyimpan ke JSONBin: ${err.message}`,'error');
+        return false;
+      }
+    }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(nextSites));
+      setCloudStatus('','Lokal saja');
+      toast('JSONBin belum diatur. Data hanya tersimpan di browser ini.','error');
+      return true;
+    } catch(err) {
+      console.error('Gagal menyimpan website:',err);
+      toast('Gagal menyimpan ke browser. Buka dashboard melalui localhost/hosting dan coba lagi.','error');
+      return false;
+    }
+  }
+  async function syncFromCloud(initial=false){
+    if (!cloudConfigured()) {
+      setCloudStatus('','JSONBin belum diatur');
+      return false;
+    }
+    if (cloudSyncBusy) return false;
+    cloudSyncBusy = true;
+    $('syncCloudBtn').disabled = true;
+    setCloudStatus('syncing','Menghubungkan…');
+    try {
+      const remoteSites = await cloudRead();
+      if (initial && remoteSites.length === 0 && localDataExists && sites.length > 0) {
+        const uploadLocal = confirm(`Bin JSONBin masih kosong. Upload ${sites.length} website yang tersimpan di browser ini ke cloud?`);
+        if (uploadLocal) {
+          await cloudWrite(sites);
+          localStorage.setItem(STORAGE_KEY,JSON.stringify(sites));
+          setCloudStatus('ready','JSONBin tersambung');
+          toast('Data browser berhasil dikirim ke JSONBin.','success');
+          return true;
+        }
+      }
+      sites = remoteSites;
+      try { localStorage.setItem(STORAGE_KEY,JSON.stringify(sites)); } catch(err) { console.warn('Cadangan lokal gagal:',err); }
+      render();
+      setCloudStatus('ready','JSONBin tersambung');
+      if (!initial) toast('Data terbaru berhasil dimuat dari JSONBin.','success');
+      return true;
+    } catch(err) {
+      console.error('Sinkronisasi JSONBin gagal:',err);
+      setCloudStatus('error','JSONBin gagal');
+      toast(`JSONBin: ${err.message}`,'error');
+      return false;
+    } finally {
+      cloudSyncBusy = false;
+      $('syncCloudBtn').disabled = false;
+    }
+  }
+
+  function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+  function dateLabel(value){if(!value)return '—';const d=new Date(`${value}T00:00:00`);if(Number.isNaN(d.getTime()))return value;return new Intl.DateTimeFormat('id-ID',{day:'2-digit',month:'short',year:'numeric'}).format(d);}
+  function daysUntil(value){if(!value)return null;const target=new Date(`${value}T00:00:00`);if(Number.isNaN(target.getTime()))return null;const base=new Date(`${isoToday}T00:00:00`);return Math.ceil((target-base)/86400000);}
+  function rupiah(value){if(value===''||value===null||value===undefined)return '—';return 'Rp'+new Intl.NumberFormat('id-ID',{maximumFractionDigits:0}).format(Number(value)||0);}
+  function normalizedUrl(value){let raw=String(value||'').trim();if(!raw)return '';if(!/^https?:\/\//i.test(raw))raw='https://'+raw;try{const u=new URL(raw);if(!['http:','https:'].includes(u.protocol))return '';return u.href;}catch{return '';}}
+  function initials(name){return String(name||'W').trim().split(/\s+/).slice(0,2).map(w=>w[0]?.toUpperCase()||'').join('')||'W';}
+  function statusLabel(status){return ({live:'Live / Online',development:'Development',maintenance:'Maintenance',planning:'Planning',offline:'Offline'})[status]||'Development';}
+  function statusClass(status){return ({live:'live',development:'dev',maintenance:'maintenance',planning:'planning',offline:'offline'})[status]||'dev';}
+  function expiryClass(value){const days=daysUntil(value);return days===null?'':days<0?'expired':days<=30?'soon':'';}
+  function expiryText(value){const days=daysUntil(value);if(days===null)return '—';if(days<0)return `Expired ${Math.abs(days)} hari lalu`;if(days===0)return 'Hari ini';if(days<=30)return `${days} hari lagi`;return dateLabel(value);}
+  function toast(message,type=''){const el=document.createElement('div');el.className=`toast ${type}`;el.textContent=message;$('toastRegion').appendChild(el);setTimeout(()=>el.remove(),4200);}
+
+  function siteNeedsAttention(site){
+    return [site.domainExpiry,site.hostingExpiry,site.sslExpiry].some(date=>{
+      const days=daysUntil(date);
+      return days!==null && days<=30;
+    });
+  }
+
+  function getHomeMetrics(){
+    return [
+      {label:'Total Website',chartLabel:'Total',value:sites.length},
+      {label:'Live / Aktif',chartLabel:'Live',value:sites.filter(s=>s.status==='live').length},
+      {label:'Pengembangan',chartLabel:'Pengembangan',value:sites.filter(s=>['development','planning'].includes(s.status)).length},
+      {label:'Aplikasi Online',chartLabel:'Online',value:sites.filter(s=>s.mode==='online').length},
+      {label:'Aplikasi Offline',chartLabel:'Offline',value:sites.filter(s=>s.mode==='offline').length},
+      {label:'Perlu Perhatian',chartLabel:'Perhatian',value:sites.filter(siteNeedsAttention).length},
+      {label:'Dialihkan',chartLabel:'Dialihkan',value:sites.filter(s=>s.management==='transferred').length}
+    ];
+  }
+
+  function updateHomeChart(){
+    const metrics=getHomeMetrics();
+    const list=$('homeMetricList');
+    if(list){
+      list.innerHTML=metrics.map(item=>`<div class="home-metric-row"><span class="home-metric-name"><i class="home-metric-dot"></i>${item.label}</span><strong class="home-metric-value">${item.value}</strong></div>`).join('');
+    }
+    const updated=$('homeChartUpdated');
+    if(updated) updated.textContent=`Diperbarui ${dateLabel(isoToday)}`;
+
+    const canvas=$('homeMetricsChart');
+    const fallback=$('homeChartFallback');
+    if(!canvas) return;
+    if(typeof window.Chart==='undefined'){
+      if(fallback) fallback.hidden=false;
+      return;
+    }
+    if(fallback) fallback.hidden=true;
+
+    const values=metrics.map(item=>item.value);
+    if(homeMetricsChart){
+      homeMetricsChart.data.labels=metrics.map(item=>item.chartLabel);
+      homeMetricsChart.data.datasets[0].data=values;
+      homeMetricsChart.update();
+      return;
+    }
+
+    const ctx=canvas.getContext('2d');
+    const fill=ctx.createLinearGradient(0,0,0,260);
+    fill.addColorStop(0,'rgba(43,111,187,.22)');
+    fill.addColorStop(1,'rgba(43,111,187,0)');
+
+    homeMetricsChart=new Chart(ctx,{
+      type:'line',
+      data:{
+        labels:metrics.map(item=>item.chartLabel),
+        datasets:[{
+          label:'Jumlah website',
+          data:values,
+          borderColor:'#2b6fbb',
+          backgroundColor:fill,
+          borderWidth:3,
+          fill:true,
+          tension:.38,
+          pointRadius:4,
+          pointHoverRadius:6,
+          pointBackgroundColor:'#ffffff',
+          pointBorderColor:'#2b6fbb',
+          pointBorderWidth:2
+        }]
+      },
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{
+          legend:{display:false},
+          tooltip:{
+            displayColors:false,
+            padding:10,
+            titleFont:{family:'Poppins',weight:'600'},
+            bodyFont:{family:'Poppins'},
+            callbacks:{
+              title(items){return metrics[items[0].dataIndex]?.label || '';},
+              label(context){return `${context.parsed.y} website`;}
+            }
+          }
+        },
+        scales:{
+          x:{
+            grid:{display:false},
+            ticks:{color:'#8291a0',font:{family:'Poppins',size:9},maxRotation:0,minRotation:0,autoSkip:false}
+          },
+          y:{
+            beginAtZero:true,
+            ticks:{precision:0,stepSize:1,color:'#8291a0',font:{family:'Poppins',size:9}},
+            grid:{color:'rgba(148,163,184,.16)'}
+          }
+        }
+      }
+    });
+  }
+
+  function render(){
+    const query=$('searchInput').value.trim().toLowerCase();
+    const status=$('statusFilter').value;
+    const institution=$('institutionFilter').value;
+    const mode=$('modeFilter').value;
+    const sort=$('sortFilter').value;
+    const filtered=sites.filter(s=>{
+      const hay=[s.name,s.url,s.institution,s.mode,s.category,s.client,s.stack,s.hosting,s.registrar,s.management,s.newDeveloper,s.yearBuild].join(' ').toLowerCase();
+      const cardMatch=activeCardFilter==='all'||(activeCardFilter==='live'&&s.status==='live')||(activeCardFilter==='dev'&&['development','planning'].includes(s.status))||(activeCardFilter==='online'&&s.mode==='online')||(activeCardFilter==='offline'&&s.mode==='offline')||(activeCardFilter==='attention'&&siteNeedsAttention(s))||(activeCardFilter==='transferred'&&s.management==='transferred');
+      return (!query||hay.includes(query))&&(status==='all'||s.status===status)&&(institution==='all'||s.institution===institution)&&(mode==='all'||s.mode===mode)&&cardMatch;
+    });
+    filtered.sort((a,b)=>{
+      if(sort==='expiry'){const da=daysUntil(a.domainExpiry)??999999;const db=daysUntil(b.domainExpiry)??999999;return da-db;}
+      if(sort==='updated')return String(b.updated||'').localeCompare(String(a.updated||''));
+      return String(a.name||'').localeCompare(String(b.name||''),'id');
+    });
+    const live=sites.filter(s=>s.status==='live').length;
+    const dev=sites.filter(s=>['development','planning'].includes(s.status)).length;
+    const online=sites.filter(s=>s.mode==='online').length;
+    const offline=sites.filter(s=>s.mode==='offline').length;
+    const attention=sites.filter(siteNeedsAttention).length;
+    const transferred=sites.filter(s=>s.management==='transferred').length;
+    $('totalCount').textContent=sites.length;$('liveCount').textContent=live;$('devCount').textContent=dev;$('onlineCount').textContent=online;$('offlineCount').textContent=offline;$('renewCount').textContent=attention;$('transferredCount').textContent=transferred;
+    updateHomeChart();
+    document.querySelectorAll('[data-card-filter]').forEach(card=>{const active=card.dataset.cardFilter===activeCardFilter;card.classList.toggle('active',active);card.setAttribute('aria-pressed',String(active));});
+    $('listSummary').textContent=`${sites.length} website terdaftar · ${filtered.length} ditampilkan`;
+    $('tableCount').textContent=`Menampilkan ${filtered.length} dari ${sites.length} website`;
+    $('emptyState').hidden=filtered.length!==0;
+    $('siteRows').innerHTML=filtered.map(s=>{
+      const url=normalizedUrl(s.url);const d=s.domainExpiry;const days=daysUntil(d);
+      const domainText=d?(days!==null&&days<=30?expiryText(d):dateLabel(d)):'—';
+      const ownership=s.management==='transferred'?'Dialihkan':'DANZ DEV ID';
+      return `<tr>
+        <td><div class="site-name-cell"><div class="site-monogram">${escapeHtml(initials(s.name))}</div><div><div class="site-name">${escapeHtml(s.name)}</div><div class="site-type">${escapeHtml(s.institution||'Instansi belum diatur')} · ${escapeHtml(s.category||'Website')}</div></div></div></td>
+        <td>${url?`<a class="domain-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(String(s.url).replace(/^https?:\/\//i,''))}</a>`:'<span class="muted">Belum diatur</span>'}</td>
+        <td><span class="pill ${statusClass(s.status)}">${statusLabel(s.status)}</span></td>
+        <td><span class="mode-pill ${s.mode==='online'?'online':s.mode==='offline'?'offline':'unknown'}">${s.mode==='online'?'Online':s.mode==='offline'?'Offline':'Belum ditentukan'}</span></td>
+        <td>${escapeHtml(s.yearBuild||'—')}</td>
+        <td><span class="mode-pill ${s.management==='transferred'?'offline':'online'}">${ownership}</span>${s.newDeveloper?`<div class="site-type">${escapeHtml(s.newDeveloper)}</div>`:''}</td>
+        <td><span class="stack">${escapeHtml(s.stack||'—')}</span></td>
+        <td>${escapeHtml(s.hosting||'—')}</td>
+        <td><span class="expiry ${expiryClass(d)}">${domainText}</span></td>
+        <td><div class="row-actions"><button class="icon-btn" type="button" title="Detail" data-action="detail" data-id="${escapeHtml(s.id)}">⌕</button><button class="icon-btn" type="button" title="Edit" data-action="edit" data-id="${escapeHtml(s.id)}">✎</button><button class="icon-btn" type="button" title="Hapus" data-action="delete" data-id="${escapeHtml(s.id)}">×</button>${url?`<a class="icon-btn" title="Buka website" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">↗</a>`:''}</div></td>
+      </tr>`;
+    }).join('');
+  }
+  function openModal(id){$(id).classList.add('show');document.body.style.overflow='hidden';}
+  function closeModal(id){$(id).classList.remove('show');if(!document.querySelector('.overlay.show'))document.body.style.overflow='';}
+  function updateManagementField(){
+    const transferred=$('siteManagement').value==='transferred';
+    $('newDeveloperField').hidden=!transferred;
+    $('siteNewDeveloper').required=transferred;
+    if (!transferred) $('siteNewDeveloper').value='';
+  }
+  function resetForm(){ $('siteForm').reset();$('siteId').value='';$('siteUpdated').value=isoToday;$('siteStatus').value='development';$('siteManagement').value='internal';$('siteModalTitle').textContent='Tambah Website';updateManagementField(); }
+  const fields={name:'siteName',status:'siteStatus',url:'siteUrl',institution:'siteInstitution',mode:'siteMode',category:'siteCategory',yearBuild:'siteYearBuild',management:'siteManagement',newDeveloper:'siteNewDeveloper',client:'siteClient',stack:'siteStack',registrar:'siteRegistrar',domainExpiry:'siteDomainExpiry',hosting:'siteHosting',hostingExpiry:'siteHostingExpiry',sslExpiry:'siteSslExpiry',cost:'siteCost',contact:'siteContact',updated:'siteUpdated',notes:'siteNotes'};
+  function addOrEdit(site){
+    resetForm();
+    if(site){$('siteModalTitle').textContent='Edit Website';$('siteId').value=site.id;Object.entries(fields).forEach(([key,id])=>{$(id).value=site[key]??'';});}
+    updateManagementField();
+    openModal('siteModal');setTimeout(()=>$('siteName').focus(),50);
+  }
+  function collectForm(){
+    const obj={id:$('siteId').value||`site_${Date.now()}_${Math.random().toString(36).slice(2,7)}`};
+    Object.entries(fields).forEach(([key,id])=>obj[key]=$(id).value.trim());
+    obj.cost=obj.cost?String(Math.max(0,Number(obj.cost)||0)):'';
+    if(obj.yearBuild && (!/^\d{4}$/.test(obj.yearBuild)||Number(obj.yearBuild)<1990||Number(obj.yearBuild)>2099))throw new Error('Tahun build harus berupa tahun yang valid.');
+    if(obj.management==='transferred'&&!obj.newDeveloper)throw new Error('Nama developer penerima wajib diisi jika website dialihkan.');
+    if(obj.url){const safe=normalizedUrl(obj.url);if(!safe)throw new Error('Format URL tidak valid.');obj.url=safe;}
+    return obj;
+  }
+  function findSite(id){return sites.find(s=>String(s.id)===String(id));}
+  function openDetail(id){
+    const s=findSite(id);if(!s)return;activeDetailId=id;const url=normalizedUrl(s.url);
+    const details=[
+      ['Status',`<span class="pill ${statusClass(s.status)}">${statusLabel(s.status)}</span>`],
+      ['Domain / URL',url?`<a class="domain-link" target="_blank" rel="noopener noreferrer" href="${escapeHtml(url)}">${escapeHtml(s.url)}</a>`:'—'],
+      ['Kategori Instansi',escapeHtml(s.institution||'—')],
+      ['Model Aplikasi',escapeHtml(s.mode==='online'?'Online':s.mode==='offline'?'Offline':'Belum ditentukan')],
+      ['Kategori / Proyek',escapeHtml(s.category||'—')],
+      ['Tahun Build',escapeHtml(s.yearBuild||'—')],
+      ['Status Pengelolaan',escapeHtml(s.management==='transferred'?'Dialihkan ke developer lain':'Dikelola DANZ DEV ID')],
+      ['Developer Penerima',escapeHtml(s.newDeveloper||'—')],
+      ['Klien / Instansi',escapeHtml(s.client||'—')],['Teknologi',escapeHtml(s.stack||'—')],
+      ['Registrar Domain',escapeHtml(s.registrar||'—')],['Domain Expired',escapeHtml(dateLabel(s.domainExpiry))],
+      ['Provider Hosting',escapeHtml(s.hosting||'—')],['Hosting Expired',escapeHtml(dateLabel(s.hostingExpiry))],
+      ['SSL Expired',escapeHtml(dateLabel(s.sslExpiry))],['Biaya Tahunan',escapeHtml(rupiah(s.cost))],
+      ['PIC / Kontak',escapeHtml(s.contact||'—')],['Terakhir Diperbarui',escapeHtml(dateLabel(s.updated))]
+    ];
+    $('detailTitle').textContent=s.name;
+    $('detailBody').innerHTML=`<div class="detail-grid">${details.map(([label,value])=>`<div class="detail-item"><div class="detail-label">${label}</div><div class="detail-value">${value}</div></div>`).join('')}<div class="detail-item detail-note"><div class="detail-label">Catatan</div><div class="detail-value">${escapeHtml(s.notes||'Belum ada catatan.')}</div></div></div>`;
+    openModal('detailModal');
+  }
+  function exportData(){const blob=new Blob([JSON.stringify({app:'DANZ DEV ID Website Management',version:2,exportedAt:new Date().toISOString(),websites:sites},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`danzdev-websites-${isoToday}.json`;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);toast('Backup JSON berhasil dibuat.','success');}
+  function importData(file){
+    const reader=new FileReader();
+    reader.onload=async()=>{
+      try {
+        const parsed=JSON.parse(reader.result);
+        const incoming=Array.isArray(parsed)?parsed:parsed.websites;
+        if(!Array.isArray(incoming))throw new Error('Format file tidak sesuai.');
+        if(!confirm(`Impor ${incoming.length} data website? Data yang ada akan diganti.`))return;
+        const nextSites=incoming.map(normalizeSite);
+        if(!await persist(nextSites))return;
+        sites=nextSites;render();toast('Data berhasil diimpor.','success');
+      } catch(err) { toast(err.message||'File JSON tidak valid.','error'); }
+    };
+    reader.onerror=()=>toast('File tidak bisa dibaca.','error');
+    reader.readAsText(file);
+  }
+
+  const pageKeys = ['home','web-info','it-support-info','laporan-keuangan'];
+  function switchPage(pageKey, updateHash=true){
+    const page = pageKeys.includes(pageKey) ? pageKey : 'home';
+    document.querySelectorAll('[data-page-view]').forEach(view=>{
+      const isActive = view.dataset.pageView === page;
+      view.hidden = !isActive;
+      view.setAttribute('aria-hidden', String(!isActive));
+    });
+    document.querySelectorAll('[data-page]').forEach(item=>{
+      const isActive = item.dataset.page === page;
+      item.classList.toggle('active',isActive);
+      if(isActive)item.setAttribute('aria-current','page');else item.removeAttribute('aria-current');
+    });
+    if(updateHash && location.hash !== `#${page}`) location.hash = page;
+    window.scrollTo({top:0,behavior:'auto'});
+  }
+  document.querySelectorAll('[data-page]').forEach(item=>item.addEventListener('click',()=>switchPage(item.dataset.page)));
+  document.querySelectorAll('[data-goto-page]').forEach(item=>item.addEventListener('click',()=>switchPage(item.dataset.gotoPage)));
+  window.addEventListener('hashchange',()=>switchPage(decodeURIComponent(location.hash.slice(1)),false));
+  switchPage(decodeURIComponent(location.hash.slice(1)) || 'home',false);
+
+  $('homeAddSiteBtn')?.addEventListener('click',()=>{switchPage('web-info');addOrEdit(null);});
+  $('addSiteBtn').addEventListener('click',()=>addOrEdit(null));
+  $('siteManagement').addEventListener('change',updateManagementField);
+  $('siteForm').addEventListener('submit',async event=>{
+    event.preventDefault();
+    const saveButton=$('saveSiteBtn');
+    try {
+      const site=collectForm();
+      if(!site.name)throw new Error('Nama website wajib diisi.');
+      site.updated=isoToday;
+      const index=sites.findIndex(item=>String(item.id)===String(site.id));
+      const nextSites=sites.map(item=>({...item}));
+      const actionLabel=index>=0?'Website berhasil diperbarui.':'Website berhasil ditambahkan.';
+      if(index>=0) nextSites[index]={...nextSites[index],...site}; else nextSites.push(site);
+      saveButton.disabled=true;saveButton.textContent='Menyimpan…';
+      if(!await persist(nextSites))return;
+      sites=nextSites;closeModal('siteModal');render();toast(actionLabel,'success');
+    } catch(err) { toast(err.message,'error'); }
+    finally { saveButton.disabled=false;saveButton.textContent='✓ Simpan Website'; }
+  });
+  $('siteRows').addEventListener('click',async event=>{
+    const btn=event.target.closest('[data-action]');if(!btn)return;
+    const id=btn.dataset.id;const action=btn.dataset.action;const site=findSite(id);if(!site)return;
+    if(action==='detail')openDetail(id);
+    if(action==='edit')addOrEdit(site);
+    if(action==='delete'&&confirm(`Hapus website "${site.name}" dari daftar?`)){
+      const nextSites=sites.filter(item=>String(item.id)!==String(id));
+      if(!await persist(nextSites))return;
+      sites=nextSites;render();toast('Website dihapus.','success');
+    }
+  });
+  $('detailEditBtn').addEventListener('click',()=>{const site=findSite(activeDetailId);closeModal('detailModal');if(site)addOrEdit(site);});
+  $('searchInput').addEventListener('input',render);
+  ['statusFilter','institutionFilter','modeFilter','sortFilter'].forEach(id=>$(id).addEventListener('change',()=>{if(id==='statusFilter')activeCardFilter='all';render();}));
+  document.querySelectorAll('[data-card-filter]').forEach(card=>card.addEventListener('click',()=>{activeCardFilter=card.dataset.cardFilter;$('statusFilter').value='all';switchPage('web-info');render();}));
+  $('exportBtn').addEventListener('click',exportData);
+  $('importBtn').addEventListener('click',()=>$('importFile').click());
+  $('importFile').addEventListener('change',e=>{const file=e.target.files?.[0];if(file)importData(file);e.target.value='';});
+  $('syncCloudBtn').addEventListener('click',()=>syncFromCloud(false));
+  $('resetDemoBtn').addEventListener('click',async()=>{
+    if(!confirm('Reset seluruh daftar ke data contoh awal? Data website yang sekarang akan diganti.'))return;
+    const nextSites=seed.map(normalizeSite);
+    if(!await persist(nextSites))return;
+    sites=nextSites;render();toast('Data contoh berhasil dipulihkan.','success');
+  });
+  document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>closeModal(btn.dataset.close)));
+  document.querySelectorAll('.overlay').forEach(overlay=>overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal(overlay.id);}));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.overlay.show').forEach(o=>closeModal(o.id));});
+
+  render();
+  if(cloudConfigured()) syncFromCloud(true);
+  else setCloudStatus('','JSONBin belum diatur');
+})();
+</script>
+</body>
+</html>
